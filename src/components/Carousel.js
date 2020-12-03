@@ -18,16 +18,16 @@ class Carousel extends React.Component {
         <div className="home-carousel">
             <AntCarousel autoplay>
                 <div>
-                <h3 style={contentStyle}>1</h3>
+                    <h3 style={contentStyle}>Titre 1 <span>Text</span></h3>
                 </div>
                 <div>
-                <h3 style={contentStyle}>2</h3>
+                    <h3 style={contentStyle}>Titre 2 <span>Text</span></h3>
                 </div>
                 <div>
-                <h3 style={contentStyle}>3</h3>
+                    <h3 style={contentStyle}>Titre 3 <span>Text</span></h3>
                 </div>
                 <div>
-                <h3 style={contentStyle}>4</h3>
+                    <h3 style={contentStyle}>Titre 4 <span>Text</span></h3>
                 </div>
             </AntCarousel>
         </div>

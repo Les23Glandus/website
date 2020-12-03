@@ -1,4 +1,8 @@
-@import '~antd/dist/antd.css';
+@import '~antd/dist/antd.dark.css';
+@import '_theme.scss';
 
 body {
+    .main-header h1 {
+        float: left;
+    }
 }

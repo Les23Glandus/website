@@ -28,7 +28,13 @@ class App extends React.Component {
                 <Route exact path="/enseigne">
                   <Enseigne/>
                 </Route>
-                <Route exact path="/search">
+                <Route exact path="/escapegame/:enseigne/:escape">
+                  <Escape/>
+                </Route>
+                <Route exact path="/escapegame/:enseigne">
+                  <Enseigne/>
+                </Route>
+                <Route exact path="/escapegame">
                   <Search/>
                 </Route>
                 <Route>

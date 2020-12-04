@@ -87,18 +87,7 @@ class ArticleEnseigne extends React.Component {
                       </div>
                   </div>
               }
-  
-  
-            <div>
-              <h3>Salles testées</h3>
-  
-              <div>
-                <EscapeCard/>
-                <EscapeCard/>
-                <EscapeCard/>
-              </div>
-            </div>
-  
+    
             {!this.state.reduce &&
               <div>
                   <h3>Carte</h3>
@@ -139,15 +128,17 @@ class ArticleEnseigne extends React.Component {
               }
   
   
-            <div>
-              <h3>Salles testées</h3>
-  
+            {
+              this.details.escapes.length > 0 
+              &&
               <div>
-                <EscapeCard/>
-                <EscapeCard/>
-                <EscapeCard/>
+                <h3>Salles testées</h3>
+    
+                <div>
+                  {this.details.escapes.map(n => <EscapeCard key={n.id} escape={n} enseigne={this.details}/>)}
+                </div>
               </div>
-            </div>
+            }
   
             {!this.state.reduce &&
               <div>

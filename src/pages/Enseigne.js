@@ -8,13 +8,15 @@ class Enseigne extends React.Component {
   constructor(props) {
     super(props);
     this.state = {};
+
+    this.state.enseigneRef = this.props.match.params.enseigne;
   }
 
   render() {
     
     return (
       <div>
-        <ArticleEnseigne/>
+        <ArticleEnseigne enseigneRef={this.state.enseigneRef}/>
       </div>
     )
   }

@@ -8,13 +8,16 @@ class Escape extends React.Component {
   constructor(props) {
     super(props);
     this.state = {};
+
+    this.state.enseigneRef = this.props.match.params.enseigne;
+    this.state.escapeRef = this.props.match.params.escape;
   }
 
   render() {
-    
+    //escapeID={1}
     return (
       <div>
-        <ArticleEscape escapeID={3}/>
+        <ArticleEscape  key={Math.random()} keyS={this.state.escapeRef} escapeRef={this.state.escapeRef}/>
       </div>
     )
   }

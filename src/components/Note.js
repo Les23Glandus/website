@@ -6,11 +6,12 @@ class Note extends React.Component {
 
   render() {
 
-    const desc = ['terrible', 'bad', 'normal', 'good', 'wonderful'];
+    const desc = ['Nul', 'Bof', 'Bien', 'Trés bien', 'Excellente'];
 
+    let v = this.props.value ? this.props.value : 3;
     
     return (
-        <Rate tooltips={desc} value={3} />
+        <Rate tooltips={desc} value={v} disabled />
     )
   }
 

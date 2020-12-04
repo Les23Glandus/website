@@ -2,6 +2,7 @@ import React from "react";
 import { Link, withRouter } from "react-router-dom";
 import Note from "./Note";
 import "../css/escapecard.scss";
+import { Tag } from "antd";
   
 class EscapeCard extends React.Component {
 
@@ -14,7 +15,7 @@ class EscapeCard extends React.Component {
                 <span>Nom salle</span>
                 <span>Nom enseigne</span>
                 <span><Note/></span>
-                <span>Tags : 2 joueurs, test</span>
+                <span>Tags : <Tag>2 joueurs</Tag>, <Tag>tests</Tag></span>
             </Link>
         </div>
     )

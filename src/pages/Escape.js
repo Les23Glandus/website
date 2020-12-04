@@ -14,7 +14,7 @@ class Escape extends React.Component {
     
     return (
       <div>
-        <ArticleEscape/>
+        <ArticleEscape escapeID={3}/>
       </div>
     )
   }

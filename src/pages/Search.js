@@ -1,4 +1,4 @@
-import { Divider, Select } from "antd";
+import { Divider, Pagination, Select } from "antd";
 import Checkbox from "antd/lib/checkbox/Checkbox";
 import Search from "antd/lib/input/Search";
 import Layout, { Content } from "antd/lib/layout/layout";
@@ -49,56 +49,71 @@ class SearchC extends React.Component {
 
         <Layout>
           <Sider theme="dark">
-                
-          <span>Pays :</span>
-                <Select defaultValue="" onChange={()=>{}}>
-                  <Option value="">Tous</Option>
-                  <Option value="France">France</Option>
-                  <Option value="Espagne">Espagne</Option>
-                  <Option value="Hongrie">Hongrie</Option>
-                </Select>
+            <p>
+              <span>Pays :</span>
+              <Select defaultValue="" onChange={()=>{}}>
+                <Option value="">Tous</Option>
+                <Option value="France">France</Option>
+                <Option value="Espagne">Espagne</Option>
+                <Option value="Hongrie">Hongrie</Option>
+              </Select>
+            </p>
 
-                <span>Région :</span>
-                <Select defaultValue="" onChange={()=>{}}>
-                  <Option value="">Toutes</Option>
-                  <Option value="95">95</Option>
-                  <Option value="77">77</Option>
-                  <Option value="53">53</Option>
-                </Select>
+            <p>
+              <span>Région :</span>
+              <Select defaultValue="" onChange={()=>{}}>
+                <Option value="">Toutes</Option>
+                <Option value="95">95</Option>
+                <Option value="77">77</Option>
+                <Option value="53">53</Option>
+              </Select>
+            </p>
+            
+            <Divider orientation="left">Left Text</Divider>
+            <p>
+              <span>Nombre de joueur :</span>
+              <Select defaultValue="" onChange={()=>{}}>
+                <Option value=""> </Option>
+                <Option value={1}>1</Option>
+                <Option value={2}>2</Option>
+                <Option value={3}>3</Option>
+                <Option value={4}>4</Option>
+                <Option value={5}>5</Option>
+                <Option value={6}>6</Option>
+                <Option value={7}>7</Option>
+                <Option value={8}>8</Option>
+                <Option value={9}>9</Option>
+                <Option value={10}>10</Option>
+                <Option value="+">10+</Option>
+              </Select>
+            </p>
 
-                
-                <Divider orientation="left">Left Text</Divider>
-                <span>Nombre de joueur :</span>
-                <Select defaultValue="" onChange={()=>{}}>
-                  <Option value=""> </Option>
-                  <Option>1</Option>
-                  <Option>2</Option>
-                  <Option>3</Option>
-                  <Option>4</Option>
-                  <Option>5</Option>
-                  <Option>6</Option>
-                  <Option>7</Option>
-                  <Option>8</Option>
-                  <Option>9</Option>
-                  <Option>10</Option>
-                  <Option>10+</Option>
-                </Select>
-
-                <Divider orientation="left">Left Text</Divider>
-                <Checkbox onChange={()=>{}}>2 joueurs</Checkbox>
-                <Checkbox onChange={()=>{}}>Horrifique</Checkbox>
-
-                <Divider orientation="left">Left Text</Divider>
-                <Checkbox onChange={()=>{}}>Checkbox</Checkbox>
-                <Checkbox onChange={()=>{}}>Checkbox</Checkbox>
-                <Checkbox onChange={()=>{}}>Checkbox</Checkbox>
+            <Divider orientation="left">Left Text</Divider>
+            <p>
+              <Checkbox onChange={()=>{}}>2 joueurs</Checkbox>
+            </p>
+            <p>
+              <Checkbox onChange={()=>{}}>Horrifique</Checkbox>
+            </p>
+            <Divider orientation="left">Left Text</Divider>
+            <p>
+              <Checkbox onChange={()=>{}}>Checkbox</Checkbox>
+            </p>
+            <p>
+              <Checkbox onChange={()=>{}}>Checkbox</Checkbox>
+            </p>
+            <p>
+              <Checkbox onChange={()=>{}}>Checkbox</Checkbox>
+            </p>
           </Sider>
           <Content>
+            <EscapeCard/>
+            <EscapeCard/>
+            <EscapeCard/>
 
-                <EscapeCard/>
-                <EscapeCard/>
-                <EscapeCard/>
-
+            <div>
+              <Pagination defaultCurrent={1} total={50} />
+            </div>
           </Content>
         </Layout>
       </div>

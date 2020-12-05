@@ -18,6 +18,8 @@ class EscapeCard extends React.Component {
                 }
                 <span>{this.props.escape.name}</span>
                 <span>{this.props.enseigne.name}</span>
+                
+                <span>{new Intl.DateTimeFormat('fr-FR', { dateStyle: 'full' }).format(new Date(this.props.escape.date))}</span>
                 <span><Note value={this.props.escape.rate}/></span>
                 {this.props.reduce &&
                 <span>{this.props.escape.nbPlayerMin}-{this.props.escape.nbPlayerMax} joueurs</span>

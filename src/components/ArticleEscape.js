@@ -29,7 +29,6 @@ class ArticleEscape extends React.Component {
   
       let promise = this.props.escapeID ? strapi.getEscape(this.props.escapeID) : strapi.getEscapeByRef(this.props.escapeRef);
       promise.then( d => {
-        console.log(d);
           this.details = d;
           this.loading = false;
           this.setState({loaded:true, uref:this.details.uniquepath});
@@ -72,22 +71,22 @@ class ArticleEscape extends React.Component {
 
                   <div>
                     <h3>Scénario</h3>
-                    <Skeleton/>
+                    <Skeleton active/>
                   </div>
                   
                   <div>
                     <h3>Notre histoire</h3>
-                    <Skeleton/>
+                    <Skeleton active/>
                   </div>
 
                   <div>
                     <h3>Les plus</h3>
-                    <Skeleton/>
+                    <Skeleton active/>
                   </div>
                   
                   <div>
                     <h3>Les moins</h3>
-                    <Skeleton/>
+                    <Skeleton active/>
                   </div>
                   
                   <div>

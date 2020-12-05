@@ -6,7 +6,6 @@ import Sider from "antd/lib/layout/Sider";
 import { Option } from "antd/lib/mentions";
 import React from "react";
 import { withRouter } from "react-router-dom";
-import EscapeCard from "../components/EscapeCard";
 
   
 class SearchC extends React.Component {
@@ -107,9 +106,6 @@ class SearchC extends React.Component {
             </p>
           </Sider>
           <Content>
-            <EscapeCard/>
-            <EscapeCard/>
-            <EscapeCard/>
 
             <div>
               <Pagination defaultCurrent={1} total={50} />

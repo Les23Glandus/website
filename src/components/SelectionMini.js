@@ -8,9 +8,9 @@ class SelectionMini extends React.Component {
     
     return (
         <div className="selection-mini">
-          <Link to="/selection">
-            <p>Name</p>
-            <p>Description</p>
+          <Link to={"/selections/"+this.props.details.uniquepath}>
+            <p>{this.props.details.title}</p>
+            <p>{this.props.details.description}</p>
           </Link>
         </div>
     )

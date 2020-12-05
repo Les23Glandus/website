@@ -1,11 +1,9 @@
 import React from "react";
 import { withRouter } from "react-router-dom";
-import Carousel from "../components/Carousel";
-import LatestsTests from "../components/LatestsTests";
 import SelectionsGrid from "../components/SelectionsGrid";
 
   
-class Home extends React.Component {
+class Selections extends React.Component {
 
   constructor(props) {
     super(props);
@@ -16,11 +14,8 @@ class Home extends React.Component {
     
     return (
       <div>
-          <Carousel/>
-
-          <LatestsTests/>
-
-          <SelectionsGrid/>
+        
+        <SelectionsGrid showAll={true}/>
           
       </div>
     )
@@ -29,4 +24,4 @@ class Home extends React.Component {
 }
 
 
-export default withRouter(Home);
+export default withRouter(Selections);

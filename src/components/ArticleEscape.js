@@ -4,6 +4,7 @@ import { Link, withRouter } from "react-router-dom";
 import strapiConnector from "../class/strapiConnector";
 import Note from "../components/Note";
 import ArticleEnseigne from "./ArticleEnseigne";
+import SelectionMini from "./SelectionMini";
 
   
 class ArticleEscape extends React.Component {
@@ -181,6 +182,14 @@ class ArticleEscape extends React.Component {
 
           {this.details.enseigne && 
             <ArticleEnseigne reduce={true} enseigneID={this.details.enseigne.id}/>
+          }
+          {this.details.selections && this.details.selections.length > 0 && 
+            <div>
+              <h3>Dans nos sélections</h3>
+                {
+                  this.details.selections.map( n => <SelectionMini key={n.id} details={n}/> )
+                }
+            </div>
           }
       </div>
     )

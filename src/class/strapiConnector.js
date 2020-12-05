@@ -289,7 +289,8 @@ class strapiConnector {
           nbPlayerMax
           enseigne { id name uniquepath 
             address {pays {name} region {name} } 
-          }
+          }    
+          selections {id title description uniquepath mini {id url formats}}
           avantapres {
             id
             when

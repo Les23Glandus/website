@@ -203,7 +203,7 @@ class strapiConnector {
           illustration {id formats url}
           uniquepath
           published_at
-          escapes { id name uniquepath }
+          escapes { id name uniquepath date }
         }`,    
   
 

@@ -19,7 +19,6 @@ class LatestsTests extends React.Component {
     strapi.getRecentEscapes(3).then(
       list => {
         this.lastescapes = list;
-        console.log(list);
         this.setState({loaded:true});
       }
     ).catch(e => this.setState({error:true}));

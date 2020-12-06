@@ -5,6 +5,8 @@
 
 class strapiConnector {
 
+  API = "/api";
+
   /**
    * Selections
    */
@@ -19,6 +21,14 @@ class strapiConnector {
       body.variables.where = {"uniquepath":ref};
       body.variables.limit = 1;
       return this.graphql(body);
+  }
+
+
+  /**
+   * Carousel
+   */
+  getCarousel() {
+    return this.fetch("/carousels");
   }
   
     
@@ -88,7 +98,7 @@ class strapiConnector {
     fetch(url) {
         return new Promise((resolve, reject) => {
 
-            fetch(url).then( response => {
+            fetch(this.API + url).then( response => {
                 if(response.ok) {
                     response.json().then( r => resolve(r) );
                 } else {
@@ -113,7 +123,7 @@ class strapiConnector {
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(message)
             };
-            fetch("/graphql",requestOptions).then( response => {
+            fetch(this.API + "/graphql",requestOptions).then( response => {
                 if(response.ok) {
                     response.json().then( r => {
                         if( !r.data ) reject(null);

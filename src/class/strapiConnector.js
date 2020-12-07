@@ -5,13 +5,13 @@
 
 class strapiConnector {
 
-  API = "/api";
+  API = process.env.NODE_ENV === "development" ? "" : "/api";
 
   /**
    * Selections
    */
   getChoixSelection() {
-    return this.fetch("/choix-selection");
+    return this.fetch("/choix-selection"); 
   }
   getSelections() {
     return this.fetch("/selections");
@@ -21,6 +21,26 @@ class strapiConnector {
       body.variables.where = {"uniquepath":ref};
       body.variables.limit = 1;
       return this.graphql(body);
+  }
+
+
+  /**
+   * Tags
+   */
+  getTags() {
+    let body = this.builGQLdQuery("tags:list");
+    body.variables.where = {"useInFilter":true};
+    body.variables.limit = 1000;
+    return this.graphql(body);
+  }
+
+  /**
+   * Pays
+   */
+  getPays() {
+    let body = this.builGQLdQuery("pays:list");
+    body.variables.limit = 1000;
+    return this.graphql(body);
   }
 
 
@@ -57,6 +77,14 @@ class strapiConnector {
     body.variables.where = {"date_gt":dmin, "date_lt":dmax, "preventPush":false};
     body.variables.sort = "date:DESC";
     body.variables.limit = 100;
+    return this.graphql(body);
+  }
+  searchEscapes(query, limit, start, sortby) {
+    let body = this.builGQLdQuery("escapes:list",true);
+    body.variables.where = query;
+    body.variables.limit = limit ? limit : 100;
+    body.variables.start = start ? start : 0;
+    body.variables.sort = sortby ? sortby : "date:DESC";
     return this.graphql(body);
   }
 
@@ -148,10 +176,12 @@ class strapiConnector {
      * Prepare query for graphql
      * @param  table 
      */
-    builGQLdQuery(table) {
+    builGQLdQuery(table, includeCount) {
         let v = {limit:10, where:{}, start:0, sort:"id"};
+        let count = includeCount ? table.replace(/:.+$/,"")+"Count(where:$where)" : "";
         let q = `query($limit:Int, $where:JSON, $start:Int, $sort:String){
-            `+table.replace(/:.+$/,"")+`(limit:$limit, where:$where, start:$start, sort:$sort) `+this.structure[table]+`
+            ${table.replace(/:.+$/,"")}(limit:$limit, where:$where, start:$start, sort:$sort) ${this.structure[table]}
+            ${count}
           }`;
 
         return {query:q, variables:v};
@@ -170,11 +200,26 @@ class strapiConnector {
         escapes {
           id name uniquepath rate isOpen date
           mini {id url formats} 
-          tags {id name isMention isVisible}  
+          tags {id name isMention isGold description}  
           enseigne { id name uniquepath 
-            address {pays {name} region {name} } 
+            addresses {pay {name} region {name} } 
           }
         }
+      }`,
+
+      
+      "pays:list":`{
+        id name regions {id name}
+      }`,
+
+      
+      "tags:list":`{
+        id
+        name
+        description
+        isGold
+        isMention
+        useInFilter
       }`,
 
 
@@ -233,8 +278,8 @@ class strapiConnector {
           tags {
             id
             name
-            isVisible
             isMention
+            isGold description
             picto {
               id
               name
@@ -248,7 +293,7 @@ class strapiConnector {
           nbPlayerMin
           nbPlayerMax
           enseigne { id name uniquepath 
-            address {pays {name} region {name} } 
+            addresses {pay {name} region {name} } 
           }
         }`,
 
@@ -283,8 +328,8 @@ class strapiConnector {
           tags {
             id
             name
-            isVisible
             isMention
+            isGold description
             picto {
               id
               name
@@ -298,7 +343,7 @@ class strapiConnector {
           nbPlayerMin
           nbPlayerMax
           enseigne { id name uniquepath 
-            address {pays {name} region {name} } 
+            addresses {pay {name} region {name} } 
           }    
           selections {id title description uniquepath mini {id url formats}}
           avantapres {
@@ -320,18 +365,3 @@ class strapiConnector {
 }
 
 export default strapiConnector;
-
-
-
-/*
-# Exemple GraphQL
-# Write your query or mutation here
-{
-  escapes(limit:2, sort: "published_at", start:0, where:{rate:4, name_contains:"casse"}) {
-    id
-    name
-    rate
-    published_at
-  }
-}
-*/

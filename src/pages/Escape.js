@@ -1,6 +1,6 @@
 import React from "react";
 import { withRouter } from "react-router-dom";
-import ArticleEscape from "../components/ArticleEscape";
+import EscapeArticle from "../components/EscapeArticle";
 
   
 class Escape extends React.Component {
@@ -8,16 +8,13 @@ class Escape extends React.Component {
   constructor(props) {
     super(props);
     this.state = {};
-
-    this.state.enseigneRef = this.props.match.params.enseigne;
-    this.state.escapeRef = this.props.match.params.escape;
   }
 
+
   render() {
-    //escapeID={1}
     return (
       <div>
-        <ArticleEscape  key={Math.random()} keyS={this.state.escapeRef} escapeRef={this.state.escapeRef}/>
+        <EscapeArticle  key={this.props.match.params.escape} escapeRef={this.props.match.params.escape}/>
       </div>
     )
   }

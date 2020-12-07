@@ -1,116 +1,283 @@
-import { Divider, Pagination, Select } from "antd";
+import { Divider, Form, Pagination, Select, Skeleton, Spin } from "antd";
 import Checkbox from "antd/lib/checkbox/Checkbox";
 import Search from "antd/lib/input/Search";
 import Layout, { Content } from "antd/lib/layout/layout";
 import Sider from "antd/lib/layout/Sider";
-import { Option } from "antd/lib/mentions";
 import React from "react";
 import { withRouter } from "react-router-dom";
+import strapiConnector from "../class/strapiConnector";
+import EscapeCard from "../components/EscapeCard";
 
   
 class SearchC extends React.Component {
 
+  tagslist = null;
+  payslist = null;
+  regionlist = null;
+
+  paysRef;
+
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {loaded:false, error:false, regionList:null, escapeList:null};
+
+    this.paysRef = React.createRef();
+    this.formRef = React.createRef();
+    this.sortformRef = React.createRef();
+    this.regionRef = React.createRef();
+  }
+
+  componentDidMount() {
+    this.loadFilters();
+  }
+
+  loadFilters() {
+    let strapi = new strapiConnector();
+
+    strapi.getTags()
+    .then( d => {
+        this.tagslist = d;
+        if(this.payslist !== null && this.tagslist !== null) {
+          this.setState({loaded:true});
+          this.onFilterChange();
+        }
+    }).catch( e => {
+      this.tagslist = [];
+      this.setState({error:true});
+    });
+
+    strapi.getPays()
+    .then( d => {
+        this.payslist = d;
+        if(this.payslist !== null && this.tagslist !== null) {
+          this.setState({loaded:true});
+          this.onFilterChange();
+        }
+    }).catch( e => {
+      this.payslist = [];
+      this.setState({error:true});
+    });
+  }
+
+
+  onFilterChange() {
+    //Buidl query
+    let query = {};
+    let filter = this.formRef.current.getFieldsValue();
+    console.log(JSON.stringify(filter));
+    let sort = this.sortformRef.current.getFieldsValue("sort");
+    let reg = /^tags-(\d+)$/;
+    Object.keys( filter ).forEach((k) => {
+      if( filter[k] !== undefined && filter[k] !== false ) {
+        let mtch = reg.exec(k);
+        if( mtch ) {
+          let tagId = mtch[1];
+          if( !query["tags.id"] ) query["tags.id"] = [];
+          query["tags.id"].push( tagId );
+        } else if( k === "gold" ) {
+          if( !query["tags.id"] ) query["tags.id"] = [];
+          query["tags.id"] = query["tags.id"].concat( filter[k] );
+        } else if( k === "nbplayer" ) {
+          query["nbPlayerMin_lte"] = filter[k];
+          query["nbPlayerMax_gte"] = filter[k];
+        } else {
+          query[ k ] = filter[k];
+        }
+      }
+    });
+
+    this.setState({loading:true});
+    new strapiConnector().searchEscapes( query, 300, 0, sort.sort )
+    .then( d => {
+      d = this.reduceListPerTags(d, query["tags.id"]);
+      this.setState({escapeList:d,loading:false});
+    }).catch( e => {
+      this.setState({error:true,loading:false});
+    });
+  }
+
+  reduceListPerTags(list, tags) {
+    if( !tags || tags.length <= 1 ) return list;
+
+    return list.map( n => {
+          if(!n["t"]) n["t"] = 0;
+          n.tags.forEach( t => {if( tags.indexOf(t.id) >= 0 ) n["t"]++;});
+          return n;
+        }).filter( n => n["t"] === tags.length);
+  }
+  
+  
+  onPaysChange(selectedPaysId) {
+    let p = this.payslist.find( n => n.id === selectedPaysId );
+    let r = null;
+    if( p ) r = p.regions;
+    this.setState({regionList:r});
+    this.formRef.current.setFieldsValue({"enseigne.addresses.region.id":[]});     
+    this.onFilterChange();
+  }
+
+  setFilterValue(setup) {
+    if( setup["enseigne.addresses.pay.id"] ) this.onPaysChange(setup["enseigne.addresses.pay.id"]);
+    this.formRef.current.setFieldsValue(setup);
+    this.onFilterChange();
   }
 
   render() {
+    if( !this.state.loaded ) {
+      return (
+        <div>
+          <div>
+            <Skeleton active/>
+          </div>
+
+          <Layout>
+            <Sider><Skeleton active/></Sider>
+            <Content>
+                <Skeleton active avatar={true}/>
+                <Skeleton active avatar={true}/>
+                <Skeleton active avatar={true}/>
+            </Content>
+          </Layout>
+        </div>
+      )
+    }
     
+
     return (
       <div>
 
         <div>
           Liste des Presets
+          <button onClick={()=>{this.setFilterValue({"enseigne.addresses.pay.id":"1","tags-1":true,"enseigne.addresses.region.id":["1"]});}}>
+            Test Preset
+          </button>
           <div>
-            Paris
-          </div>
-          <div>
-            Toulouse
-          </div>
+            <Skeleton active/>
+          </div>  
         </div>
+
+
+
+
+
+
+
 
         <Divider/>
 
         <div>
           <div>
-            <label>Sort by</label>
-            <Select defaultValue="date" onChange={()=>{}}>
-              <Option value="date">Date</Option>
-              <Option value="rank">Note</Option>
-              <Option value="alpha">Nom</Option>
-            </Select>
-          </div>
-          <div>
-            <Search/>
+            <Form ref={this.sortformRef}>
+              <Form.Item label="Trier par" name="sort" initialValue="date:DESC">
+                <Select onChange={this.onFilterChange.bind(this)}>
+                  <Select.Option value="date:DESC">Date</Select.Option>
+                  <Select.Option value="rate:DESC,date:DESC">Note</Select.Option>
+                  <Select.Option value="name:ASC">Nom</Select.Option>
+                </Select>
+              </Form.Item>
+            </Form>
           </div>
         </div>
 
         <Layout>
-          <Sider theme="dark">
-            <p>
-              <span>Pays :</span>
-              <Select defaultValue="" onChange={()=>{}}>
-                <Option value="">Tous</Option>
-                <Option value="France">France</Option>
-                <Option value="Espagne">Espagne</Option>
-                <Option value="Hongrie">Hongrie</Option>
-              </Select>
-            </p>
+          <Sider>
+            <Form ref={this.formRef}>
+              <Divider orientation="left">Pays</Divider>
+              <div>
+                <Form.Item label="Pays" name="enseigne.addresses.pay.id">
+                  <Select onChange={this.onPaysChange.bind(this)} ref={this.paysRef}>
+                    <Select.Option value={false}>Tous</Select.Option>
+                    {
+                      this.payslist.map( n => 
+                        <Select.Option value={n.id} key={n.id}>{n.name}</Select.Option>
+                        )
+                    }
+                  </Select>
+                </Form.Item>
+              </div>
 
-            <p>
-              <span>Région :</span>
-              <Select defaultValue="" onChange={()=>{}}>
-                <Option value="">Toutes</Option>
-                <Option value="95">95</Option>
-                <Option value="77">77</Option>
-                <Option value="53">53</Option>
-              </Select>
-            </p>
-            
-            <Divider orientation="left">Left Text</Divider>
-            <p>
-              <span>Nombre de joueur :</span>
-              <Select defaultValue="" onChange={()=>{}}>
-                <Option value=""> </Option>
-                <Option value={1}>1</Option>
-                <Option value={2}>2</Option>
-                <Option value={3}>3</Option>
-                <Option value={4}>4</Option>
-                <Option value={5}>5</Option>
-                <Option value={6}>6</Option>
-                <Option value={7}>7</Option>
-                <Option value={8}>8</Option>
-                <Option value={9}>9</Option>
-                <Option value={10}>10</Option>
-                <Option value="+">10+</Option>
-              </Select>
-            </p>
-
-            <Divider orientation="left">Left Text</Divider>
-            <p>
-              <Checkbox onChange={()=>{}}>2 joueurs</Checkbox>
-            </p>
-            <p>
-              <Checkbox onChange={()=>{}}>Horrifique</Checkbox>
-            </p>
-            <Divider orientation="left">Left Text</Divider>
-            <p>
-              <Checkbox onChange={()=>{}}>Checkbox</Checkbox>
-            </p>
-            <p>
-              <Checkbox onChange={()=>{}}>Checkbox</Checkbox>
-            </p>
-            <p>
-              <Checkbox onChange={()=>{}}>Checkbox</Checkbox>
-            </p>
+              <div style={{display:this.state.regionList === null ? "none" : "block"}}>
+                <Form.Item label="Régions" name="enseigne.addresses.region.id">
+                  <Select onChange={this.onFilterChange.bind(this)} mode="multiple" placeholder="Régions" ref={this.regionRef}>
+                    {
+                      this.state.regionList !== null && this.state.regionList.map( n => 
+                        <Select.Option value={n.id} key={n.id}>{n.name}</Select.Option>
+                        )
+                    }
+                  </Select>
+                </Form.Item>
+              </div>
+              
+              <Divider orientation="left"></Divider>
+              <div>
+                <Form.Item label="Nombre de joueurs" name="nbplayer">
+                  <Select onChange={this.onFilterChange.bind(this)}>
+                    <Select.Option value=""> </Select.Option>
+                    <Select.Option value={1}>1</Select.Option>
+                    <Select.Option value={2}>2</Select.Option>
+                    <Select.Option value={3}>3</Select.Option>
+                    <Select.Option value={4}>4</Select.Option>
+                    <Select.Option value={5}>5</Select.Option>
+                    <Select.Option value={6}>6</Select.Option>
+                    <Select.Option value={7}>7</Select.Option>
+                    <Select.Option value={8}>8</Select.Option>
+                    <Select.Option value={9}>9</Select.Option>
+                    <Select.Option value={10}>10</Select.Option>
+                    <Select.Option value="+">10+</Select.Option>
+                  </Select>
+                </Form.Item>
+              </div>
+              
+              <Divider orientation="left">Mentions spéciales</Divider>
+              {
+                this.tagslist.filter( n => n.isMention === true && n.isGold === false ).map( n => 
+                <div key={n.id}>
+                  <Form.Item name={`tags-${n.id}`} tooltip={n.description} valuePropName="checked">
+                    <Checkbox onChange={this.onFilterChange.bind(this)} title={n.description} value={n.id}>{n.name}</Checkbox>
+                  </Form.Item>
+                </div>)
+              }
+              <Divider orientation="left">Tags</Divider>
+              {
+                this.tagslist.filter( n => n.isMention === false && n.isGold === false ).map( n => 
+                
+                  <Form.Item  key={n.id} name={`tags-${n.id}`} tooltip={n.description} valuePropName="checked">
+                    <Checkbox onChange={this.onFilterChange.bind(this)} title={n.description} value={n.id}>{n.name}</Checkbox>
+                  </Form.Item>
+                )
+              }
+              <Divider orientation="left">Glands d'Or</Divider>
+              <div>
+                <Form.Item value="" name="gold">
+                  <Select onChange={this.onFilterChange.bind(this)} mode="multiple">
+                  {
+                    this.tagslist.filter( n => n.isMention === false && n.isGold === true ).map( n => 
+                      <Select.Option value={n.id} key={n.id}>{n.name}</Select.Option>
+                      )
+                  }
+                  </Select>
+                </Form.Item>
+              </div>
+            </Form>
           </Sider>
-          <Content>
 
+
+
+
+          <Content>
             <div>
-              <Pagination defaultCurrent={1} total={50} />
+                <div>{this.state.loading && <span><Spin/></span>}</div>
+                {this.state.escapeList && this.state.escapeList.map( n => <EscapeCard key={n.id} escape={n} enseigne={n.enseigne}/>)}
             </div>
+              {
+                /**
+                 <div>
+                   <Pagination defaultCurrent={1} total={50} />
+                 </div>
+                 */
+              }
           </Content>
+
         </Layout>
       </div>
     )

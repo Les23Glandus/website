@@ -1,6 +1,6 @@
 import React from "react";
 import { withRouter } from "react-router-dom";
-import ArticleEnseigne from "../components/ArticleEnseigne";
+import EnseigneArticle from "../components/EnseigneArticle";
 
   
 class Enseigne extends React.Component {
@@ -16,7 +16,7 @@ class Enseigne extends React.Component {
     
     return (
       <div>
-        <ArticleEnseigne enseigneRef={this.state.enseigneRef}/>
+        <EnseigneArticle enseigneRef={this.state.enseigneRef}/>
       </div>
     )
   }

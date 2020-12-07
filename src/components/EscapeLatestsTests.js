@@ -4,7 +4,7 @@ import {  Row, Col, Skeleton  } from "antd";
 import strapiConnector from "../class/strapiConnector";
 import EscapeCard from "./EscapeCard";
   
-class LatestsTests extends React.Component {
+class EscapeLatestsTests extends React.Component {
 
   lastescapes;
 
@@ -59,4 +59,4 @@ class LatestsTests extends React.Component {
 }
 
 
-export default withRouter(LatestsTests);
+export default withRouter(EscapeLatestsTests);

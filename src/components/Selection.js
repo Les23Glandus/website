@@ -55,7 +55,7 @@ class Selection extends React.Component {
               this.details.escapes.length &&
               <div>
                 <h2>Les salles</h2>
-                {this.details.escapes.map( n => <EscapeCard enseigne={n.enseigne} escape={n}/>)}
+                {this.details.escapes.map( n => <EscapeCard key={n.id} enseigne={n.enseigne} escape={n}/>)}
               </div>
             }
 

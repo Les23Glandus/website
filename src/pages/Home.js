@@ -1,7 +1,7 @@
 import React from "react";
 import { withRouter } from "react-router-dom";
 import Carousel from "../components/Carousel";
-import LatestsTests from "../components/LatestsTests";
+import EscapeLatestsTests from "../components/EscapeLatestsTests";
 import SelectionsGrid from "../components/SelectionsGrid";
 
   
@@ -18,7 +18,7 @@ class Home extends React.Component {
       <div>
           <Carousel/>
 
-          <LatestsTests/>
+          <EscapeLatestsTests/>
 
           <SelectionsGrid/>
           

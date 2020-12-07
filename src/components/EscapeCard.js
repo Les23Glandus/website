@@ -1,5 +1,5 @@
 import React from "react";
-import { withRouter } from "react-router-dom";
+import { Link, withRouter } from "react-router-dom";
 import Note from "./Note";
 import "../css/escapecard.scss";
 import { Tag } from "antd";
@@ -10,11 +10,11 @@ class EscapeCard extends React.Component {
     
     return (
         <div className="escape-card">
-            <a href={"/escapegame/"+this.props.enseigne.uniquepath+"/"+this.props.escape.uniquepath}>
+            <Link to={"/escapegame/"+this.props.enseigne.uniquepath+"/"+this.props.escape.uniquepath}>
                 {
-                  this.props.enseigne.address.length > 0
+                  this.props.enseigne.addresses.length > 0
                   && 
-                  <span>{this.props.enseigne.address[0].pays.name}</span>
+                  <span>{this.props.enseigne.addresses[0].pay.name}</span>
                 }
                 <span>{this.props.escape.name}</span>
                 <span>{this.props.enseigne.name}</span>
@@ -22,12 +22,12 @@ class EscapeCard extends React.Component {
                 <span>{new Intl.DateTimeFormat('fr-FR', { dateStyle: 'full' }).format(new Date(this.props.escape.date))}</span>
                 <span><Note value={this.props.escape.rate}/></span>
                 {this.props.reduce &&
-                <span>{this.props.escape.nbPlayerMin}-{this.props.escape.nbPlayerMax} joueurs</span>
+                  <span>{this.props.escape.nbPlayerMin}-{this.props.escape.nbPlayerMax} joueurs</span>
                 }
                 {this.props.reduce &&
-                <span>Tags {this.props.escape.tags && this.props.escape.tags.map(n => <Tag>2 joueurs</Tag> )} </span>
+                  <span>Tags {this.props.escape.tags && this.props.escape.tags.map(n => <Tag>2 joueurs</Tag> )} </span>
                 }
-            </a>
+            </Link>
         </div>
     )
   }

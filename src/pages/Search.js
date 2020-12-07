@@ -1,6 +1,5 @@
-import { Divider, Form, Pagination, Select, Skeleton, Spin } from "antd";
+import { Divider, Form, Select, Skeleton, Spin } from "antd";
 import Checkbox from "antd/lib/checkbox/Checkbox";
-import Search from "antd/lib/input/Search";
 import Layout, { Content } from "antd/lib/layout/layout";
 import Sider from "antd/lib/layout/Sider";
 import React from "react";
@@ -15,11 +14,9 @@ class SearchC extends React.Component {
   payslist = null;
   regionlist = null;
 
-  paysRef;
-
   constructor(props) {
     super(props);
-    this.state = {loaded:false, error:false, regionList:null, escapeList:null};
+    this.state = {loaded:false, error:false, regionList:null, escapeList:null, presetList:null};
 
     this.paysRef = React.createRef();
     this.formRef = React.createRef();
@@ -57,9 +54,20 @@ class SearchC extends React.Component {
       this.payslist = [];
       this.setState({error:true});
     });
+
+    
+    strapi.getFilterPresets()
+    .then( d => {
+      this.setState({presetList:d});
+    }).catch( e => {
+      this.setState({presetList:[]});
+    });
   }
 
 
+  /**
+   * 
+   */
   onFilterChange() {
     //Buidl query
     let query = {};
@@ -96,6 +104,11 @@ class SearchC extends React.Component {
     });
   }
 
+  /**
+   * 
+   * @param {*} list 
+   * @param {*} tags 
+   */
   reduceListPerTags(list, tags) {
     if( !tags || tags.length <= 1 ) return list;
 
@@ -107,6 +120,10 @@ class SearchC extends React.Component {
   }
   
   
+  /**
+   * 
+   * @param {*} selectedPaysId 
+   */
   onPaysChange(selectedPaysId) {
     let p = this.payslist.find( n => n.id === selectedPaysId );
     let r = null;
@@ -116,12 +133,22 @@ class SearchC extends React.Component {
     this.onFilterChange();
   }
 
+
+  /**
+   * 
+   * @param {*} setup 
+   */
   setFilterValue(setup) {
+    this.formRef.current.resetFields();
     if( setup["enseigne.addresses.pay.id"] ) this.onPaysChange(setup["enseigne.addresses.pay.id"]);
     this.formRef.current.setFieldsValue(setup);
     this.onFilterChange();
   }
 
+
+  /**
+   * 
+   */
   render() {
     if( !this.state.loaded ) {
       return (
@@ -145,16 +172,26 @@ class SearchC extends React.Component {
 
     return (
       <div>
-
-        <div>
-          Liste des Presets
-          <button onClick={()=>{this.setFilterValue({"enseigne.addresses.pay.id":"1","tags-1":true,"enseigne.addresses.region.id":["1"]});}}>
-            Test Preset
-          </button>
-          <div>
-            <Skeleton active/>
-          </div>  
-        </div>
+          {
+            !this.state.presetList && 
+            <div>
+              <Skeleton active/>
+            </div>  
+          }
+          {
+            this.state.presetList && 
+            <div>
+            {
+              this.state.presetList.presets.map( n => 
+                <div>
+                  <p>{n.name}</p>
+                  <p>{n.description}</p>
+                  <button onClick={()=>{this.setFilterValue( n.preset );}}>Voir les salles</button>
+                </div>
+              )
+            }
+            </div>  
+          }
 
 
 

@@ -55,6 +55,8 @@ class News extends React.Component {
       if( !this.state.loaded ) {
           return (
             <div>
+            <br/>
+             <br/>
                 <Timeline>
                     <Timeline.Item><Skeleton active avatar/></Timeline.Item>
                     <Timeline.Item><Skeleton active avatar/></Timeline.Item>
@@ -67,6 +69,8 @@ class News extends React.Component {
       } else {
         return (
             <div>
+            <br/>
+             <br/>
                 <Timeline>
                     {
                         this.actusList.map( n => {

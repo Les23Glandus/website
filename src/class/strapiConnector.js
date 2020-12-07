@@ -54,6 +54,13 @@ class strapiConnector {
     
 
   /**
+   * filter-presets 
+   */
+  getFilterPresets() {
+    return this.fetch("/filter-presets");
+  }
+
+  /**
    * Escapes 
    */
   getEscape(id) {

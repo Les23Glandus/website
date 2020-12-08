@@ -260,7 +260,7 @@ class strapiConnector {
           ourExperience
           url
           isOpen
-          address {id town postcode street name pays {id name} region {id name} }
+          addresses {id town postcode street name pays {id name} region {id name} }
           logo {id url formats}
           illustration {id formats url}
           uniquepath

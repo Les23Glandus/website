@@ -11,6 +11,7 @@ import Selections from './pages/Selections';
 import Selection from './pages/Selection';
 import News from './pages/News';
 import Actu from './pages/Actu';
+import HtmlHead from './components/HtmlHead';
 
 class App extends React.Component {
   render() {
@@ -18,6 +19,8 @@ class App extends React.Component {
       <Router>
 
         <div>
+          
+          <HtmlHead/>
           <div><Header/></div>
           <div>
             <Switch>

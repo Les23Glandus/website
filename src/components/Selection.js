@@ -3,6 +3,7 @@ import React from "react";
 import { withRouter } from "react-router-dom";
 import strapiConnector from "../class/strapiConnector";
 import EscapeCard from "../components/EscapeCard";
+import HtmlHead from "./HtmlHead";
 
   
 class Selection extends React.Component {
@@ -48,6 +49,7 @@ class Selection extends React.Component {
       
       return (
         <div>
+            <HtmlHead title={`Nos sélections - ${this.details.title}`}/>
             <h2>{this.details.title}</h2>
             {this.details.article}
             

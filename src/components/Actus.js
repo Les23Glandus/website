@@ -2,6 +2,7 @@ import { Skeleton } from "antd";
 import React from "react";
 import { Link, withRouter } from "react-router-dom";
 import strapiConnector from "../class/strapiConnector";
+import HtmlHead from "./HtmlHead";
 
   
 class Actus extends React.Component {
@@ -42,6 +43,7 @@ class Actus extends React.Component {
 
     if(!this.state.loaded) {
       return (<div>
+                <HtmlHead title="News"/>
                 <Skeleton active avatar/>
               </div>)
     }
@@ -61,6 +63,7 @@ class Actus extends React.Component {
 
     return (
         <div>
+            <HtmlHead title={`News - ${this.details.title}`}/>
             <h3>{this.details.title}</h3>
             <p>{new Intl.DateTimeFormat('fr-FR', { dateStyle: 'full' }).format(new Date(this.details.date))}</p>
             <p>{this.details.description}</p>

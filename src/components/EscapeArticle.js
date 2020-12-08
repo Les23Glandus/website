@@ -5,6 +5,7 @@ import strapiConnector from "../class/strapiConnector";
 import Note from "./Note";
 import ArticleEnseigne from "./EnseigneArticle";
 import SelectionMini from "./SelectionMini";
+import HtmlHead from "./HtmlHead";
 
   
 class EscapeArticle extends React.Component {
@@ -54,7 +55,6 @@ class EscapeArticle extends React.Component {
 
     if(!this.state.loaded) {
       return (<div>
-
                   <h2><Skeleton title={true} paragraph={false}/></h2>
                   <p>Chez</p>
 
@@ -103,7 +103,7 @@ class EscapeArticle extends React.Component {
     
     return (
       <div>
-
+          <HtmlHead title={`${this.details.name}` + (this.details.enseigne ? ` - ${this.details.enseigne.name}` : "")}/>
           <h2>{this.details.name}</h2>
           {this.details.enseigne && 
             <p>Chez <Link to={"/escapegame/"+this.details.enseigne.uniquepath}>{this.details.enseigne.name}</Link></p>

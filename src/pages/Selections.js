@@ -1,5 +1,6 @@
 import React from "react";
 import { withRouter } from "react-router-dom";
+import HtmlHead from "../components/HtmlHead";
 import SelectionsGrid from "../components/SelectionsGrid";
 
   
@@ -15,6 +16,8 @@ class Selections extends React.Component {
     return (
       <div>
         
+        <HtmlHead title={`Nos sélections`}/>
+
         <SelectionsGrid showAll={true}/>
           
       </div>

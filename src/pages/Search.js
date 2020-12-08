@@ -6,6 +6,7 @@ import React from "react";
 import { withRouter } from "react-router-dom";
 import strapiConnector from "../class/strapiConnector";
 import EscapeCard from "../components/EscapeCard";
+import HtmlHead from "../components/HtmlHead";
 
   
 class SearchC extends React.Component {
@@ -172,6 +173,8 @@ class SearchC extends React.Component {
 
     return (
       <div>
+        
+          <HtmlHead title={`Recherche`}/>
           {
             !this.state.presetList && 
             <div>
@@ -233,7 +236,7 @@ class SearchC extends React.Component {
                 </Form.Item>
               </div>
 
-              <div style={{display:this.state.regionList === null ? "none" : "block"}}>
+              <div style={{display:(this.state.regionList === null || this.state.regionList.length <= 0 ? "none" : "block")}}>
                 <Form.Item label="Régions" name="enseigne.addresses.region.id">
                   <Select onChange={this.onFilterChange.bind(this)} mode="multiple" placeholder="Régions" ref={this.regionRef}>
                     {

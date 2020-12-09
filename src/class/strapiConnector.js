@@ -94,6 +94,9 @@ class strapiConnector {
     body.variables.sort = sortby ? sortby : "date:DESC";
     return this.graphql(body);
   }
+  getRealisation() {
+    return this.fetch("/escapes/sum");
+  }
 
   /**
    * Enseigne 

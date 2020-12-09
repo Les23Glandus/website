@@ -22,6 +22,24 @@ class Home extends React.Component {
 
           <SelectionsGrid/>
           
+
+          <br/>
+          <br/>
+          <br/>
+          <br/>
+          <br/>
+          <br/>
+          <br/>
+          <br/>
+          <br/>
+          <br/>
+          <br/>
+          <br/>
+          <br/>
+          <br/>
+          <br/>
+          <br/>
+          <br/>
       </div>
     )
   }

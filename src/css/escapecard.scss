@@ -1,4 +1,99 @@
+@import '_theme.scss';
+
+$picheight: 210px;
+$picratio: 4/3;
+
+
 .escape-card {
-    border: 1px solid #ffffff;
-    padding: 10px;
+    &.full {
+        position: relative;
+        padding-left: 60px;
+        margin: 10px;
+    }
+
+
+    
+
+    .escape-card-mini {
+        display: block;
+        border-radius: $default-radius;
+        width: #{$picheight * $picratio};
+        height: $picheight;
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-position: center;
+        background-attachment: scroll;
+        background-position-y: 50%;
+        box-shadow: 3px 3px 15px 5px #13131330;
+        &.full {
+            margin: 25px 0 0 0;
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+    }
+    .escape-card-details {
+        &.full {
+            resize: horizontal;
+            overflow: hidden;
+            display: flex;
+            background: #ffffff;
+            border-radius: $default-radius;
+            min-height: #{$picheight * $picratio};        
+            padding: 30px 20px 20px #{$picheight * $picratio - 30px};
+            color:$default-darklightcolor;
+            .title {
+                font-size: 2em;
+                color: $default-darkcolor;
+                white-space: nowrap;
+            }
+        }
+        &.reduce {
+            .title {
+                font-size: 1em;
+                color: #ffffff;
+            }
+        }
+
+        .flexpart-3 {
+            flex: 3;
+        }
+        .flexpart-2 {
+            flex: 2;
+        }
+        .flexpart-1 {
+            flex: 1;
+        }
+
+        p {
+            margin: 0;
+        }
+        .date {
+            color: $default-darkcolor;
+            text-transform: capitalize;
+            margin-bottom: 10px;
+        }
+        .title {
+            font-size: 2em;
+            color: $default-darkcolor;
+            white-space: nowrap;
+        }
+        .region, .enseigne {
+            font-size: 1em;
+            color:$default-darklightcolor;
+        }
+        .region {
+            font-style: italic;
+        }
+        .tags {
+            margin-top: 20px;
+            .ant-tag {
+                color:$default-darklightcolor;
+                border-color: $default-darklightcolor;
+            }
+        }
+        .description {
+            padding: 0 10px;
+        }
+    }
 }

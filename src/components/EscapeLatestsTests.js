@@ -55,7 +55,7 @@ class EscapeLatestsTests extends React.Component {
                   <Row gutter={[16,16]}>
                     {
                       this.lastescapes.map( n => 
-                        <Col key={n.id} xs={24} sm={12} md={6} lg={6} xl={6}><EscapeCard escape={n} enseigne={n.enseigne}/></Col>
+                        <Col key={n.id} xs={24} sm={12} md={6} lg={6} xl={6}><EscapeCard reduce escape={n} enseigne={n.enseigne}/></Col>
                       )
                     }
                     <Col xs={24} sm={12} md={6} lg={6} xl={6}>

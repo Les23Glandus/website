@@ -268,7 +268,16 @@ class strapiConnector {
           illustration {id formats url}
           uniquepath
           published_at
-          escapes { id name uniquepath date }
+          escapes { id name uniquepath date nbPlayerMin nbPlayerMax 
+            mini { id formats url}
+            tags {
+              id
+              name
+              isMention
+              isGold 
+              description
+              useInFilter
+            } }
         }`,    
   
 
@@ -278,6 +287,7 @@ class strapiConnector {
           name
           rate
           date
+          scenario
           mini {
             id
             formats
@@ -289,13 +299,8 @@ class strapiConnector {
             id
             name
             isMention
-            isGold description
-            picto {
-              id
-              name
-              url
-              formats
-            }
+            isGold 
+            description
             useInFilter
           }
           preventPush
@@ -354,6 +359,7 @@ class strapiConnector {
           nbPlayerMax
           enseigne { id name uniquepath 
             addresses {pay {name} region {name} } 
+            escapes { id name uniquepath date nbPlayerMin nbPlayerMax tags {id name isGold} }
           }    
           selections {id title description uniquepath mini {id url formats}}
           avantapres {

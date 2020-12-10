@@ -1,0 +1,16 @@
+@import '_theme.scss';
+
+div.home {
+
+    div.latest-ei-tests
+    ,div.selections-list
+    ,div.actus-list {
+        margin-top: 50px;
+    }
+
+    div.realisation {
+        @include light;
+        font-size: 0.9em;
+        margin: 10px;
+    }
+}

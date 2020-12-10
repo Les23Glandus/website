@@ -1,8 +1,10 @@
 import React from "react";
 import { withRouter } from "react-router-dom";
+import ActusGrid from "../components/ActusGrid";
 import Carousel from "../components/Carousel";
 import EscapeLatestsTests from "../components/EscapeLatestsTests";
 import SelectionsGrid from "../components/SelectionsGrid";
+import "../css/home.scss";
 
   
 class Home extends React.Component {
@@ -15,12 +17,14 @@ class Home extends React.Component {
   render() {
     
     return (
-      <div>
+      <div className="home">
           <Carousel/>
 
           <EscapeLatestsTests/>
 
           <SelectionsGrid/>
+
+          <ActusGrid/>
           
 
           <br/>

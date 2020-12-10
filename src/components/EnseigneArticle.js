@@ -3,6 +3,7 @@ import React from "react";
 import { withRouter } from "react-router-dom";
 import strapiConnector from "../class/strapiConnector";
 import EscapeCard from "./EscapeCard";
+import HtmlHead from "./HtmlHead";
 
   
 class EnseigneArticle extends React.Component {
@@ -92,8 +93,46 @@ class EnseigneArticle extends React.Component {
       )
     } else {
 
+
+      let jsonld = {
+        "@context": "https://schema.org",
+        "@type": "NewsArticle",
+        "mainEntityOfPage": {
+          "@type": "WebPage",
+          "@id": window.location.href
+        },
+        "headline": this.details.name,
+        "image": [],
+        "datePublished": this.details.published_at,
+        "dateModified": this.details.updated_at,
+        "author": {
+          "@type": "Organization",
+          "name": "Les Glandus"
+        },
+        "publisher": {
+          "@type": "Organization",
+          "name": "Les Glandus",
+          "logo": {
+            "@type": "ImageObject",
+            "url": window.location.origin + "/AMP-logo.png"
+          }
+        }
+      };
+    
+      if( this.details.illustration ) jsonld["image"].push( window.location.origin + this.details.illustration.url);
+      if( this.details.logo ) jsonld["image"].push( window.location.origin + this.details.logo.url);
+  
+
       return (
         <div>
+            {
+              this.props.updathead !== false &&
+              <HtmlHead title={this.details.name}>
+                  <meta name="og:image" content={window.location.origin + this.details.logo.url}/>
+                  <meta name="og:description" content={this.details.introduction && this.details.introduction}/> 
+                  <script type="application/ld+json">{JSON.stringify(jsonld)}</script>
+              </HtmlHead>
+            }
             <h2>{this.details.name}</h2>
           
               {!this.state.reduce &&

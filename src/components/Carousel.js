@@ -2,6 +2,7 @@ import React from "react";
 import { withRouter } from "react-router-dom";
 import { Carousel as AntCarousel } from 'antd';
 import strapiConnector from "../class/strapiConnector";
+import "../css/carousel.scss";
   
 class Carousel extends React.Component {
 
@@ -27,23 +28,20 @@ componentDidMount() {
     
     return (
         <div className="home-carousel">
-            <AntCarousel autoplay>
+            <AntCarousel >
                 {this.state.loaded && 
                     this.details.map( n => {
                         const contentStyle = {
-                            height: '160px',
-                            color: '#fff',
-                            textAlign: 'center',
-                            background: 'url('+n.image.url+') 50% 50% #364d79',
-                            backgroundSize: 'cover'
+                            backgroundImage: 'url('+n.image.url+')'
                           };
                     return (
-                        <div key={n.id}>
-                            <div style={contentStyle}>
-                                <span>{n.title}</span>
-                                <p>{new Intl.DateTimeFormat('fr-FR').format(new Date(n.date))}</p>
-                                <span>{n.description}</span>
+                        <div key={n.id} title={n.description} className="carousel">
+                            <div className='text'>     
+                                <div>
+                                    <span>{n.title}</span>
+                                </div>                           
                             </div>
+                            <div className="illustration" style={contentStyle}></div>
                         </div>
                     )
                     })

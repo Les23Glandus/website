@@ -14,14 +14,15 @@ class HtmlHead extends React.Component {
             <meta name="subject" content="Avis et évaluation des salles d'Escape Game."></meta>
             <meta name="coverage" content="Worldwide"></meta>
             <meta name="Classification" content="Business"/>
+            <meta name="og:url" content={window.location.href}/>
+            <meta name="og:locale" content="fr_FR"/>
+            <meta name="og:site_name" content="LesGlandus.fr"/>
+            <meta name="og:type" content="article"/>
+            <meta name="og:article:author" content="Les Glandus"/>
+            <meta name="og:article:section" content="Escape Games"/>
+            { this.props.title && <meta name="og:title" content={this.props.title}/> }  
 
-            { this.props.article && <meta name="og:title" content={this.props.article.name}/> }
-            { this.props.article && <meta name="og:type" content="Escape Game"/> }
-            { this.props.article && <meta name="og:site_name" content="LesGlandus.fr"/> }
-            { /*this.props.article && <meta name="og:url" content="http://www.imdb.com/title/tt0117500/"/> }
-            { this.props.article && <meta name="og:image" content="http://ia.media-imdb.com/rock.jpg"/> }
-            { this.props.article && <meta name="og:description" content="A group of U.S. Marines, under command of..."/> */}
-            
+            { this.props.children }        
         </Helmet>
     )
   }

@@ -42,7 +42,7 @@ class EscapeLatestsTests extends React.Component {
         <div className="latest-ei-tests">
             <h2>Les derniers tests</h2>
             {this.state.realisation &&
-              <div>
+              <div className="realisation">
                 Au cours de nos {this.state.realisation.count} escapes, 
                 nous avons sauvé le monde {this.state.realisation.saveWorld} fois et sauvé notre peau {this.state.realisation.saveUs} fois. 
                 Nous avons déjoué {this.state.realisation.rituals} rituels sataniques et {this.state.realisation.plan} plans machiavéliques. 

@@ -52,6 +52,11 @@ $picratio: 4/3;
             .title {
                 font-size: 1em;
                 color: #ffffff;
+                margin: 5px 0 -4px 0;
+            }
+            .enseigne {
+                font-style: italic;
+                @include light;
             }
         }
 

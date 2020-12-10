@@ -46,10 +46,36 @@ class Selection extends React.Component {
         </div>
       )
     } else {
+
+
+      let jsonld = 
+      {
+        "@context":"https://schema.org",
+        "@type":"ItemList",
+        "itemListElement":[
+          {
+            "@type":"ListItem",
+            "position":1,
+            "url":"http://example.com/peanut-butter-cookies.html"
+          },
+          {
+            "@type":"ListItem",
+            "position":2,
+            "url":"http://example.com/triple-chocolate-chunk.html"
+          },
+          {
+            "@type":"ListItem",
+            "position":3,
+            "url":"http://example.com/snickerdoodles.html"
+          }
+        ]
+      }
       
       return (
         <div>
-            <HtmlHead title={`Nos sélections - ${this.details.title}`}/>
+            <HtmlHead title={`Nos sélections - ${this.details.title}`}>
+                <script type="application/ld+json">{JSON.stringify(jsonld)}</script>
+            </HtmlHead>
             <h2>{this.details.title}</h2>
             {this.details.article}
             

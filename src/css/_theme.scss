@@ -4,3 +4,15 @@ $primary-font-color: #333333;
 $default-radius: 10px;
 $default-darkcolor: #171717;
 $default-darklightcolor: #8c8d8c;
+
+$default-fontSize: 13px;
+
+@mixin bold {
+    font-weight: 600;
+}
+@mixin light {
+    font-weight: 300;
+}
+@mixin regular {
+    font-weight: 400;
+}

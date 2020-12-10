@@ -4,4 +4,9 @@
 body {
     font-family: 'Montserrat', sans-serif;
     background-color: $primary-background-color;
+    font-size: $default-fontSize;
+}
+h2 {
+    font-size: 1.5em;
+    @include bold;
 }

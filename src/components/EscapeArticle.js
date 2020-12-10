@@ -100,10 +100,41 @@ class EscapeArticle extends React.Component {
               </div>)
     }
 
+    let jsonld = {
+      "@context": "https://schema.org",
+      "@type": "NewsArticle",
+      "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": window.location.href
+      },
+      "headline": this.details.name,
+      "image": [],
+      "datePublished": this.details.published_at,
+      "dateModified": this.details.updated_at,
+      "author": {
+        "@type": "Organization",
+        "name": "Les Glandus"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "Les Glandus",
+        "logo": {
+          "@type": "ImageObject",
+          "url": window.location.origin + "/AMP-logo.png"
+        }
+      }
+    };
     
+    if( this.details.illustration ) jsonld["image"].push( window.location.origin + this.details.illustration.url);
+    if( this.details.mini ) jsonld["image"].push( window.location.origin + this.details.mini.url);
+
     return (
       <div>
-          <HtmlHead title={`${this.details.name}` + (this.details.enseigne ? ` - ${this.details.enseigne.name}` : "")}/>
+          <HtmlHead title={`${this.details.name}` + (this.details.enseigne ? ` - ${this.details.enseigne.name}` : "")}>
+              <meta name="og:image" content={window.location.origin + this.details.mini.url}/>
+              <meta name="og:description" content={this.details.description && this.details.description}/> 
+              <script type="application/ld+json">{JSON.stringify(jsonld)}</script>
+          </HtmlHead>
           <h2>{this.details.name}</h2>
           {this.details.enseigne && 
             <p>Chez <Link to={"/escapegame/"+this.details.enseigne.uniquepath}>{this.details.enseigne.name}</Link></p>
@@ -196,7 +227,7 @@ class EscapeArticle extends React.Component {
           }
 
           {this.details.enseigne && 
-            <ArticleEnseigne reduce={true} enseigneID={this.details.enseigne.id}/>
+            <ArticleEnseigne reduce={true} enseigneID={this.details.enseigne.id} updathead={false}/>
           }
       </div>
     )

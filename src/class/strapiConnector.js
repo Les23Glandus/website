@@ -209,6 +209,8 @@ class strapiConnector {
         description
         escapes {
           id name uniquepath rate isOpen date
+          nbPlayerMin
+          nbPlayerMax
           mini {id url formats} 
           tags {id name isMention isGold description}  
           enseigne { id name uniquepath 
@@ -261,6 +263,8 @@ class strapiConnector {
           name
           introduction
           ourExperience
+          published_at
+          updated_at
           url
           isOpen
           addresses {id town postcode street name pay {id name} region {id name} }
@@ -320,6 +324,7 @@ class strapiConnector {
           rate
           date
           published_at
+          updated_at
           mini {
             id
             formats

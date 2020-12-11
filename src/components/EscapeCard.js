@@ -61,10 +61,12 @@ class EscapeCard extends React.Component {
     let classname = "";
     if( this.props.reduce ) classname = " reduce";
     else classname = " full";
+
+    let enseigneuip = this.props.enseigne ? this.props.enseigne.uniquepath : "avis";
     
     return (
         <div className={"escape-card"+classname}>
-            <Link to={"/escapegame/"+this.props.enseigne.uniquepath+"/"+this.props.escape.uniquepath} 
+            <Link to={"/escapegame/"+enseigneuip+"/"+this.props.escape.uniquepath} 
               style={style}
               ref={this.picRef}
               className={"escape-card-mini"+classname}/>

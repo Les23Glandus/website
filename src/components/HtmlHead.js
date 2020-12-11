@@ -15,6 +15,7 @@ class HtmlHead extends React.Component {
             <meta name="coverage" content="Worldwide"></meta>
             <meta name="Classification" content="Business"/>
             <meta property="og:url" content={window.location.href}/>
+            <meta property="fb:app_id" content="658512374819098"/>
             <meta property="og:locale" content="fr_FR"/>
             <meta property="og:site_name" content="LesGlandus.fr"/>
             <meta property="og:type" content="article"/>

@@ -53,23 +53,23 @@ class Selection extends React.Component {
         "@context":"https://schema.org",
         "@type":"ItemList",
         "itemListElement":[
-          {
-            "@type":"ListItem",
-            "position":1,
-            "url":"http://example.com/peanut-butter-cookies.html"
-          },
-          {
-            "@type":"ListItem",
-            "position":2,
-            "url":"http://example.com/triple-chocolate-chunk.html"
-          },
-          {
-            "@type":"ListItem",
-            "position":3,
-            "url":"http://example.com/snickerdoodles.html"
-          }
         ]
       }
+      
+      this.details.escapes.forEach( (n,i) =>  {
+        let enseigne = n.enseigne ? n.enseigne.uniquepath : "avis";
+        let url = window.location.origin + "/escapegame/"+enseigne+"/"+n.uniquepath;
+        let pic = window.location.origin + (n.mini ? n.mini.url : "");
+        jsonld.itemListElement.push(  
+          {
+            "@type":"ListItem",
+            "position":(i+1),
+            "url":url,
+            "name":n.name, 
+            "image":pic        
+          }
+        );
+      });
       
       return (
         <div>

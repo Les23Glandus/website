@@ -102,11 +102,21 @@ class EscapeArticle extends React.Component {
 
     let jsonld = {
       "@context": "https://schema.org",
-      "@type": "NewsArticle",
+      "@type": "ReviewNewsArticle",
+      "itemReviewed": {
+        "@type":"Game",
+        "name": this.details.name,
+        "numberOfPlayers": {
+          "minValue":this.details.nbPlayerMin,
+          "maxValue":this.details.nbPlayerMax,
+        },
+      },
       "mainEntityOfPage": {
         "@type": "WebPage",
         "@id": window.location.href
       },
+      "reviewAspect":"Rating",
+      "articleSection":"Escape Game",
       "headline": this.details.name,
       "image": [],
       "datePublished": this.details.published_at,
@@ -114,6 +124,13 @@ class EscapeArticle extends React.Component {
       "author": {
         "@type": "Organization",
         "name": "Les Glandus"
+      },
+      "reviewRating": {
+        "@type": "AggregateRating",
+        "ratingValue": this.details.rate,
+        "bestRating": 5,
+        "worstRating": 1,
+        "reviewCount": Math.max(1,this.details.avantapres.length)
       },
       "publisher": {
         "@type": "Organization",
@@ -125,6 +142,8 @@ class EscapeArticle extends React.Component {
       }
     };
     
+    //TODO add audio
+
     if( this.details.illustration ) jsonld["image"].push( window.location.origin + this.details.illustration.url);
     if( this.details.mini ) jsonld["image"].push( window.location.origin + this.details.mini.url);
 
@@ -132,7 +151,8 @@ class EscapeArticle extends React.Component {
       <div>
           <HtmlHead title={`${this.details.name}` + (this.details.enseigne ? ` - ${this.details.enseigne.name}` : "")}>
               <meta property="og:image" content={window.location.origin + this.details.mini.url}/>
-              <meta property="og:description" content={this.details.description && this.details.description}/> 
+              <meta property="og:image:alt" content={this.details.name}/>
+              <meta property="og:description" content={this.details.description}/> 
               <meta property="article:published_time" content={this.details.published_at}/> 
               {/*og:audio*/}
               <script type="application/ld+json">{JSON.stringify(jsonld)}</script>

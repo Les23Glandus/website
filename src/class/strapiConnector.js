@@ -336,6 +336,7 @@ class strapiConnector {
             url
           }
           scenario
+          description
           uniquepath
           story
           audio {

@@ -131,6 +131,7 @@ class EnseigneArticle extends React.Component {
               <meta property="og:image" content={window.location.origin + this.details.logo.url}/>
               <meta property="og:description" content={this.details.introduction && this.details.introduction}/> 
                   <meta property="og:image" content={window.location.origin + this.details.logo.url}/>
+                  <meta property="og:image:alt" content={this.details.name}/>
                   <meta property="og:description" content={this.details.introduction && this.details.introduction}/> 
                   <script type="application/ld+json">{JSON.stringify(jsonld)}</script>
               </HtmlHead>

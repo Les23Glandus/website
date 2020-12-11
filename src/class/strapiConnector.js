@@ -273,6 +273,7 @@ class strapiConnector {
           uniquepath
           published_at
           escapes { id name uniquepath date nbPlayerMin nbPlayerMax 
+            description
             mini { id formats url}
             tags {
               id
@@ -291,7 +292,7 @@ class strapiConnector {
           name
           rate
           date
-          scenario
+          description
           mini {
             id
             formats

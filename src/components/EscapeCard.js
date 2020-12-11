@@ -78,6 +78,7 @@ class EscapeCard extends React.Component {
             <Link to={"/escapegame/"+enseigneuip+"/"+this.props.escape.uniquepath} 
               style={style}
               ref={this.picRef}
+              title={this.props.escape.description}
               className={"escape-card-mini"+classname}/>
             
             <Link to={"/escapegame/"+this.props.enseigne.uniquepath+"/"+this.props.escape.uniquepath}
@@ -113,7 +114,7 @@ class EscapeCard extends React.Component {
               {!this.props.reduce &&
                 <div className="flexpart-2">
                   <div className="description">
-                    { this.props.escape.scenario } 
+                    { this.props.escape.description } 
                   </div>
                 </div>
               }

@@ -92,9 +92,11 @@ $picratio: 4/3;
         }
         .tags {
             margin-top: 20px;
+            line-height: 1.9em;
             .ant-tag {
                 color:$default-darklightcolor;
                 border-color: $default-darklightcolor;
+                margin-right: 2px;
             }
         }
         .description {

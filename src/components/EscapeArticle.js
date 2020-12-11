@@ -100,6 +100,7 @@ class EscapeArticle extends React.Component {
               </div>)
     }
 
+    //Used by google
     let jsonld = {
       "@context": "https://schema.org",
       "@type": "ReviewNewsArticle",
@@ -115,7 +116,13 @@ class EscapeArticle extends React.Component {
         "@type": "WebPage",
         "@id": window.location.href
       },
+      "inLanguage": {
+        "@type": "Language",
+        "name": "French",
+        "alternateName": "fr"
+      },
       "reviewAspect":"Rating",
+      "abstract": this.details.description,
       "articleSection":"Escape Game",
       "headline": this.details.name,
       "image": [],
@@ -157,6 +164,12 @@ class EscapeArticle extends React.Component {
               {/*og:audio*/}
               <script type="application/ld+json">{JSON.stringify(jsonld)}</script>
           </HtmlHead>
+
+          {
+            this.details.illustration &&
+            <img title={this.details.description} alt={this.details.description} src={this.details.illustration.url}/>
+          }
+
           <h2>{this.details.name}</h2>
           {this.details.enseigne && 
             <p>Chez <Link to={"/escapegame/"+this.details.enseigne.uniquepath}>{this.details.enseigne.name}</Link></p>

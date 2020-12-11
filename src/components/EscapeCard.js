@@ -63,6 +63,15 @@ class EscapeCard extends React.Component {
     else classname = " full";
 
     let enseigneuip = this.props.enseigne ? this.props.enseigne.uniquepath : "avis";
+
+    let pays = [];
+    let regions = [];
+    if( this.props.escape.addresses && this.props.escape.addresses.length > 0 ) {
+      this.props.escape.addresses.forEach(addr => {
+        if( addr.region && regions.indexOf(addr.region.name) < 0 ) regions.push( addr.region.name );
+        if( addr.pay && regions.indexOf(addr.pay.name) < 0 ) pays.push( addr.pay.name );
+      });
+    }
     
     return (
         <div className={"escape-card"+classname}>
@@ -81,9 +90,9 @@ class EscapeCard extends React.Component {
                   <p className="date">{new Intl.DateTimeFormat('fr-FR', { dateStyle: 'full' }).format(new Date(this.props.escape.date))}</p>
                 }
                 {
-                  !this.props.reduce && this.props.enseigne.addresses.length > 0 && this.props.enseigne.addresses[0].pay.name
+                  !this.props.reduce && pays.length > 0 
                   && 
-                  <p className="region">{this.props.enseigne.addresses[0].pay.name}{this.props.enseigne.addresses[0].region && (' - '+this.props.enseigne.addresses[0].region.name)}</p>
+                  <p className="region">{pays.length > 0 && pays.join(", ")}{regions.length > 0 && (' - '+regions.join(", "))}</p>
                 }
                 <p className="title">{this.props.escape.name}<span className="rate"><span class='separator'> - </span><Note value={this.props.escape.rate}/></span></p>
                 <p className="enseigne">{this.props.enseigne.name}</p>

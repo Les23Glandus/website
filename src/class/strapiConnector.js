@@ -298,6 +298,7 @@ class strapiConnector {
             url
           }
           uniquepath
+          addresses {id town postcode street name pay {id name} region {id name} }
           rate
           tags {
             id

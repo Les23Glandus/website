@@ -130,7 +130,7 @@ class SearchC extends React.Component {
     let r = null;
     if( p ) r = p.regions;
     this.setState({regionList:r});
-    this.formRef.current.setFieldsValue({"enseigne.addresses.region.id":[]});     
+    this.formRef.current.setFieldsValue({"addresses.region.id":[]});     
     this.onFilterChange();
   }
 
@@ -141,7 +141,7 @@ class SearchC extends React.Component {
    */
   setFilterValue(setup) {
     this.formRef.current.resetFields();
-    if( setup["enseigne.addresses.pay.id"] ) this.onPaysChange(setup["enseigne.addresses.pay.id"]);
+    if( setup["addresses.pay.id"] ) this.onPaysChange(setup["addresses.pay.id"]);
     this.formRef.current.setFieldsValue(setup);
     this.onFilterChange();
   }
@@ -224,7 +224,7 @@ class SearchC extends React.Component {
             <Form ref={this.formRef}>
               <Divider orientation="left">Pays</Divider>
               <div>
-                <Form.Item label="Pays" name="enseigne.addresses.pay.id">
+                <Form.Item label="Pays" name="addresses.pay.id">
                   <Select onChange={this.onPaysChange.bind(this)} ref={this.paysRef}>
                     <Select.Option value={false}>Tous</Select.Option>
                     {
@@ -237,7 +237,7 @@ class SearchC extends React.Component {
               </div>
 
               <div style={{display:(this.state.regionList === null || this.state.regionList.length <= 0 ? "none" : "block")}}>
-                <Form.Item label="Régions" name="enseigne.addresses.region.id">
+                <Form.Item label="Régions" name="addresses.region.id">
                   <Select onChange={this.onFilterChange.bind(this)} mode="multiple" placeholder="Régions" ref={this.regionRef}>
                     {
                       this.state.regionList !== null && this.state.regionList.map( n => 

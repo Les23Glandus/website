@@ -28,7 +28,7 @@ componentDidMount() {
     
     return (
         <div className="home-carousel">
-            <AntCarousel >
+            <AntCarousel autoplay>
                 {this.state.loaded && 
                     this.details.map( n => {
                         const contentStyle = {

@@ -14,15 +14,15 @@ class SelectionMini extends React.Component {
     
     return (
       
-      <Card className="selection-card"
+      <Card className="actu-card"
           reduce={this.props.reduce ? true : false}
-          url={"/selections/"+this.props.details.uniquepath}
+          url={"/news/"+this.props.details.uniquepath}
           title={this.props.details.title}
-          subTitle={this.props.details.description}
+          subTitle={new Intl.DateTimeFormat('fr-FR', { dateStyle: 'full' }).format(new Date(this.props.details.date))}
           supTitle={""}
           imageUrl={imageUrl}
           imageTitle={this.props.details.description}
-          more={""}
+          more={<div className="description">{ this.props.details.description }</div>}
       
       ></Card>
     )

@@ -1,8 +1,8 @@
 import React from "react";
 import { withRouter, Link } from "react-router-dom";
 import {  Row, Col, Skeleton  } from "antd";
-import SelectionMini from "./SelectionMini";
 import strapiConnector from "../class/strapiConnector";
+import ActusCard from "./ActusCard";
   
 class SelectionsGrid extends React.Component {
 
@@ -18,18 +18,10 @@ class SelectionsGrid extends React.Component {
   }
 
   loadData() {
-    if( this.props.showAll ) {
-      new strapiConnector().getSelections().then(d => { 
-        this.details = d.sort((a,b) => (b.title > a.title) ? -1 : 0 );
-        this.setState({loaded:true, error:false});
-      } ).catch();
-    } else {
-      new strapiConnector().getChoixSelection().then(d => { 
-        this.details = d;
-        this.setState({loaded:true, error:false});
-      } ).catch();
-    }
-
+    new strapiConnector().getRecentActus(7).then(d => { 
+      this.details = d;
+      this.setState({loaded:true, error:false});
+    } ).catch();
   }
 
   render() {
@@ -37,17 +29,16 @@ class SelectionsGrid extends React.Component {
     return (
         
         <div className="actus-list">
-            <h2>Nos sélections</h2>
+            <h2>Actus Glandus</h2>
             <div>
                 {this.state.loaded === false && <Skeleton active/>}
                 {this.state.loaded && 
                   <Row gutter={[16,16]}>
-                    {!this.props.showAll && this.details.Selections.map( n => <Col xs={24} sm={12} md={8} lg={6} xl={6} key={n.id}><SelectionMini details={n.selection}/></Col> )}
-                    {this.props.showAll && this.details.map( n => <Col xs={24} sm={12} md={8} lg={6} xl={6} key={n.id}><SelectionMini details={n}/></Col> )}
-                    {!this.props.showAll &&
+                    {this.details.map( n => <Col xs={24} sm={12} md={8} lg={6} xl={6} key={n.id}><ActusCard details={n} reduce/></Col> )}
+                    {
                       <Col xs={24} sm={12} md={8} lg={6} xl={6}>
-                        <div className="selection-mini">
-                          <Link to="/selections">See more...</Link>
+                        <div className="actus-mini">
+                          <Link to="/news">See more...</Link>
                         </div>
                       </Col>
                     }

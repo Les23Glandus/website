@@ -2,7 +2,7 @@ import { Skeleton, Timeline } from "antd";
 import React from "react";
 import { withRouter } from "react-router-dom";
 import strapiConnector from "../class/strapiConnector";
-import Actus from "../components/Actus";
+import ActusCard from "../components/ActusCard";
 import EscapeCard from "../components/EscapeCard";
 
   
@@ -74,7 +74,7 @@ class News extends React.Component {
                 <Timeline>
                     {
                         this.actusList.map( n => {
-                            if( n.channel ) return (<Timeline.Item key={"A"+n.id}><Actus reduce details={n}/></Timeline.Item>);
+                            if( n.channel ) return (<Timeline.Item key={"A"+n.id}><ActusCard details={n}/></Timeline.Item>);
                             else return (<Timeline.Item key={"E"+n.id}><EscapeCard date escape={n} enseigne={n.enseigne}/></Timeline.Item>);
                         })
                     }

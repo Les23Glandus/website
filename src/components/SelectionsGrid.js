@@ -42,8 +42,8 @@ class SelectionsGrid extends React.Component {
                 {this.state.loaded === false && <Skeleton active/>}
                 {this.state.loaded && 
                   <Row gutter={[16,16]}>
-                    {!this.props.showAll && this.details.Selections.map( n => <Col xs={24} sm={12} md={8} lg={6} xl={6} key={n.id}><SelectionMini details={n.selection}/></Col> )}
-                    {this.props.showAll && this.details.map( n => <Col xs={24} sm={12} md={8} lg={6} xl={6} key={n.id}><SelectionMini details={n}/></Col> )}
+                    {!this.props.showAll && this.details.Selections.map( n => <Col xs={24} sm={12} md={8} lg={6} xl={6} key={n.id}><SelectionMini details={n.selection} reduce/></Col> )}
+                    {this.props.showAll && this.details.map( n => <Col xs={24} sm={12} md={8} lg={6} xl={6} key={n.id}><SelectionMini details={n} reduce/></Col> )}
                     {!this.props.showAll &&
                       <Col xs={24} sm={12} md={8} lg={6} xl={6}>
                         <div className="selection-mini">

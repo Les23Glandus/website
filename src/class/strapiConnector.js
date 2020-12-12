@@ -238,7 +238,7 @@ class strapiConnector {
       "actus:list":`{
         id
         uniquepath
-        illustration {id formats url}
+        mini {id formats url}
         channel
         date
         description
@@ -249,6 +249,7 @@ class strapiConnector {
       "actus":`{
         id
         uniquepath
+        mini {id formats url}
         illustration {id formats url}
         channel
         date

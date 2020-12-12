@@ -1,66 +1,18 @@
 import React from "react";
-import { Link, withRouter } from "react-router-dom";
-import Note from "./Note";
+import { withRouter } from "react-router-dom";
 import "../css/escapecard.scss";
 import { Tag } from "antd";
+import Card from "./meta/Card";
   
 class EscapeCard extends React.Component {
 
-  constructor(props) {
-    super(props);
-
-    this.picRef = React.createRef();
-  }
-
-  componentDidMount() {
-    this.updateBGY();
-  }
-
-
-  getPageSize() {
-    var win = window,
-      doc = document,
-      docElem = doc.documentElement,
-      body = doc.getElementsByTagName('body')[0],
-      x = win.innerWidth || docElem.clientWidth || body.clientWidth,
-      y = win.innerHeight|| docElem.clientHeight|| body.clientHeight;
-    return {x:x,y:y};
-  };
-
-  updateBGY() {
-    if( this.picRef.current ) {
-      const pos = this.picRef.current.getBoundingClientRect();
-
-      let before = pos.top;
-      let after = this.getPageSize().y - pos.top - pos.height;
-
-      let newposY;
-      if( before <= 0 ) newposY = 20;
-      else if( after <= 0 ) newposY = 80;
-      else newposY = 50 - Math.round( 30 * (after - before) / Math.max(Math.abs(after),Math.abs(before)) );
-
-      this.picRef.current.style.backgroundPositionY = newposY + "%";
-    }
-  }
-
-
   render() {
 
-    let style = {};
+    let imageUrl;
     if( this.props.escape.mini ) {
-      if( this.props.escape.mini.formats.small ) style.backgroundImage = `url(${this.props.escape.mini.formats.small.url})`;
-      else  style.backgroundImage = `url(${this.props.escape.mini.url})`;
-      //else if( this.props.escape.mini.formats.thumbnail ) style.backgroundImage = `url(${this.props.escape.mini.formats.thumbnail.url})`;
+      if( this.props.escape.mini.formats.small ) imageUrl = this.props.escape.mini.formats.small.url
+      else  imageUrl = this.props.escape.mini.url;
     }
-
-
-    window.addEventListener('scroll', (event) => {
-      this.updateBGY();
-    });
-
-    let classname = "";
-    if( this.props.reduce ) classname = " reduce";
-    else classname = " full";
 
     let enseigneuip = this.props.enseigne ? this.props.enseigne.uniquepath : "avis";
 
@@ -72,54 +24,40 @@ class EscapeCard extends React.Component {
         if( addr.pay && regions.indexOf(addr.pay.name) < 0 ) pays.push( addr.pay.name );
       });
     }
+
+    let topinfo;
+    if( pays.length > 0 ) {
+      topinfo = <span className="region">{pays.length > 0 && pays.join(", ")}{regions.length > 0 && (' - '+regions.join(", "))}</span>
+    } 
+    
     
     return (
-        <div className={"escape-card"+classname}>
-            <Link to={"/escapegame/"+enseigneuip+"/"+this.props.escape.uniquepath} 
-              style={style}
-              ref={this.picRef}
-              title={this.props.escape.description}
-              className={"escape-card-mini"+classname}/>
-            
-            <Link to={"/escapegame/"+this.props.enseigne.uniquepath+"/"+this.props.escape.uniquepath}
-              className={"escape-card-details"+classname}
-            >
-              <div className="flexpart-1">
 
-                {
-                  this.props.date &&
-                  <p className="date">{new Intl.DateTimeFormat('fr-FR', { dateStyle: 'full' }).format(new Date(this.props.escape.date))}</p>
-                }
-                {
-                  !this.props.reduce && pays.length > 0 
-                  && 
-                  <p className="region">{pays.length > 0 && pays.join(", ")}{regions.length > 0 && (' - '+regions.join(", "))}</p>
-                }
-                <p className="title">{this.props.escape.name}<span className="rate"><span class='separator'> - </span><Note value={this.props.escape.rate}/></span></p>
-                <p className="enseigne">{this.props.enseigne.name}</p>
-                
-                {!this.props.reduce &&
-                  <div className="tags">
-                    {
-                      this.props.escape.tags && this.props.escape.tags.filter(t => !t.isGold).map(t => {
-                        return <Tag key={t.id}>{t.name}</Tag>
-                      })
-                    } 
-                  </div>
-                }
-                {!this.props.reduce &&
-                  <span>{this.props.escape.nbPlayerMin}-{this.props.escape.nbPlayerMax} joueurs</span>
-                }
-              </div>
-              {!this.props.reduce &&
-                <div className="flexpart-2">
-                  <div className="description">
-                    { this.props.escape.description } 
-                  </div>
-                </div>
+        <Card className="escape-card"
+            reduce={this.props.reduce ? true : false}
+            url={"/escapegame/"+enseigneuip+"/"+this.props.escape.uniquepath}
+            title={this.props.escape.name}
+            subTitle={this.props.enseigne.name}
+            supTitle={topinfo}
+            imageUrl={imageUrl}
+            imageTitle={this.props.escape.description}
+            more={<div className="description">{ this.props.escape.description }</div>}
+        
+        >
+              {
+                this.props.date &&
+                <p className="date">{new Intl.DateTimeFormat('fr-FR', { dateStyle: 'full' }).format(new Date(this.props.escape.date))}</p>
               }
-            </Link>
-        </div>
+              <div className="tags">
+                {
+                  this.props.escape.tags && this.props.escape.tags.filter(t => !t.isGold).map(t => {
+                    return <Tag key={t.id}>{t.name}</Tag>
+                  })
+                } 
+              </div>
+              <span>{this.props.escape.nbPlayerMin}-{this.props.escape.nbPlayerMax} joueurs</span>
+        </Card>
+
     )
   }
 

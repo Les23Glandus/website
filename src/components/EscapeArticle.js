@@ -2,7 +2,7 @@ import { Skeleton, Image, Tag } from "antd";
 import React from "react";
 import { Link, withRouter } from "react-router-dom";
 import strapiConnector from "../class/strapiConnector";
-import Note from "./Note";
+import Note from "./meta/Note";
 import ArticleEnseigne from "./EnseigneArticle";
 import SelectionMini from "./SelectionMini";
 import HtmlHead from "./HtmlHead";

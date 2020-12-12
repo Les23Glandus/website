@@ -1,0 +1,16 @@
+@import '_theme.scss';
+
+.share-link {
+    li {
+        list-style: none;
+        display: inline-flex;
+        padding: 4px;
+        a {
+            font-size: 1.8em;
+        }
+    }
+    p.title {
+        color: $default-darklightcolor;
+        font-size: 1.3em;
+    } 
+}

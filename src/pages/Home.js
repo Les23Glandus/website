@@ -3,6 +3,7 @@ import { withRouter } from "react-router-dom";
 import ActusGrid from "../components/ActusGrid";
 import Carousel from "../components/Carousel";
 import EscapeLatestsTests from "../components/EscapeLatestsTests";
+import Group from "../components/Group";
 import SelectionsGrid from "../components/SelectionsGrid";
 import "../css/home.scss";
 
@@ -20,30 +21,15 @@ class Home extends React.Component {
       <div className="home">
           <Carousel/>
 
-          <EscapeLatestsTests/>
+          <div className="main-content-page">
+            <EscapeLatestsTests/>
 
-          <SelectionsGrid/>
+            <SelectionsGrid/>
 
-          <ActusGrid/>
+            <ActusGrid/>
+          </div>
           
-
-          <br/>
-          <br/>
-          <br/>
-          <br/>
-          <br/>
-          <br/>
-          <br/>
-          <br/>
-          <br/>
-          <br/>
-          <br/>
-          <br/>
-          <br/>
-          <br/>
-          <br/>
-          <br/>
-          <br/>
+          <Group/>
       </div>
     )
   }

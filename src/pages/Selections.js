@@ -14,7 +14,7 @@ class Selections extends React.Component {
   render() {
     
     return (
-      <div>
+      <div className="a-propos main-content-page">
         
         <HtmlHead title={`Nos sélections`}/>
 

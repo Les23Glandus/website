@@ -5,8 +5,52 @@ body {
     font-family: 'Montserrat', sans-serif;
     background-color: $primary-background-color;
     font-size: $default-fontSize;
+
+    a {
+        color: $link-color;
+        &:hover {
+            color: $link-color-hover;
+            text-decoration: underline;
+        }
+    }
+
+    .main-content-page {
+        margin: 10px 100px;
+    }
+
+    .main-footer {
+        @include flex-container;
+        background: #000000;
+        padding: 50px 20px;
+        & > div {
+            margin: 0 30px;
+        }
+        .sitemap li {
+            list-style: none;
+            font-size: 1.3em;
+            &.home a {
+                color: $default-darklightcolor;
+            }
+        }
+    }
 }
 h2 {
     font-size: 1.5em;
     @include bold;
+}
+h3 {
+    font-size: 1.3em;
+    @include bold;
+}
+.flexpart-4 {
+    flex: 4;
+}
+.flexpart-3 {
+    flex: 3;
+}
+.flexpart-2 {
+    flex: 2;
+}
+.flexpart-1 {
+    flex: 1;
 }

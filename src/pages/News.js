@@ -54,7 +54,7 @@ class News extends React.Component {
   render() {
       if( !this.state.loaded ) {
           return (
-            <div>
+            <div className="a-propos main-content-page">
             <br/>
              <br/>
                 <Timeline>
@@ -68,7 +68,7 @@ class News extends React.Component {
           );
       } else {
         return (
-            <div>
+            <div className="a-propos main-content-page">
             <br/>
              <br/>
                 <Timeline>

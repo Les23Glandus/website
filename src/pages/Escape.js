@@ -13,7 +13,7 @@ class Escape extends React.Component {
 
   render() {
     return (
-      <div>
+      <div className="main-content-page">
         <EscapeArticle  key={this.props.match.params.escape} escapeRef={this.props.match.params.escape}/>
       </div>
     )

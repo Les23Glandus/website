@@ -15,7 +15,7 @@ class Enseigne extends React.Component {
   render() {
     
     return (
-      <div>
+      <div className="a-propos main-content-page">
         <EnseigneArticle enseigneRef={this.state.enseigneRef} updathead={true}/>
       </div>
     )

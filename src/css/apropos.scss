@@ -1,0 +1,19 @@
+@import '_theme.scss';
+
+div.a-propos {
+    .article {
+        padding: 30px 50px;
+    }
+
+    .groupe {
+        @include flex-container;
+        .gland {
+            width: 400px;
+            margin: 40px 70px;
+        }
+    }
+
+    .illustrations, .top-illustrations {
+        text-align: center;
+    }
+}

@@ -35,9 +35,9 @@ div.meta-card {
     }
     .meta-card-details {
         &.full {
+            @include flex-container;
             resize: horizontal;
             overflow: hidden;
-            display: flex;
             background: #ffffff;
             border-radius: $default-radius;
             min-height: #{$picheight * $picratio};        
@@ -60,17 +60,6 @@ div.meta-card {
                 @include light;
             }
         }
-
-        .flexpart-3 {
-            flex: 3;
-        }
-        .flexpart-2 {
-            flex: 2;
-        }
-        .flexpart-1 {
-            flex: 1;
-        }
-
         p {
             margin: 0;
         }

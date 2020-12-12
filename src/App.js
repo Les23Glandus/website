@@ -12,6 +12,7 @@ import Selection from './pages/Selection';
 import News from './pages/News';
 import Actu from './pages/Actu';
 import HtmlHead from './components/HtmlHead';
+import APropos from './pages/APropos';
 
 class App extends React.Component {
   render() {
@@ -47,6 +48,9 @@ class App extends React.Component {
                 </Route>
                 <Route path="/news">
                   <News/>
+                </Route>
+                <Route path="/about">
+                  <APropos/>
                 </Route>
                 <Route>
                   <Page404/>

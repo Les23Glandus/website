@@ -5,6 +5,9 @@ $default-radius: 10px;
 $default-darkcolor: #171717;
 $default-darklightcolor: #8c8d8c;
 
+$link-color: #ffffff;
+$link-color-hover: #9e9e9e;
+
 $default-fontSize: 13px;
 
 @mixin bold {
@@ -15,4 +18,11 @@ $default-fontSize: 13px;
 }
 @mixin regular {
     font-weight: 400;
+}
+
+@mixin flex-container {
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+    flex-wrap: wrap;
 }

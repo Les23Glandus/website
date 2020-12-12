@@ -9,7 +9,7 @@ class Actu extends React.Component {
 
   render() {
     return (
-      <div>
+      <div className="main-content-page">
         <HtmlHead title={`News`}/>
         <PageHeader title="Actualité" onBack={() => window.location.href = "/news"}/>
         <Actus actuRef={this.props.match.params.news}/>

@@ -9,8 +9,6 @@ class Card extends React.Component {
   constructor(props) {
     super(props);
     this.picRef = React.createRef(); 
-
-    console.log( this.props );
   }
 
   componentDidMount() {

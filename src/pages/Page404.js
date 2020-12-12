@@ -13,7 +13,7 @@ class Page404 extends React.Component {
   render() {
     
     return (
-      <div>
+      <div className="a-propos main-content-page">
         <Result
           status="404"
           title="404"

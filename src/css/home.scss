@@ -13,4 +13,23 @@ div.home {
         font-size: 0.9em;
         margin: 10px;
     }
+
+    .main-group {
+        @include flex-container;
+        /*justify-content: space-between;*/
+        align-items: center;
+        background: #1f1f1f;
+        margin-top: 150px;
+        & > div {
+            width: 30%;
+            text-align: center;
+        }
+        a {
+            font-size: 1.3em;
+            display: inline-flex;
+            padding: 5px 15px;
+            border: 1px solid $link-color;
+            margin-top: 20px;
+        }
+    }
 }

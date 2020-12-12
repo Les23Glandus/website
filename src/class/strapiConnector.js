@@ -25,6 +25,22 @@ class strapiConnector {
 
 
   /**
+   * A Propos
+   */
+  getAPropos() {
+    return this.fetch("/a-propos"); 
+  }
+  getHomeAPropos() {
+    let body = this.builGQLdSingle("aPropo");
+    body.variables.limit = 1;
+    return this.graphql(body);
+  }
+  getGlanduses() {
+    return this.fetch("/glanduses"); 
+  }
+  
+
+  /**
    * Tags
    */
   getTags() {
@@ -168,7 +184,10 @@ class strapiConnector {
                         else {
                             let d = Object.entries(r.data);
                             if( d.length <= 0 ) reject(null);
-                            if( message.variables.limit === 1 ) resolve( d[0][1][0] );
+                            if( message.variables.limit === 1 ) {
+                              if( typeof( d[0][1].filter ) === "function" ) resolve( d[0][1][0] );
+                              else resolve( d[0][1] );
+                            }
                             else resolve( d[0][1] );
                         }
                     } );
@@ -187,15 +206,23 @@ class strapiConnector {
      * @param  table 
      */
     builGQLdQuery(table, includeCount) {
-        let v = {limit:10, where:{}, start:0, sort:"id"};
-        let count = includeCount ? table.replace(/:.+$/,"")+"Count(where:$where)" : "";
-        let q = `query($limit:Int, $where:JSON, $start:Int, $sort:String){
-            ${table.replace(/:.+$/,"")}(limit:$limit, where:$where, start:$start, sort:$sort) ${this.structure[table]}
-            ${count}
-          }`;
+      let v = {limit:10, where:{}, start:0, sort:"id"};
+      let count = includeCount ? table.replace(/:.+$/,"")+"Count(where:$where)" : "";
+      let q = `query($limit:Int, $where:JSON, $start:Int, $sort:String){
+          ${table.replace(/:.+$/,"")}(limit:$limit, where:$where, start:$start, sort:$sort) ${this.structure[table]}
+          ${count}
+        }`;
 
-        return {query:q, variables:v};
-    }
+      return {query:q, variables:v};
+      }
+      builGQLdSingle(table) {
+          let v = {limit:10, where:{}, start:0, sort:"id"};
+          let q = `query{
+              ${table.replace(/:.+$/,"")} ${this.structure[table]}
+            }`;
+
+          return {query:q, variables:v};
+      }
 
 
 
@@ -222,6 +249,13 @@ class strapiConnector {
       
       "pays:list":`{
         id name regions {id name}
+      }`,
+
+
+      "aPropo":`{
+        title
+        article
+        illustrations { id formats url }
       }`,
 
       

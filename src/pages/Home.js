@@ -23,7 +23,7 @@ class Home extends React.Component {
           <Carousel/>
 
           <div className="main-content-page">
-            <h2>Expériences Immersives</h2>
+            <h2 className="main-subtitle">Expériences Immersives</h2>
             <EscapeBilan/>
             <EscapeLatestsTests/>
 

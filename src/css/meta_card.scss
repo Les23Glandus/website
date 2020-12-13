@@ -14,26 +14,40 @@ div.meta-card {
     }
     &.colored {
         .meta-card-mini {
-            filter: grayscale(100%);
+            filter: grayscale(100%) contrast(30%);
+        }
+        &:hover .meta-card-mini {
+            animation-duration: $default-anim-duration;
+            animation-name: rollonpiccolor;
+            background-size: 110%;
+            filter: grayscale(0%) contrast(50%);
         }
     }
 
-    &:hover {
-        .meta-card-mini {
-            animation-duration: $default-anim-duration;
-            animation-name: rollonpic;
-            background-size: 110%;
-            filter: grayscale(0%);
-        }
+    &:hover .meta-card-mini {
+        animation-duration: $default-anim-duration;
+        animation-name: rollonpic;
+        background-size: 110%;
+        filter: grayscale(0%);
     }
     @keyframes rollonpic {
         from {
             background-size: 100%;
-            filter: grayscale(100%);
+            filter: grayscale(70%);
         }
         to {
             background-size: 110%;
             filter: grayscale(0%);
+        }
+    }
+    @keyframes rollonpiccolor {
+        from {
+            background-size: 100%;
+            filter: grayscale(100%) contrast(30%);
+        }
+        to {
+            background-size: 110%;
+            filter: grayscale(0%) contrast(50%);
         }
     }
 
@@ -73,6 +87,11 @@ div.meta-card {
             text-transform: uppercase;
             span {
                 @include bold;
+            }
+            span.chevron {
+                position: absolute;
+                bottom: 10px;
+                right: 10px;
             }
         }
     }

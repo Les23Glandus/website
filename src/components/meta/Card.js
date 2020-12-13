@@ -1,6 +1,7 @@
 import React from "react";
 import { Link, withRouter } from "react-router-dom";
 import "../../css/meta_card.scss";
+import { RightOutlined } from '@ant-design/icons';
   
 class Card extends React.Component {
 
@@ -56,21 +57,24 @@ class Card extends React.Component {
       pcolor = {"backgroundColor":this.props.color};
     }
 
+    let rd = Math.floor(Math.random() * 12) + 1;
 
+    let imageUrl = this.props.imageUrl;
+    if(!imageUrl) imageUrl = process.env.PUBLIC_URL + "/patterns/Pattern"+(rd<10?"0":"")+rd+".svg";
 
     return (
       <div className={classname.join(" ")}>
 
           <div className={`meta-card-mini ${reduceClassName}`}
               ref={this.picRef}
-              style={{"backgroundImage":`url(${this.props.imageUrl})`}}>
+              style={{"backgroundImage":`url(${imageUrl})`}}>
           </div>
           
           <Link to={this.props.url} 
             className={`meta-card-minilink ${reduceClassName}`}
             style={pcolor}
             title={this.props.imageTitle}>
-              {this.props.bigText && <p><span>{this.props.bigText}</span></p>}
+              {this.props.bigText && <p><span>{this.props.bigText}</span><span className="chevron"><RightOutlined /></span></p>}
           </Link>
 
           <Link to={this.props.url}

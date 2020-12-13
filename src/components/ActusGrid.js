@@ -3,6 +3,7 @@ import { withRouter, Link } from "react-router-dom";
 import {  Row, Col, Skeleton  } from "antd";
 import strapiConnector from "../class/strapiConnector";
 import ActusCard from "./ActusCard";
+import Card from "./meta/Card";
   
 class SelectionsGrid extends React.Component {
 
@@ -33,16 +34,25 @@ class SelectionsGrid extends React.Component {
             <div>
                 {this.state.loaded === false && <Skeleton active/>}
                 {this.state.loaded && 
-                  <Row gutter={[16,16]}>
-                    {this.details.map( n => <Col xs={24} sm={12} md={8} lg={6} xl={6} key={n.id}><ActusCard details={n} reduce/></Col> )}
+                  <div className="flexgrid grid-actus">
+
+                    {this.details.map( n => <ActusCard details={n} reduce/> )}
                     {
-                      <Col xs={24} sm={12} md={8} lg={6} xl={6}>
-                        <div className="actus-mini">
-                          <Link to="/news">See more...</Link>
-                        </div>
-                      </Col>
+                      
+                        <Card className="seemore-card"
+                          reduce={true}
+                          url={"/escapegames"}
+                          bigText={"Toutes nos actus"}
+                          subTitle={""}
+                          supTitle={""}
+                          imageUrl={null}
+                          imageTitle={""}
+                          more={""}
+                          color={null}
+                          
+                          ></Card>
                     }
-                  </Row>
+                  </div>
                 }
             </div>
         </div>

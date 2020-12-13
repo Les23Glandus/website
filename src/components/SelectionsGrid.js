@@ -3,6 +3,7 @@ import { withRouter, Link } from "react-router-dom";
 import {  Row, Col, Skeleton  } from "antd";
 import SelectionMini from "./SelectionMini";
 import strapiConnector from "../class/strapiConnector";
+import Card from "./meta/Card";
   
 class SelectionsGrid extends React.Component {
 
@@ -41,17 +42,25 @@ class SelectionsGrid extends React.Component {
             <div>
                 {this.state.loaded === false && <Skeleton active/>}
                 {this.state.loaded && 
-                  <Row gutter={[16,16]}>
-                    {!this.props.showAll && this.details.Selections.map( n => <Col xs={24} sm={12} md={8} lg={6} xl={6} key={n.id}><SelectionMini details={n.selection} reduce/></Col> )}
-                    {this.props.showAll && this.details.map( n => <Col xs={24} sm={12} md={8} lg={6} xl={6} key={n.id}><SelectionMini details={n} reduce/></Col> )}
+                  
+                  <div className="flexgrid grid-actus">
+                    {!this.props.showAll && this.details.Selections.map( n => <SelectionMini details={n.selection} reduce/> )}
+                    {this.props.showAll && this.details.map( n => <SelectionMini details={n} reduce/> )}
                     {!this.props.showAll &&
-                      <Col xs={24} sm={12} md={8} lg={6} xl={6}>
-                        <div className="selection-mini">
-                          <Link to="/selections">See more...</Link>
-                        </div>
-                      </Col>
+                        <Card className="seemore-card"
+                            reduce={true}
+                            url={"/selections"}
+                            bigText={"Toutes nos sélections"}
+                            subTitle={""}
+                            supTitle={""}
+                            imageUrl={null}
+                            imageTitle={""}
+                            more={""}
+                            color={null}
+                        
+                        ></Card>
                     }
-                  </Row>
+                  </div>
                 }
             </div>
         </div>

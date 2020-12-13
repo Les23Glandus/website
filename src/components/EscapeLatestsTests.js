@@ -3,6 +3,7 @@ import { withRouter, Link } from "react-router-dom";
 import {  Row, Col, Skeleton  } from "antd";
 import strapiConnector from "../class/strapiConnector";
 import EscapeCard from "./EscapeCard";
+import Card from "./meta/Card";
   
 class EscapeLatestsTests extends React.Component {
 
@@ -37,18 +38,25 @@ class EscapeLatestsTests extends React.Component {
             <h3>Les nouveaux tests</h3>
             <div>
                 {this.lastescapes && 
-                  <Row gutter={[16,16]}>
+                  <div className="flexgrid grid-escape">
                     {
                       this.lastescapes.map( n => 
-                        <Col key={n.id} xs={24} sm={12} md={6} lg={6} xl={6}><EscapeCard reduce escape={n} enseigne={n.enseigne}/></Col>
+                        <EscapeCard reduce escape={n} enseigne={n.enseigne}/>
                       )
                     }
-                    <Col xs={24} sm={12} md={6} lg={6} xl={6}>
-                        <div className="vignette">
-                            <Link to="/escapegame">See more...</Link>
-                        </div>
-                    </Col>
-                  </Row>
+                        <Card className="seemore-card"
+                            reduce={true}
+                            url={"/escapegames"}
+                            bigText={"Toutes les expériences immersives"}
+                            subTitle={""}
+                            supTitle={""}
+                            imageUrl={null}
+                            imageTitle={""}
+                            more={""}
+                            color={null}
+                        
+                        ></Card>
+                  </div>
                 }
                 {!this.lastescapes && <Skeleton active title={false} paragraph={true}/>}
             </div>

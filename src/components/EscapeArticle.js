@@ -256,7 +256,7 @@ class EscapeArticle extends React.Component {
             <div>
               <h3>Dans nos sélections</h3>
                 {
-                  this.details.selections.map( n => <SelectionMini key={n.id} details={n}/> )
+                  this.details.selections.map( n => <SelectionMini reduce key={n.id} details={n}/> )
                 }
             </div>
           }

@@ -22,12 +22,6 @@ class EscapeLatestsTests extends React.Component {
         this.setState({loaded:true});
       }
     ).catch(e => this.setState({error:true}));
-
-    strapi.getRealisation().then(
-      d => {
-        this.setState({realisation:d});
-      }
-    ).catch(e => this.setState({error:true}));
   }
 
   componentDidMount() {
@@ -40,16 +34,7 @@ class EscapeLatestsTests extends React.Component {
     return (
         
         <div className="latest-ei-tests">
-            <h2>Les derniers tests</h2>
-            {this.state.realisation &&
-              <div className="realisation">
-                Au cours de nos {this.state.realisation.count} escapes, 
-                nous avons sauvé le monde {this.state.realisation.saveWorld} fois et sauvé notre peau {this.state.realisation.saveUs} fois. 
-                Nous avons déjoué {this.state.realisation.rituals} rituels sataniques et {this.state.realisation.plan} plans machiavéliques. 
-                Nous pouvons mentionner également {this.state.realisation.timeTravels} voyages dans le temps, {this.state.realisation.tresors} trésors trouvés et {this.state.realisation.prisons} séjours derrière les barreaux… bref, 
-                nous avons une vie trépidante !
-              </div>
-            }
+            <h3>Les nouveaux tests</h3>
             <div>
                 {this.lastescapes && 
                   <Row gutter={[16,16]}>

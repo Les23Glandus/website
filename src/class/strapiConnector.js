@@ -233,6 +233,7 @@ class strapiConnector {
         article
         mini {id url formats}
         image {id url formats} 
+        color
         description
         escapes {
           id name uniquepath rate isOpen date
@@ -404,7 +405,7 @@ class strapiConnector {
             addresses {pay {name} region {name} } 
             escapes { id name uniquepath date nbPlayerMin nbPlayerMax tags {id name isGold} }
           }    
-          selections {id title description uniquepath mini {id url formats}}
+          selections {id title description uniquepath color mini {id url formats}}
           avantapres {
             id
             when

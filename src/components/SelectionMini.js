@@ -12,17 +12,25 @@ class SelectionMini extends React.Component {
       else  imageUrl = this.props.details.mini.url;
     }
     
+    let reg = /_(.+)$/;
+    let color;
+    let m = reg.exec( this.props.details.color);
+    if( m ) {
+      color = "#" + m[1];
+    }
+
     return (
       
       <Card className="selection-card"
           reduce={this.props.reduce ? true : false}
           url={"/selections/"+this.props.details.uniquepath}
-          title={this.props.details.title}
-          subTitle={this.props.details.description}
+          bigText={this.props.details.title}
+          subTitle={""}
           supTitle={""}
           imageUrl={imageUrl}
           imageTitle={this.props.details.description}
           more={""}
+          color={color}
       
       ></Card>
     )

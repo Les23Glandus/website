@@ -8,10 +8,12 @@ $default-darklightcolor: #8c8d8c;
 $link-color: #ffffff;
 $link-color-hover: #9e9e9e;
 
-$default-fontSize: 13px;
+$default-anim-duration: 0.5s;
+
+$default-fontSize: 14px;
 
 @mixin bold {
-    font-weight: 600;
+    font-weight: 700;
 }
 @mixin light {
     font-weight: 300;

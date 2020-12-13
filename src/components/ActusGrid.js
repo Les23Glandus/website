@@ -29,7 +29,7 @@ class SelectionsGrid extends React.Component {
     return (
         
         <div className="actus-list">
-            <h2>Actus Glandus</h2>
+            <h3>Actus Glandus</h3>
             <div>
                 {this.state.loaded === false && <Skeleton active/>}
                 {this.state.loaded && 

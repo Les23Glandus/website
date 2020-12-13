@@ -47,20 +47,32 @@ class Card extends React.Component {
   }
 
   render() {
+    let pcolor = {};
     let reduceClassName = this.props.reduce ? "reduce" : "full";
     let classname = ["meta-card", reduceClassName];
     if( this.props.className ) classname.push( this.props.className );
+    if( this.props.color ) {
+      classname.push( "colored" );
+      pcolor = {"backgroundColor":this.props.color};
+    }
 
 
 
     return (
       <div className={classname.join(" ")}>
-          <Link to={this.props.url} 
-            style={{"backgroundImage":`url(${this.props.imageUrl})`}}
-            ref={this.picRef}
-            title={this.props.imageTitle}
-            className={`meta-card-mini ${reduceClassName}`}/>
+
+          <div className={`meta-card-mini ${reduceClassName}`}
+              ref={this.picRef}
+              style={{"backgroundImage":`url(${this.props.imageUrl})`}}>
+          </div>
           
+          <Link to={this.props.url} 
+            className={`meta-card-minilink ${reduceClassName}`}
+            style={pcolor}
+            title={this.props.imageTitle}>
+              {this.props.bigText && <p><span>{this.props.bigText}</span></p>}
+          </Link>
+
           <Link to={this.props.url}
             className={`meta-card-details ${reduceClassName}`}
           >
@@ -95,5 +107,7 @@ Card.defaultProps = {
   subTitle: "",
   supTitle:"",
   reduce:true,
+  colorEffect:null,
+  bigText:false,
 }
 export default withRouter(Card);

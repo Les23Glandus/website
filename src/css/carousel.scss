@@ -7,13 +7,14 @@ div.home-carousel {
     }
 
     .text, .illustration {
-        height: 350px;
+        height: 600px;
         width: 100%;
         color: #ffffff;
     }
     .text {
         position: absolute;
         text-align: center;
+        text-transform: uppercase;
         top: 0;
         left: 0;
         @include flex-container;
@@ -24,7 +25,7 @@ div.home-carousel {
             background: linear-gradient(0deg, $primary-background-color 0%, $primary-background-color 10%, rgba(255,255,255,0) 100%);
             width: 100%;
             font-size: 2em;
-            padding-top: 50px;
+            padding-top: 200px;
         }
     }
     .illustration {

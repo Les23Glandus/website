@@ -37,7 +37,7 @@ class SelectionsGrid extends React.Component {
     return (
         
         <div className="selections-list">
-            <h2>Nos sélections</h2>
+            <h3>Nos sélections</h3>
             <div>
                 {this.state.loaded === false && <Skeleton active/>}
                 {this.state.loaded && 

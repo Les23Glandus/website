@@ -259,7 +259,7 @@ class EscapeArticle extends React.Component {
                 <div className="longtext">
                   {
                     this.details.audio && 
-                    <audio controls>
+                    <audio controls controlsList="nodownload">
                       <source src={this.details.audio.url} type="audio/mpeg"/>
                     </audio>
                   }

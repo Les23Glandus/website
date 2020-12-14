@@ -4,6 +4,18 @@ import Card from "./meta/Card";
   
 class SelectionMini extends React.Component {
 
+  static mapColor = {"Black":"#00000082",
+                    "Gold":"#C08A0082",
+                    "Red":"#C0000082",
+                    "Orange":"#C05C0082",
+                    "Green":"#00C03682",
+                    "Aqua":"#00C09E82",
+                    "Cyan":"#0092C082",
+                    "Blue":"#0013C082",
+                    "Purple":"#5500C082",
+                    "Pink":"#BC00C082",
+                  };
+
   render() {
 
     let imageUrl;
@@ -12,11 +24,9 @@ class SelectionMini extends React.Component {
       else  imageUrl = this.props.details.mini.url;
     }
     
-    let reg = /_(.+)$/;
     let color;
-    let m = reg.exec( this.props.details.color);
-    if( m ) {
-      color = "#" + m[1];
+    if( this.props.details.color && SelectionMini.mapColor[ this.props.details.color ] ) {
+      color = SelectionMini.mapColor[ this.props.details.color ];
     }
 
     return (

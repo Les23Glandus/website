@@ -189,7 +189,7 @@ class EscapeArticle extends React.Component {
           {
           this.details.illustration && 
           <div className="article-illustration top-illustration" title={this.details.description} style={{backgroundImage:`url(${illusUrl})`}} />
-        }
+          }
 
         <div className="article-container article-escape">
           <div className="glandus-or">

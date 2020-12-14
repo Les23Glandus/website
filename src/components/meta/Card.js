@@ -80,7 +80,7 @@ class Card extends React.Component {
           <Link to={this.props.url}
             className={`meta-card-details ${reduceClassName}`}
           >
-            <div className="flexpart-1">
+            <div className="flexpart-left">
               {
                 !this.props.reduce &&
                 <p className="sup-title">{this.props.supTitle}</p>

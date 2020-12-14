@@ -4,6 +4,9 @@ import { withRouter } from "react-router-dom";
 import strapiConnector from "../class/strapiConnector";
 import EscapeCard from "../components/EscapeCard";
 import HtmlHead from "./HtmlHead";
+import TopIllustration from './meta/TopIllustration';
+import '../css/selection.scss';
+import SelectionMini from "./SelectionMini";
 
   
 class Selection extends React.Component {
@@ -19,7 +22,6 @@ class Selection extends React.Component {
   loadDetails() {  
     new strapiConnector().getSelectionByRef(this.props.selectionRef).then( d => {
         this.details = d;
-        this.loading = false;
         this.setState({loaded:true, uref:this.details.uniquepath});
       }).catch(e => {this.setState({error:true});if( typeof(this.props.onError) === "function" ) this.props.onError();} );
   }
@@ -32,14 +34,21 @@ class Selection extends React.Component {
     
     if( !this.state.loaded ) {
       return (
-        <div>
-            <h2><Skeleton paragraph={false}/></h2>
-            <Skeleton active/>
-            
-            <div>
-              <h2>Les salles</h2>
-              <Skeleton active/>
+        <div class="selection-main">
+          <TopIllustration/>
+          <div className="article-container article-selection">
+
+            <div className="article-part">
+              <div className="left">
+                <Skeleton.Image />
+              </div>
+              <div className="right">
+                  <div className="longtext">
+                    <Skeleton active/>
+                  </div>
+              </div>
             </div>
+          </div>
         </div>
       )
     } else {
@@ -49,8 +58,7 @@ class Selection extends React.Component {
       {
         "@context":"https://schema.org",
         "@type":"ItemList",
-        "itemListElement":[
-        ]
+        "itemListElement":[]
       }
       
       this.details.escapes.forEach( (n,i) =>  {
@@ -69,18 +77,58 @@ class Selection extends React.Component {
       });
       
       return (
-        <div>
+        <div class="selection-main">
             <HtmlHead title={`Nos sélections - ${this.details.title}`}>
                 <script type="application/ld+json">{JSON.stringify(jsonld)}</script>
             </HtmlHead>
-            <h2>{this.details.title}</h2>
-            {this.details.article}
-            
+
+
             {
-              this.details.escapes.length &&
-              <div>
-                <h2>Les salles</h2>
-                {this.details.escapes.map( n => <EscapeCard key={n.id} enseigne={n.enseigne} escape={n}/>)}
+              this.details.image && 
+              <div className="article-illustration top-illustration" title={this.details.description} style={{backgroundImage:`url(${this.details.image.url})`}} />
+            }
+            {
+              !this.details.image && 
+              <TopIllustration/>
+            }
+            <div className="article-container article-selection">
+
+              <div className="article-part">
+                <div className="left">
+                    <div className="logo-area">
+                        {
+                          this.details.mini && 
+                          <SelectionMini details={this.details} reduce/>
+                        }
+                    </div>
+                </div>
+                <div className="right">
+                    <h2>{this.details.title}</h2> 
+                    <div>
+                      {this.details.description && this.details.description}  
+                    </div>
+                </div>
+              </div>
+
+              {
+                this.details.article && 
+                <div className="article-part">
+                  <div className="left">
+                    <h3>Notre sélection</h3>
+                  </div>
+                  <div className="right">
+                      <div>{this.details.article}</div>
+                  </div>
+                </div>
+              }
+
+            </div>
+
+            {
+              this.details.escapes.length > 0 
+              &&
+              <div className="escpae-include">
+                {this.details.escapes.filter( n => n.id !== parseInt(this.props.hide)).map(n => <EscapeCard key={n.id} escape={n} enseigne={this.details}/>)}
               </div>
             }
 

@@ -238,6 +238,7 @@ class strapiConnector {
         escapes {
           id name uniquepath rate isOpen date
           nbPlayerMin
+          description
           nbPlayerMax
           mini {id url formats} 
           tags {id name isMention isGold description}  

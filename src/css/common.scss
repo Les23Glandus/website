@@ -77,8 +77,11 @@ body {
             background-color: transparent;
             text-decoration: none;
         }
-        .ant-menu-dark .ant-menu-item-selected > a, .ant-menu-dark .ant-menu-item-selected > span > a, .ant-menu-dark .ant-menu-item-selected > a:hover, .ant-menu-dark .ant-menu-item-selected > span > a:hover {
-            color: $link-color;
+        .ant-menu-dark .ant-menu-item-selected > a
+        , .ant-menu-dark .ant-menu-item-selected > span > a
+        , .ant-menu-dark .ant-menu-item-selected > a:hover
+        , .ant-menu-dark .ant-menu-item-selected > span > a:hover {
+            color: $link-color-hover;
             text-decoration: none;
         }
         .ant-menu-dark .ant-menu-item, .ant-menu-dark .ant-menu-item-group-title, .ant-menu-dark .ant-menu-item > a, .ant-menu-dark .ant-menu-item > span > a {

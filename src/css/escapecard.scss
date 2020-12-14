@@ -2,13 +2,16 @@
 
 div.escape-card {
     &.full span.note {
-        margin: 10px 20px 0 0;
+        margin: 10px 20px 0 20px;
         font-size: 1em;
     }
     span.note {
         font-size: 1.5em;
         float: right;
         margin: 3px 16px 0 0;
+    }
+    .flexpart-left {
+        min-width: 400px;
     }
     .meta-card-details {
         .tags {

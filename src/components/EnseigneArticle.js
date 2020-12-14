@@ -4,6 +4,7 @@ import { withRouter } from "react-router-dom";
 import strapiConnector from "../class/strapiConnector";
 import EscapeCard from "./EscapeCard";
 import HtmlHead from "./HtmlHead";
+import "../css/enseigneArticle.scss";
 
   
 class EnseigneArticle extends React.Component {
@@ -124,7 +125,7 @@ class EnseigneArticle extends React.Component {
   
 
       return (
-        <div>
+        <div class="enseigne-main">
             {
               this.props.updathead !== false &&
               <HtmlHead title={this.details.name}>
@@ -136,52 +137,42 @@ class EnseigneArticle extends React.Component {
                   <script type="application/ld+json">{JSON.stringify(jsonld)}</script>
               </HtmlHead>
             }
-            <h2>{this.details.name}</h2>
+            
+            <div className="article-container article-enseigne">
+
+              <div className="article-part">
+                <div className="left">
+                    <div>
+                        {this.details.logo && <img src={this.details.logo.formats.thumbnail.url} alt={this.details.name}/>}
+                    </div>
+                </div>
+                <div className="right">
+                    <h2>{this.details.name}</h2> 
+                    
+                    {this.details.introduction && this.details.introduction}
+                </div>
+              </div>
+              
+              
+              <div className="article-part">
+                <div className="left">
+                  <h3>Notre expérience</h3>
+                </div>
+                <div className="right">
+                    <div>{this.details.ourExperience}</div>
+                </div>
+            </div>
           
-              {!this.state.reduce &&
-                  <div>
-                      <div>
-                          {this.details.logo && <img src={this.details.logo.formats.thumbnail.url} alt={this.details.name}/>}
-                          {this.details.introduction && this.details.introduction}
-                      </div>
-                      {this.details.ourExperience && <div>
-                          <h3>Notre expérience</h3>
-                          <div>{this.details.ourExperience}</div>
-                      </div>}
-                      
-                  </div>
-              }
-              {this.state.reduce &&
-                  <div>
-                      {this.details.logo && <img src={this.details.logo.formats.thumbnail.url} alt={this.details.name}/>}
-                      {this.details.ourExperience && <div>
-                          <h3>Notre expérience</h3>
-                          <div>{this.details.ourExperience}</div>
-                      </div>}
-                      <div>
-                          <button onClick={(e) => {this.setState({"reduce":false}); e.preventDefault();}}>Expand...</button>
-                      </div>
-                  </div>
-              }
-  
+          </div>
   
             {
               this.details.escapes.length > 0 
               &&
-              <div>
-                <h3>Salles testées</h3>
-    
-                <div>
-                  {this.details.escapes.map(n => <EscapeCard key={n.id} escape={n} enseigne={this.details}/>)}
-                </div>
+              <div className="escpae-include">
+                {this.details.escapes.map(n => <EscapeCard key={n.id} escape={n} enseigne={this.details}/>)}
               </div>
             }
   
-            {!this.state.reduce &&
-              <div>
-                  <h3>Carte</h3>
-              </div>
-            }
         </div>
       )
 

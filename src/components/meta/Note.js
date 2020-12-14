@@ -5,12 +5,12 @@ class Note extends React.Component {
 
   render() {
 
-    //const desc = ['Nul', 'Bof', 'Bien', 'Trés bien', 'Excellente'];
+    const desc = ['Nul', 'Bof', 'Bien', 'Trés bien', 'Excellente'];
 
     let v = this.props.value ? this.props.value : 3;
     
     return (
-        <span>{v}</span>
+        <span className="note" title={desc[Math.floor(v)]}>{v}<i>/5</i></span>
     )
   }
 

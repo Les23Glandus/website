@@ -6,6 +6,9 @@ import Note from "./meta/Note";
 import ArticleEnseigne from "./EnseigneArticle";
 import SelectionMini from "./SelectionMini";
 import HtmlHead from "./HtmlHead";
+import '../css/article.scss';
+import '../css/escapeArticle.scss';
+import Card from "./meta/Card";
 
   
 class EscapeArticle extends React.Component {
@@ -154,6 +157,15 @@ class EscapeArticle extends React.Component {
     if( this.details.illustration ) jsonld["image"].push( window.location.origin + this.details.illustration.url);
     if( this.details.mini ) jsonld["image"].push( window.location.origin + this.details.mini.url);
 
+    let pays = [];
+    let regions = [];
+    if( this.details.addresses && this.details.addresses.length > 0 ) {
+      this.details.addresses.forEach(addr => {
+        if( addr.region && regions.indexOf(addr.region.name) < 0 ) regions.push( addr.region.name );
+        if( addr.pay && regions.indexOf(addr.pay.name) < 0 ) pays.push( addr.pay.name );
+      });
+    }
+
     return (
       <div>
           <HtmlHead title={`${this.details.name}` + (this.details.enseigne ? ` - ${this.details.enseigne.name}` : "")}>
@@ -165,105 +177,174 @@ class EscapeArticle extends React.Component {
               <script type="application/ld+json">{JSON.stringify(jsonld)}</script>
           </HtmlHead>
 
+        {
+          this.details.illustration && 
+          <div className="article-illustration" title={this.details.description} style={{backgroundImage:`url(${this.details.illustration.url})`}} />
+        }
+
+        <div className="article-container article-escape">
+          <div className="glandus-or">
+            {
+              this.details.tags.filter(t => t.isGold).map(t => {
+                  return <p key={t.id}>{t.name}</p>
+              })
+            }
+          </div>
+
+          <div className="article-part">
+            <div className="left">
+              {
+                this.details.mini && 
+                <Card url="#" imageUrl={this.details.mini.url} imageTitle={this.details.description}/>
+              }
+            </div>
+            <div className="right">
+              
+                    <div className="title-flex">
+                      <div>
+                        {pays.length > 0 && <p className="region">{pays.length > 0 && pays.join(", ")}{regions.length > 0 && (' - '+regions.join(", "))}</p>}
+                        <h2>{this.details.name}</h2>
+                        {this.details.enseigne && 
+                          <p>Chez <Link to={"/escapegame/"+this.details.enseigne.uniquepath}>{this.details.enseigne.name}</Link></p>
+                        }
+                      </div>
+                      <div>
+                        <Note value={this.details.rate}/> 
+                      </div>
+                    </div>
+
+                  <div className="tags-line">
+                    {this.details.nbPlayerMax === this.details.nbPlayerMin && this.details.nbPlayerMin === 1 && <Tag>{this.details.nbPlayerMin} joueur</Tag>}
+                    {this.details.nbPlayerMax === this.details.nbPlayerMin && this.details.nbPlayerMin >= 1 && <Tag>{this.details.nbPlayerMin} joueurs</Tag>}
+                    {this.details.nbPlayerMax !== this.details.nbPlayerMin && <Tag>{this.details.nbPlayerMin} à {this.details.nbPlayerMax} joueurs</Tag >}
+                    {
+                      this.state.loaded && this.details.tags.filter(t => !t.isMention).map(t => {
+                        return <Tag key={t.id}>{t.name}</Tag>
+                      })
+                    }
+                    {
+                      this.state.loaded && this.details.tags.filter(t => t.isMention).map(t => {
+                          return <Tag key={t.id}>{t.name}</Tag>
+                      })
+                    }
+                  </div>
+
+
+
+
+              
+                  {
+                    this.details.scenario && 
+                    <div className="longtext scenario">{this.details.scenario}</div>
+                  }
+            </div>
+          </div>
+
           {
-            this.details.illustration &&
-            <img title={this.details.description} alt={this.details.description} src={this.details.illustration.url}/>
+            this.details.story &&
+            <div className="article-part">
+              <div className="left">
+                <h3>Notre Histoire</h3>
+              </div>
+              <div className="right">
+                <div className="longtext">
+                  {this.details.story}
+                </div>
+              </div>
+            </div>
           }
 
-          <h2>{this.details.name}</h2>
-          {this.details.enseigne && 
-            <p>Chez <Link to={"/escapegame/"+this.details.enseigne.uniquepath}>{this.details.enseigne.name}</Link></p>
-          }
-          <Note value={this.details.rate}/>
 
-        <div>
-          {this.details.nbPlayerMax === this.details.nbPlayerMin && this.details.nbPlayerMin === 1 && <span>Pour {this.details.nbPlayerMin} joueur</span>}
-          {this.details.nbPlayerMax === this.details.nbPlayerMin && this.details.nbPlayerMin >= 1 && <span>A {this.details.nbPlayerMin} joueurs</span>}
-          {this.details.nbPlayerMax !== this.details.nbPlayerMin && <span>De {this.details.nbPlayerMin} à {this.details.nbPlayerMax} joueurs</span>}
+          
+          {
+            ( this.details.lesPlus || this.details.lesPlus ) && 
+            <div className="article-highlight">
+              {
+                this.details.lesPlus && 
+                <div className="article-part">
+                  <div className="left">
+                    <h3>Les plus</h3>
+                  </div>
+                  <div className="right">
+                      <div className="longtext">
+                        {this.details.lesPlus}
+                      </div>
+                  </div>
+                </div>
+              }
+              {
+                this.details.lesMoins && 
+                <div className="article-part">
+                  <div className="left">
+                    <h3>Les moins</h3>
+                  </div>
+                  <div className="right">
+                      <div className="longtext">
+                        {this.details.lesMoins}
+                      </div>
+                  </div>
+                </div>
+              }
+            </div>
+          }
+
+
+          {this.details.avantapres.length > 0 &&
+            <div className="article-part">
+              <div className="left">
+                <h3>Avant / Aprés</h3>
+              </div>
+              <div className="right avantapres">
+                {this.details.avantapres.map( (n,i) => {
+                  let rot = ["-4deg","3deg","-1deg","10deg"];
+                  return (
+                    <Image
+                      style={{"transform":`rotate(${rot[ i % rot.length ]})`}}
+                      key={n.id}
+                      width={300}
+                      src={n.image.url}
+                      title={n.when}
+                      placeholder={
+                        <Image
+                          src={n.image.formats.thumbnail.url}
+                          width={200}
+                        />
+                      }
+                      />
+                  )}
+                )}
+              </div>
+            </div>
+          }
+          <div className="article-part end">
+            <div className="left">
+              &nbsp;
+            </div>
+            <div className="right">
+              &nbsp;
+            </div>
+          </div>
         </div>
 
-          <div>
-            Mentions : 
-            {
-              this.state.loaded && this.details.tags.filter(t => t.isMention).map(t => {
-                  return <Tag key={t.id}>{t.name}</Tag>
-              })
-            }
+
+
+
+          
+          
+        {this.details.selections && this.details.selections.length > 0 && 
+          <div className="article-follower article-selections">
+            <h3>Présente dans les sélections suivantes</h3>
+              {
+                this.details.selections.map( n => <SelectionMini reduce key={n.id} details={n}/> )
+              }
           </div>
+        }
 
-          <div>
-            Tags : 
-            {
-              this.state.loaded && this.details.tags.filter(t => !t.isMention).map(t => {
-                  return <Tag key={t.id}>{t.name}</Tag>
-              })
-            }
-          </div>
-
-          {
-            this.details.scenario && 
-            <div>
-              <h3>Scénario</h3>
-              <div>{this.details.scenario}</div>
-            </div>
-          }
-          
-          {
-            this.details.story && 
-            <div>
-              <h3>Notre histoire</h3>
-              <div>{this.details.story}</div>
-            </div>
-          }
-          
-          {
-            this.details.lesPlus && 
-            <div>
-              <h3>Les plus</h3>
-              <div>{this.details.lesPlus}</div>
-            </div>
-          }
-          
-          {
-            this.details.lesMoins && 
-            <div>
-              <h3>Les moins</h3>
-              <div>{this.details.lesMoins}</div>
-            </div>
-          }
-          
-          {this.details.avantapres.length > 0 &&
-            <div>
-              <h3>Avant / Apres</h3>
-              {this.details.avantapres.map( n => 
-                <Image
-                  key={n.id}
-                  width={300}
-                  src={n.image.url}
-                  title={n.when}
-                  placeholder={
-                    <Image
-                      src={n.image.formats.thumbnail.url}
-                      width={200}
-                    />
-                  }
-                  />
-              )}
-            </div>
-          }
-          
-          {this.details.selections && this.details.selections.length > 0 && 
-            <div>
-              <h3>Dans nos sélections</h3>
-                {
-                  this.details.selections.map( n => <SelectionMini reduce key={n.id} details={n}/> )
-                }
-            </div>
-          }
-
-          {this.details.enseigne && 
+        {this.details.enseigne && 
+          <div className="article-follower zoning">
             <ArticleEnseigne reduce={true} enseigneID={this.details.enseigne.id} updathead={false}/>
-          }
+          </div>
+        }
       </div>
     )
   }

@@ -286,7 +286,7 @@ class SearchC extends React.Component {
                   </Form.Item>
                 )
               }
-              <Divider orientation="left">Glands d'Or</Divider>
+              <Divider orientation="left">Glandus d'Or</Divider>
               <div>
                 <Form.Item value="" name="gold">
                   <Select onChange={this.onFilterChange.bind(this)} mode="multiple">

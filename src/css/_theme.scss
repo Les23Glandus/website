@@ -8,9 +8,16 @@ $default-darklightcolor: #8c8d8c;
 $link-color: #ffffff;
 $link-color-hover: #9e9e9e;
 
+$zoning-background: #2c2c2c;
+
 $default-anim-duration: 0.5s;
 
 $default-fontSize: 14px;
+
+/* Card setup */
+$picheight: 210px;
+$picratio: 16/9;
+/*****/
 
 @mixin bold {
     font-weight: 700;
@@ -27,4 +34,8 @@ $default-fontSize: 14px;
     justify-content: center;
     flex-direction: row;
     flex-wrap: wrap;
+}
+
+@mixin shadow {
+    box-shadow: 3px 3px 15px 5px #13131330;
 }

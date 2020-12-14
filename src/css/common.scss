@@ -24,6 +24,16 @@ body {
     }
 
 
+    img.ant-image-img {
+        cursor: pointer;
+    }
+
+    .zoning {
+        background: $zoning-background;
+        padding-top: 60px !important;
+        padding-bottom: 60px !important;
+    }
+
     .main-header {
         position: relative;
         height: 100px;
@@ -47,7 +57,7 @@ body {
         }
         li a {
             text-transform: uppercase;
-            font-size: 1.2em;
+            font-size: 1.18em;
         }
 
     }

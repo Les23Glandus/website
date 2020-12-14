@@ -8,6 +8,11 @@ import Page500 from "./Page500";
   
 class Actu extends React.Component {
 
+  constructor(props) {
+    super(props);
+    this.state = {error:false};
+  }
+  
   render() {
     if( this.state.error ) {
       return ( <Page500/> )

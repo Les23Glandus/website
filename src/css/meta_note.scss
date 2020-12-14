@@ -3,9 +3,9 @@
 }
 
 span.note {
-    @include gland-color(black);
+    @include gland-color("%23000");
     &.light {
-        @include gland-color(white);
+        @include gland-color("%23FFF");
     }
     background-position: 100% 50%;
     background-repeat: no-repeat;

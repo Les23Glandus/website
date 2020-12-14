@@ -45,7 +45,7 @@ class EscapeLatestsTests extends React.Component {
                     }
                         <Card className="seemore-card"
                             reduce={true}
-                            url={"/escapegames"}
+                            url={"/escapegame"}
                             bigText={"Toutes les expériences immersives"}
                             subTitle={""}
                             supTitle={""}

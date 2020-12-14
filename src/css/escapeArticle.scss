@@ -1,19 +1,11 @@
 @import '_theme.scss';
 
 
-div.article-follower {
-    top:-130px;
-}
-
-
 div.article-selections {
  margin-bottom: 60px;       
 }
 
 div.article-container {
-    &.article-escape {
-        top:-130px;
-    }
     &.article-enseigne {
         margin: 0;
     }
@@ -48,6 +40,7 @@ div.article-container {
     div.title-flex {
         @include flex-container;
         justify-content: space-between;
+        align-items: center;
         .note {
             font-size: 2.5em;
             margin-right: 30px;

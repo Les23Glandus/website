@@ -23,7 +23,6 @@ body {
         }
     }
 
-
     img.ant-image-img {
         cursor: pointer;
     }
@@ -37,7 +36,16 @@ body {
     .main-header {
         position: relative;
         height: 100px;
+        @include flex-container;
+        justify-content: space-between;
+        flex-wrap: nowrap;
+        align-items: center;
+        
         h1 {
+            display: block;
+            position: relative;
+            width: 300px;
+            height: 60px;
             a {
                 display: block;
                 text-indent: -1000px;
@@ -52,12 +60,28 @@ body {
             }
         }
         ul {
-            float: right;
             background: none !important;
         }
-        li a {
+        li, li a {
             text-transform: uppercase;
             font-size: 1.18em;
+            color:$link-color;
+        }
+        .ant-menu-dark.ant-menu-horizontal > .ant-menu-item:hover
+        ,.ant-menu.ant-menu-dark .ant-menu-item-selected, .ant-menu-submenu-popup.ant-menu-dark .ant-menu-item-selected {
+            background-color: transparent;
+            text-decoration: none;
+        }
+        .ant-menu-dark .ant-menu-item-selected > a, .ant-menu-dark .ant-menu-item-selected > span > a, .ant-menu-dark .ant-menu-item-selected > a:hover, .ant-menu-dark .ant-menu-item-selected > span > a:hover {
+            color: $link-color;
+            text-decoration: none;
+        }
+        .ant-menu-dark .ant-menu-item, .ant-menu-dark .ant-menu-item-group-title, .ant-menu-dark .ant-menu-item > a, .ant-menu-dark .ant-menu-item > span > a {
+            color: $link-color;
+            text-decoration: none;
+        }
+        .ant-menu-overflowed-submenu {
+            font-size: 4em;
         }
 
     }

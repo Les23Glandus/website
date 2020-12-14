@@ -57,50 +57,59 @@ class EscapeArticle extends React.Component {
   render() {
 
     if(!this.state.loaded) {
-      return (<div>
-                  <h2><Skeleton title={true} paragraph={false}/></h2>
-                  <p>Chez</p>
+      return (
+            <div>
+              <div className="article-illustration top-illustration" style={{backgroundImage:`url(${process.env.PUBLIC_URL + "/patterns/Pattern04.svg"})`}} />
+              <div className="article-container article-escape">
 
-                  {this.state.loaded && 
-                    <Note value={0}/>
-                  }
-
-                  <div>
-                    Mentions : 
+                  <div className="article-part">
+                    <div className="left">
+                      <Skeleton.Image />
+                    </div>
+                    <div className="right">
+                        <div className="longtext">
+                          <Skeleton active/>
+                        </div>
+                    </div>
                   </div>
 
-                  <div>
-                    Tags : 
+                  <div className="article-part">
+                    <div className="left">
+                      <h3>Notre histore</h3>
+                    </div>
+                    <div className="right">
+                        <div className="longtext">
+                          <Skeleton active/>
+                        </div>
+                    </div>
                   </div>
 
-                  <div>
-                    <h3>Scénario</h3>
-                    <Skeleton active/>
-                  </div>
-                  
-                  <div>
-                    <h3>Notre histoire</h3>
-                    <Skeleton active/>
-                  </div>
-
-                  <div>
-                    <h3>Les plus</h3>
-                    <Skeleton active/>
-                  </div>
-                  
-                  <div>
-                    <h3>Les moins</h3>
-                    <Skeleton active/>
-                  </div>
-                  
-                  <div>
-                    <h3>Avant / Apres</h3>
-                    <Skeleton.Image />
+                  <div className="article-highlight">
+                    <div className="article-part">
+                      <div className="left">
+                        <h3>Les plus</h3>
+                      </div>
+                      <div className="right">
+                          <div className="longtext">
+                            <Skeleton active/>
+                          </div>
+                      </div>
+                    </div>
                   </div>
 
-
-                  <ArticleEnseigne reduce={true}/>
-              </div>)
+                  <div className="article-part end">
+                    <div className="left">
+                      &nbsp;
+                    </div>
+                    <div className="right">
+                        <div className="longtext">
+                          <Skeleton active/>
+                        </div>
+                    </div>
+                  </div>
+              </div>
+            </div>
+              )
     }
 
     //Used by google
@@ -159,12 +168,18 @@ class EscapeArticle extends React.Component {
 
     let pays = [];
     let regions = [];
+    let town = null;
     if( this.details.addresses && this.details.addresses.length > 0 ) {
       this.details.addresses.forEach(addr => {
         if( addr.region && regions.indexOf(addr.region.name) < 0 ) regions.push( addr.region.name );
         if( addr.pay && regions.indexOf(addr.pay.name) < 0 ) pays.push( addr.pay.name );
       });
+      if( this.details.addresses.length === 1 ) {
+        town = this.details.addresses[0].town;
+      }
     }
+
+    let illusUrl = this.details.illustration ? this.details.illustration.url : process.env.PUBLIC_URL + "/patterns/Pattern04.svg";
 
     return (
       <div>
@@ -177,9 +192,9 @@ class EscapeArticle extends React.Component {
               <script type="application/ld+json">{JSON.stringify(jsonld)}</script>
           </HtmlHead>
 
-        {
+          {
           this.details.illustration && 
-          <div className="article-illustration" title={this.details.description} style={{backgroundImage:`url(${this.details.illustration.url})`}} />
+          <div className="article-illustration top-illustration" title={this.details.description} style={{backgroundImage:`url(${illusUrl})`}} />
         }
 
         <div className="article-container article-escape">
@@ -202,7 +217,7 @@ class EscapeArticle extends React.Component {
               
                     <div className="title-flex">
                       <div>
-                        {pays.length > 0 && <p className="region">{pays.length > 0 && pays.join(", ")}{regions.length > 0 && (' - '+regions.join(", "))}</p>}
+                        {pays.length > 0 && <p className="region">{pays.length > 0 && pays.join(", ")}{regions.length > 0 && (' - '+regions.join(", "))}{town && (' - '+town)}</p>}
                         <h2>{this.details.name}</h2>
                         {this.details.enseigne && 
                           <p>Chez <Link to={"/escapegame/"+this.details.enseigne.uniquepath}>{this.details.enseigne.name}</Link></p>
@@ -334,15 +349,17 @@ class EscapeArticle extends React.Component {
         {this.details.selections && this.details.selections.length > 0 && 
           <div className="article-follower article-selections">
             <h3>Présente dans les sélections suivantes</h3>
+            <div className="flexgrid">
               {
                 this.details.selections.map( n => <SelectionMini reduce key={n.id} details={n}/> )
               }
+            </div>
           </div>
         }
 
         {this.details.enseigne && 
           <div className="article-follower zoning">
-            <ArticleEnseigne reduce={true} enseigneID={this.details.enseigne.id} updathead={false}/>
+            <ArticleEnseigne reduce={true} enseigneID={this.details.enseigne.id} updathead={false} embeded hide={this.details.id}/>
           </div>
         }
       </div>

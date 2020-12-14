@@ -3,16 +3,16 @@
 $leftpart_padding: 20px;
 $highligh_decale: 25px;
 
-div.article-illustration {
+div.article-illustration.top-illustration {
     background-size: cover;
     height: 600px;
+    margin-bottom: -130px;
 }
 
 div.article-follower {
     margin-top: 30px; 
     padding: 0 10% 0 10%;
     position: relative;
-    top:-130px;
 }
 
 div.article-container {

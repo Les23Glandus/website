@@ -13,52 +13,53 @@ import News from './pages/News';
 import Actu from './pages/Actu';
 import HtmlHead from './components/HtmlHead';
 import APropos from './pages/APropos';
+import ScrollToTop from './components/ScrollToTop';
 
 class App extends React.Component {
   render() {
     return (
       <Router>
-
-        <div>
-          
-          <HtmlHead/>
-          <div><Header/></div>
+        <ScrollToTop>
           <div>
-            <Switch>
-                <Route exact path="/">
-                  <Home/>
-                </Route>
-                <Route exact path="/escapegame/:enseigne/:escape">
-                  <Escape/>
-                </Route>
-                <Route exact path="/escapegame/:enseigne">
-                  <Enseigne/>
-                </Route>
-                <Route path="/escapegame">
-                  <Search/>
-                </Route>
-                <Route exact path="/selections/:selection">
-                  <Selection/>
-                </Route>
-                <Route path="/selections">
-                  <Selections/>
-                </Route>
-                <Route exact path="/news/:news">
-                  <Actu/>
-                </Route>
-                <Route path="/news">
-                  <News/>
-                </Route>
-                <Route path="/about">
-                  <APropos/>
-                </Route>
-                <Route>
-                  <Page404/>
-                </Route>
-            </Switch>
+            <HtmlHead/>
+            <div><Header/></div>
+            <div>
+              <Switch>
+                  <Route exact path="/">
+                    <Home/>
+                  </Route>
+                  <Route exact path="/escapegame/:enseigne/:escape">
+                    <Escape/>
+                  </Route>
+                  <Route exact path="/escapegame/:enseigne">
+                    <Enseigne/>
+                  </Route>
+                  <Route path="/escapegame">
+                    <Search/>
+                  </Route>
+                  <Route exact path="/selections/:selection">
+                    <Selection/>
+                  </Route>
+                  <Route path="/selections">
+                    <Selections/>
+                  </Route>
+                  <Route exact path="/news/:news">
+                    <Actu/>
+                  </Route>
+                  <Route path="/news">
+                    <News/>
+                  </Route>
+                  <Route path="/about">
+                    <APropos/>
+                  </Route>
+                  <Route>
+                    <Page404/>
+                  </Route>
+              </Switch>
+            </div>
+            <div><Footer/></div>
           </div>
-          <div><Footer/></div>
-        </div>
+        </ScrollToTop>
         
       </Router>
     );

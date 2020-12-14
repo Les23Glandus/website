@@ -401,9 +401,9 @@ class strapiConnector {
           isOpen
           nbPlayerMin
           nbPlayerMax
-          addresses {pay {name} region {name} } 
+          addresses {pay {name} region {name}  town } 
           enseigne { id name uniquepath 
-            addresses {pay {name} region {name} } 
+            addresses {pay {name} region {name} town } 
             escapes { id name uniquepath date nbPlayerMin nbPlayerMax tags {id name isGold} }
           }    
           selections {id title description uniquepath color mini {id url formats}}

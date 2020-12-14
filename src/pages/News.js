@@ -4,6 +4,7 @@ import { withRouter } from "react-router-dom";
 import strapiConnector from "../class/strapiConnector";
 import ActusCard from "../components/ActusCard";
 import EscapeCard from "../components/EscapeCard";
+import TopIllustration from "../components/meta/TopIllustration";
 
   
 class News extends React.Component {
@@ -54,9 +55,9 @@ class News extends React.Component {
   render() {
       if( !this.state.loaded ) {
           return (
-            <div className="a-propos main-content-page">
-            <br/>
-             <br/>
+            <div>
+              <TopIllustration/>
+              <div className="main-content-page">
                 <Timeline>
                     <Timeline.Item><Skeleton active avatar/></Timeline.Item>
                     <Timeline.Item><Skeleton active avatar/></Timeline.Item>
@@ -64,13 +65,14 @@ class News extends React.Component {
                     <Timeline.Item><Skeleton active avatar/></Timeline.Item>
                     <Timeline.Item><Skeleton active avatar/></Timeline.Item>
                 </Timeline>
+              </div>
             </div>
           );
       } else {
         return (
-            <div className="a-propos main-content-page">
-            <br/>
-             <br/>
+            <div>
+              <TopIllustration/>
+              <div className="main-content-page">
                 <Timeline>
                     {
                         this.actusList.map( n => {
@@ -80,6 +82,7 @@ class News extends React.Component {
                     }
                     <Timeline.Item>&nbsp;</Timeline.Item>
                 </Timeline>
+              </div>
             </div>
           );
       }

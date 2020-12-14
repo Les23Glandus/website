@@ -195,7 +195,7 @@ class EscapeArticle extends React.Component {
           <div className="glandus-or">
             {
               this.details.tags.filter(t => t.isGold).map(t => {
-                  return <p key={t.id}>{t.name}</p>
+                  return <p key={t.id}><span>{t.name}</span></p>
               })
             }
           </div>

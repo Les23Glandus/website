@@ -239,6 +239,7 @@ class strapiConnector {
           id name uniquepath rate isOpen date
           nbPlayerMin
           description
+          scenario
           nbPlayerMax
           mini {id url formats} 
           tags {id name isMention isGold description}  
@@ -310,6 +311,7 @@ class strapiConnector {
           uniquepath
           published_at
           escapes { id name uniquepath date nbPlayerMin nbPlayerMax 
+            scenario
             description
             mini { id formats url}
             tags {
@@ -330,6 +332,7 @@ class strapiConnector {
           rate
           date
           description
+          scenario
           mini {
             id
             formats

@@ -41,8 +41,8 @@ class EscapeCard extends React.Component {
             subTitle={this.props.enseigne.name}
             supTitle={topinfo}
             imageUrl={imageUrl}
-            imageTitle={this.props.escape.description}
-            more={<div className="description">{ this.props.escape.description }</div>}
+            imageTitle={this.props.escape.scenario}
+            more={<div className="description">{ this.props.escape.scenario }</div>}
         >
               {
                 this.props.date &&

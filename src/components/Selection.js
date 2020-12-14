@@ -36,6 +36,9 @@ class Selection extends React.Component {
       return (
         <div class="selection-main">
           <TopIllustration/>
+          <div className="page-back">
+            <PageHeader title="Toutes nos sélections" onBack={() => window.location.href = "/selections"}/>
+          </div>
           <div className="article-container article-selection">
 
             <div className="article-part">

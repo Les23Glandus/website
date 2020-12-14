@@ -41,7 +41,7 @@ class SelectionsGrid extends React.Component {
                       
                         <Card className="seemore-card"
                           reduce={true}
-                          url={"/escapegames"}
+                          url={"/news"}
                           bigText={"Toutes nos actus"}
                           subTitle={""}
                           supTitle={""}

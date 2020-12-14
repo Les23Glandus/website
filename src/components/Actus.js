@@ -1,4 +1,4 @@
-import { Skeleton } from "antd";
+import { Image, Skeleton } from "antd";
 import React from "react";
 import { Link, withRouter } from "react-router-dom";
 import strapiConnector from "../class/strapiConnector";
@@ -57,12 +57,18 @@ class Actus extends React.Component {
     } 
 
     return (
-        <div>
+        <div className="single-actu">
             <HtmlHead title={`News - ${this.details.title}`}/>
+              <p className="date">{new Intl.DateTimeFormat('fr-FR', { dateStyle: 'full' }).format(new Date(this.details.date))}</p>
               <h2>{this.details.title}</h2>
-              <p>{new Intl.DateTimeFormat('fr-FR', { dateStyle: 'full' }).format(new Date(this.details.date))}</p>
-              <p>{this.details.description}</p>
+              {this.details.description &&
+                <div>
+                  <div className="long-text">{this.details.description}</div>
+                </div>
+              }
+              <hr/>
               <div>{this.details.article}</div>
+              <div className="illustrations">{this.details.illustration && <Image src={this.details.illustration.url}/>}</div>
         </div>
     )
   }

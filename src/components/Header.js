@@ -44,7 +44,7 @@ class Header extends React.Component {
     return (
         <div className="main-header">
             <div>
-              <h1><Link to="/" style={{"background":'url(/Glandus-300px.png) 50% 50% no-repeat'}}>Les Glandus</Link></h1>
+              <h1><Link to="/" style={{"background":'url(/Glandus-300px.png) 0 0 no-repeat'}}>Les Glandus</Link></h1>
             </div>
             <Menu theme="dark" mode="horizontal" defaultSelectedKeys={selected}>
                 <Menu.Item key="1"><Link to="/escapegame">Expériences Immersives</Link></Menu.Item>

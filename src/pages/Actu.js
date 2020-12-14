@@ -3,7 +3,9 @@ import React from "react";
 import { withRouter } from "react-router-dom";
 import Actus from "../components/Actus";
 import HtmlHead from "../components/HtmlHead";
+import TopIllustration from "../components/meta/TopIllustration";
 import Page500 from "./Page500";
+import "../css/actus.scss";
 
   
 class Actu extends React.Component {
@@ -21,7 +23,8 @@ class Actu extends React.Component {
     return (
       <div>
         <HtmlHead title={`News`}/>
-          
+        
+        <TopIllustration/>
         <div className="main-content-page">
           <PageHeader title="Actualité" onBack={() => window.location.href = "/news"}/>
           <Actus actuRef={this.props.match.params.news}/>

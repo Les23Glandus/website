@@ -15,8 +15,8 @@ class EscapeBilan extends React.Component {
     strapi.getRealisation().then(
       d => {
         this.setState({realisation:d});
-      }
-    ).catch(e => this.setState({error:true}));
+      
+    }).catch(e => {this.setState({error:true});if( typeof(this.props.onError) === "function" ) this.props.onError();} );
   }
 
   componentDidMount() {

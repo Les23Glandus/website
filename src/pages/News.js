@@ -5,6 +5,7 @@ import strapiConnector from "../class/strapiConnector";
 import ActusCard from "../components/ActusCard";
 import EscapeCard from "../components/EscapeCard";
 import TopIllustration from "../components/meta/TopIllustration";
+import Page500 from "./Page500";
 
   
 class News extends React.Component {
@@ -53,6 +54,9 @@ class News extends React.Component {
   }
 
   render() {
+    if( this.state.error ) {
+      return ( <Page500/> )
+    }
       if( !this.state.loaded ) {
           return (
             <div>

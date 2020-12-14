@@ -3,12 +3,16 @@ import React from "react";
 import { withRouter } from "react-router-dom";
 import Actus from "../components/Actus";
 import HtmlHead from "../components/HtmlHead";
-import TopIllustration from "../components/meta/TopIllustration";
+import Page500 from "./Page500";
 
   
 class Actu extends React.Component {
 
   render() {
+    if( this.state.error ) {
+      return ( <Page500/> )
+    }
+    
     return (
       <div>
         <HtmlHead title={`News`}/>

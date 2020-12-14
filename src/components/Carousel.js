@@ -3,6 +3,7 @@ import { withRouter } from "react-router-dom";
 import { Carousel as AntCarousel } from 'antd';
 import strapiConnector from "../class/strapiConnector";
 import "../css/carousel.scss";
+import TopIllustration from "./meta/TopIllustration";
   
 class Carousel extends React.Component {
 
@@ -17,7 +18,7 @@ loadDetails() {
     new strapiConnector().getCarousel().then( list => {
         this.details = list;
         this.setState({loaded:true});
-    }).catch(e => this.setState({error:true}));
+    }).catch(e => {this.setState({error:true});if( typeof(this.props.onError) === "function" ) this.props.onError();} );
 }
 
 componentDidMount() {
@@ -47,12 +48,7 @@ componentDidMount() {
                     })
                 }
                 {!this.state.loaded && 
-                        <div style={{height: '160px', color: '#fff', textAlign: 'center',
-                         background: 'grey'}} >
-                            <div>
-                                <span>Loading...</span>
-                            </div>
-                        </div>}
+                        <div><TopIllustration/></div>}
             </AntCarousel>
         </div>
     )

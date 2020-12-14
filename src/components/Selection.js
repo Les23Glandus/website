@@ -21,10 +21,7 @@ class Selection extends React.Component {
         this.details = d;
         this.loading = false;
         this.setState({loaded:true, uref:this.details.uniquepath});
-    }).catch( e => {
-      this.loading = false;
-      this.setState({error:true});
-    });
+      }).catch(e => {this.setState({error:true});if( typeof(this.props.onError) === "function" ) this.props.onError();} );
   }
 
   componentDidMount() {

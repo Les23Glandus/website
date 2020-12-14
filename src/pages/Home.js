@@ -7,16 +7,21 @@ import EscapeLatestsTests from "../components/EscapeLatestsTests";
 import Group from "../components/Group";
 import SelectionsGrid from "../components/SelectionsGrid";
 import "../css/home.scss";
+import Page500 from "./Page500";
 
   
 class Home extends React.Component {
 
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {error:false};
   }
 
   render() {
+
+    if( this.state.error ) {
+      return ( <Page500/> )
+    }
     
     return (
       <div className="home">
@@ -25,13 +30,11 @@ class Home extends React.Component {
           <div className="main-content-page">
             <h2 className="main-subtitle">Expériences Immersives</h2>
             <EscapeBilan/>
-            <EscapeLatestsTests/>
-
-            <SelectionsGrid/>
-
+            <EscapeLatestsTests onError={()=>this.setState({error:true})}/>
+            <SelectionsGrid onError={()=>this.setState({error:true})}/>
             
             <h2>Notre actualité</h2>
-            <ActusGrid/>
+            <ActusGrid onError={()=>this.setState({error:true})}/>
           </div>
           
           <Group/>

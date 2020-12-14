@@ -29,6 +29,7 @@ div.home {
         margin-top: 150px;
         & > div {
             width: 30%;
+            min-width: 500px;
             text-align: center;
         }
         a {

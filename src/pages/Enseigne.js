@@ -1,6 +1,7 @@
 import React from "react";
 import { withRouter } from "react-router-dom";
 import EnseigneArticle from "../components/EnseigneArticle";
+import Page500 from "./Page500";
 
   
 class Enseigne extends React.Component {
@@ -13,6 +14,9 @@ class Enseigne extends React.Component {
   }
 
   render() {
+    if( this.state.error ) {
+      return ( <Page500/> )
+    }
     
     return (
       <div className="enseigne-main-container">

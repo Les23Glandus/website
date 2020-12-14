@@ -2,7 +2,6 @@ import { Skeleton, Image } from "antd";
 import React from "react";
 import { Link, withRouter } from "react-router-dom";
 import strapiConnector from "../class/strapiConnector";
-import ShareLinks from "./meta/ShareLinks";
 
 class Group extends React.Component {
 
@@ -22,9 +21,7 @@ class Group extends React.Component {
     new strapiConnector().getHomeAPropos().then( d => {
         this.details = d;
         this.setState({loaded:true});
-      }).catch( e => {
-        this.setState({error:true});
-      });
+      }).catch(e => {this.setState({error:true});if( typeof(this.props.onError) === "function" ) this.props.onError();} );
   }
 
   componentDidMount() {

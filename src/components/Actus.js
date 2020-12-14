@@ -3,13 +3,11 @@ import React from "react";
 import { Link, withRouter } from "react-router-dom";
 import strapiConnector from "../class/strapiConnector";
 import HtmlHead from "./HtmlHead";
-import TopIllustration from "./meta/TopIllustration";
 
   
 class Actus extends React.Component {
 
   details = null;
-  loading = false;
 
   constructor(props) {
     super(props);
@@ -22,16 +20,12 @@ class Actus extends React.Component {
   }
 
   loadDetails() {
-      this.loading = true;
   
       new strapiConnector().getActuByRef(this.props.actuRef).then( d => {
           this.details = d;
-          this.loading = false;
           this.setState({loaded:true, uref:this.details.uniquepath});
-      }).catch( e => {
-        this.loading = false;
-        this.setState({error:true});
-      });
+
+      }).catch(e => {this.setState({error:true});if( typeof(this.props.onError) === "function" ) this.props.onError();} );
   }
 
 

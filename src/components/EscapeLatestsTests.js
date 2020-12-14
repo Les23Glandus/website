@@ -1,6 +1,6 @@
 import React from "react";
-import { withRouter, Link } from "react-router-dom";
-import {  Row, Col, Skeleton  } from "antd";
+import { withRouter } from "react-router-dom";
+import {  Skeleton  } from "antd";
 import strapiConnector from "../class/strapiConnector";
 import EscapeCard from "./EscapeCard";
 import Card from "./meta/Card";
@@ -12,7 +12,6 @@ class EscapeLatestsTests extends React.Component {
   constructor(props) {
     super(props);
     this.state = {loaded:false, error:false, realisation:null};
-
   }
 
   loadEscapes() {
@@ -22,7 +21,7 @@ class EscapeLatestsTests extends React.Component {
         this.lastescapes = list;
         this.setState({loaded:true});
       }
-    ).catch(e => this.setState({error:true}));
+    ).catch(e => {this.setState({error:true});if( typeof(this.props.onError) === "function" ) this.props.onError();} );
   }
 
   componentDidMount() {

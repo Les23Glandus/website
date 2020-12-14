@@ -1,6 +1,6 @@
 import React from "react";
-import { withRouter, Link } from "react-router-dom";
-import {  Row, Col, Skeleton  } from "antd";
+import { withRouter } from "react-router-dom";
+import { Skeleton  } from "antd";
 import SelectionMini from "./SelectionMini";
 import strapiConnector from "../class/strapiConnector";
 import Card from "./meta/Card";
@@ -23,12 +23,12 @@ class SelectionsGrid extends React.Component {
       new strapiConnector().getSelections().then(d => { 
         this.details = d.sort((a,b) => (b.title > a.title) ? -1 : 0 );
         this.setState({loaded:true, error:false});
-      } ).catch();
+      }).catch(e => {this.setState({error:true});if( typeof(this.props.onError) === "function" ) this.props.onError();} );
     } else {
       new strapiConnector().getChoixSelection().then(d => { 
         this.details = d;
         this.setState({loaded:true, error:false});
-      } ).catch();
+      }).catch(e => {this.setState({error:true});if( typeof(this.props.onError) === "function" ) this.props.onError();} );
     }
 
   }

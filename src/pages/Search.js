@@ -7,6 +7,7 @@ import { withRouter } from "react-router-dom";
 import strapiConnector from "../class/strapiConnector";
 import EscapeCard from "../components/EscapeCard";
 import HtmlHead from "../components/HtmlHead";
+import Page500 from "./Page500";
 
   
 class SearchC extends React.Component {
@@ -151,6 +152,9 @@ class SearchC extends React.Component {
    * 
    */
   render() {
+    if( this.state.error ) {
+      return ( <Page500/> )
+    }
     if( !this.state.loaded ) {
       return (
         <div>

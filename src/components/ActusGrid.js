@@ -1,6 +1,6 @@
 import React from "react";
-import { withRouter, Link } from "react-router-dom";
-import {  Row, Col, Skeleton  } from "antd";
+import { withRouter } from "react-router-dom";
+import { Skeleton  } from "antd";
 import strapiConnector from "../class/strapiConnector";
 import ActusCard from "./ActusCard";
 import Card from "./meta/Card";
@@ -22,7 +22,7 @@ class SelectionsGrid extends React.Component {
     new strapiConnector().getRecentActus(7).then(d => { 
       this.details = d;
       this.setState({loaded:true, error:false});
-    } ).catch();
+    }).catch(e => {this.setState({error:true});if( typeof(this.props.onError) === "function" ) this.props.onError();} );
   }
 
   render() {

@@ -14,7 +14,6 @@ import Card from "./meta/Card";
 class EscapeArticle extends React.Component {
 
   details = null;
-  loading = false;
 
   constructor(props) {
     super(props);
@@ -28,20 +27,14 @@ class EscapeArticle extends React.Component {
   }
 
   loadDetails() {
-    if(!this.loading) {
-      this.loading = true;
-      let strapi = new strapiConnector();
-  
-      let promise = this.props.escapeID ? strapi.getEscape(this.props.escapeID) : strapi.getEscapeByRef(this.props.escapeRef);
-      promise.then( d => {
-          this.details = d;
-          this.loading = false;
-          this.setState({loaded:true, uref:this.details.uniquepath});
-      }).catch( e => {
-        this.loading = false;
-        this.setState({error:true});
-      });
-    }
+    let strapi = new strapiConnector();
+
+    let promise = this.props.escapeID ? strapi.getEscape(this.props.escapeID) : strapi.getEscapeByRef(this.props.escapeRef);
+    promise.then( d => {
+        this.details = d;
+        this.setState({loaded:true, uref:this.details.uniquepath});
+      }).catch(e => {this.setState({error:true});if( typeof(this.props.onError) === "function" ) this.props.onError();} );
+    
   }
 
 

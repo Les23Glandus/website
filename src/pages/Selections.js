@@ -2,6 +2,7 @@ import React from "react";
 import { withRouter } from "react-router-dom";
 import HtmlHead from "../components/HtmlHead";
 import SelectionsGrid from "../components/SelectionsGrid";
+import Page500 from "./Page500";
 
   
 class Selections extends React.Component {
@@ -12,6 +13,9 @@ class Selections extends React.Component {
   }
 
   render() {
+    if( this.state.error ) {
+      return ( <Page500/> )
+    }
     
     return (
       <div className="a-propos main-content-page">

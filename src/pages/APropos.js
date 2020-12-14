@@ -2,13 +2,16 @@ import { Skeleton, Image } from "antd";
 import React from "react";
 import { withRouter } from "react-router-dom";
 import strapiConnector from "../class/strapiConnector";
+import TopIllustration from "../components/meta/TopIllustration";
 import "../css/apropos.scss";
+import Page500 from "./Page500";
 
   
 class APropos extends React.Component {
 
   details = null;
   glandus = null;
+  firstimage;
 
   constructor(props) {
     super(props);
@@ -19,6 +22,11 @@ class APropos extends React.Component {
 
     strapi.getAPropos().then( d => {
         this.details = d;
+        
+        this.firstimage = null;
+        if( this.details.illustrations && this.details.illustrations.length > 0 ) {
+          this.firstimage = this.details.illustrations.shift();
+        }
         if(this.details !== null && this.glandus !== null) {
           this.setState({loaded:true});
         }
@@ -41,28 +49,33 @@ class APropos extends React.Component {
   }
 
   render() {
+    if( this.state.error ) {
+      return ( <Page500/> )
+    }
 
     if( !this.state.loaded ) {
       return (
-        <div className="main-content-page">
-          <Skeleton active/>
-          <Skeleton active/>
-          <Skeleton active avatar/>
+        <div>
+
+          <TopIllustration/>
+          <div className="main-content-page">
+            <Skeleton active/>
+            <Skeleton active/>
+            <Skeleton active avatar/>
+            <Skeleton active avatar/>
+            <Skeleton active avatar/>
+          </div>
         </div>
       )
     }
 
-    let firstimage = null;
-    if( this.details.illustrations && this.details.illustrations.length > 0 ) {
-      firstimage = this.details.illustrations.shift();
-    }
 
     return (
       <div>
 
         <div className="top-illustrations">
           {
-            firstimage && <Image src={firstimage.url}/>
+            this.firstimage && <Image src={this.firstimage.url}/>
           }
         </div>
 

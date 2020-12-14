@@ -1,4 +1,4 @@
-import { Skeleton, Image } from "antd";
+import { Skeleton } from "antd";
 import React from "react";
 import { withRouter } from "react-router-dom";
 import strapiConnector from "../class/strapiConnector";
@@ -11,7 +11,6 @@ import TopIllustration from "./meta/TopIllustration";
 class EnseigneArticle extends React.Component {
 
   details = null;
-  loading = false;
 
   constructor(props) {
     super(props);
@@ -24,20 +23,14 @@ class EnseigneArticle extends React.Component {
   }
 
   loadDetails() {
-    if(!this.loading) {
-      this.loading = true;
-      let strapi = new strapiConnector();
-  
-      let promise = this.props.enseigneID ? strapi.getEnseigne(this.props.enseigneID) : strapi.getEnseigneByRef(this.props.enseigneRef);
-      promise.then( d => {
-        this.details = d;
-        this.loading = false;
-        this.setState({loaded:true});
-      }).catch( e => {
-        this.loading = false;
-        this.setState({error:true});
-      });
-    }
+    let strapi = new strapiConnector();
+
+    let promise = this.props.enseigneID ? strapi.getEnseigne(this.props.enseigneID) : strapi.getEnseigneByRef(this.props.enseigneRef);
+    promise.then( d => {
+      this.details = d;
+      this.setState({loaded:true});
+    }).catch(e => {this.setState({error:true});if( typeof(this.props.onError) === "function" ) this.props.onError();} );
+    
   }
 
   componentDidMount() {

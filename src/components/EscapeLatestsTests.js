@@ -34,7 +34,7 @@ class EscapeLatestsTests extends React.Component {
     return (
         
         <div className="latest-ei-tests">
-            <h3>Les nouveaux tests</h3>
+            <h3>{this.props.title ? this.props.title : "Les nouveaux tests"}</h3>
             <div>
                 {this.lastescapes && 
                   <div className="flexgrid grid-escape">

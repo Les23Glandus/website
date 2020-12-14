@@ -5,6 +5,7 @@ import strapiConnector from "../class/strapiConnector";
 import Note from "./meta/Note";
 import ArticleEnseigne from "./EnseigneArticle";
 import SelectionMini from "./SelectionMini";
+import EscapeLatestsTests from "./EscapeLatestsTests";
 import HtmlHead from "./HtmlHead";
 import '../css/article.scss';
 import '../css/escapeArticle.scss';
@@ -355,6 +356,11 @@ class EscapeArticle extends React.Component {
             <ArticleEnseigne reduce={true} enseigneID={this.details.enseigne.id} updathead={false} embeded hide={this.details.id}/>
           </div>
         }
+
+
+        <div className="article-follower moretosee">
+          <EscapeLatestsTests title="A voir aussi..."/>
+        </div>
       </div>
     )
   }

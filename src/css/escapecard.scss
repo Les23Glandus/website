@@ -1,6 +1,15 @@
 @import '_theme.scss';
 
 div.escape-card {
+    &.full span.note {
+        margin: 10px 20px 0 0;
+        font-size: 1em;
+    }
+    span.note {
+        font-size: 1.5em;
+        float: right;
+        margin: 3px 16px 0 0;
+    }
     .meta-card-details {
         .tags {
             margin-top: 20px;

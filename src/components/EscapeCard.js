@@ -3,6 +3,7 @@ import { withRouter } from "react-router-dom";
 import "../css/escapecard.scss";
 import { Tag } from "antd";
 import Card from "./meta/Card";
+import Note from "./meta/Note";
   
 class EscapeCard extends React.Component {
 
@@ -36,26 +37,28 @@ class EscapeCard extends React.Component {
         <Card className="escape-card"
             reduce={this.props.reduce ? true : false}
             url={"/escapegame/"+enseigneuip+"/"+this.props.escape.uniquepath}
-            title={this.props.escape.name}
+            title={<span>{this.props.escape.name} <Note v={2} light={this.props.reduce ? true : false} compact/></span>}
             subTitle={this.props.enseigne.name}
             supTitle={topinfo}
             imageUrl={imageUrl}
             imageTitle={this.props.escape.description}
             more={<div className="description">{ this.props.escape.description }</div>}
-        
         >
               {
                 this.props.date &&
                 <p className="date">{new Intl.DateTimeFormat('fr-FR', { dateStyle: 'full' }).format(new Date(this.props.escape.date))}</p>
               }
               <div className="tags">
+                
+                {this.props.escape.nbPlayerMax === this.props.escape.nbPlayerMin && this.props.escape.nbPlayerMin === 1 && <Tag>{this.props.escape.nbPlayerMin} joueur</Tag>}
+                {this.props.escape.nbPlayerMax === this.props.escape.nbPlayerMin && this.props.escape.nbPlayerMin >= 1 && <Tag>{this.props.escape.nbPlayerMin} joueurs</Tag>}
+                {this.props.escape.nbPlayerMax !== this.props.escape.nbPlayerMin && <Tag>{this.props.escape.nbPlayerMin} à {this.props.escape.nbPlayerMax} joueurs</Tag >}
                 {
                   this.props.escape.tags && this.props.escape.tags.filter(t => !t.isGold).map(t => {
                     return <Tag key={t.id}>{t.name}</Tag>
                   })
                 } 
               </div>
-              <span>{this.props.escape.nbPlayerMin}-{this.props.escape.nbPlayerMax} joueurs</span>
         </Card>
 
     )

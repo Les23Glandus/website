@@ -10,10 +10,10 @@ class Note extends React.Component {
 
     let v = this.props.value ? this.props.value : 3;
 
-    let style = {"backgroundImage":`url(${process.env.PUBLIC_URL}/picture/gland.svg)`};
+    let style = {};// {"backgroundImage":`url(${process.env.PUBLIC_URL}/picture/gland.svg)`};
 
     return (
-        <span className="note" title={desc[Math.floor(v)]} style={style}>{v}<i>/5</i></span>
+    <span className={"note " + (this.props.light ? "light" : "dark")} title={desc[Math.floor(v)]} style={style}>{v}{!this.props.compact && <i>/5</i>}</span>
     )
   }
 

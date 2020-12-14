@@ -1,6 +1,6 @@
 import { Skeleton } from "antd";
 import React from "react";
-import { withRouter } from "react-router-dom";
+import { Link, withRouter } from "react-router-dom";
 import strapiConnector from "../class/strapiConnector";
 import EscapeCard from "./EscapeCard";
 import HtmlHead from "./HtmlHead";
@@ -150,7 +150,8 @@ class EnseigneArticle extends React.Component {
               <div className="article-part">
                 <div className="left">
                     <div className="logo-area">
-                        {this.details.logo && <img src={this.details.logo.formats.thumbnail.url} alt={this.details.name}/>}
+                        {this.details.logo && !this.props.embeded && <img src={this.details.logo.formats.thumbnail.url} alt={this.details.name}/>}
+                        {this.details.logo && this.props.embeded && <Link to={"/escapegame/"+this.details.uniquepath}><img src={this.details.logo.formats.thumbnail.url} alt={this.details.name}/></Link>}
                     </div>
                 </div>
                 <div className="right">

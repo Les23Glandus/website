@@ -6,6 +6,7 @@ import EscapeCard from "./EscapeCard";
 import HtmlHead from "./HtmlHead";
 import "../css/enseigneArticle.scss";
 import TopIllustration from "./meta/TopIllustration";
+import RichText from "./meta/RichText";
 
   
 class EnseigneArticle extends React.Component {
@@ -157,7 +158,7 @@ class EnseigneArticle extends React.Component {
                 <div className="right">
                     <h2>{this.details.name}</h2> 
                     
-                    {this.details.introduction && this.details.introduction}
+                    <RichText>{this.details.introduction && this.details.introduction}</RichText>
                 </div>
               </div>
               
@@ -167,7 +168,7 @@ class EnseigneArticle extends React.Component {
                   <h3>Notre expérience</h3>
                 </div>
                 <div className="right">
-                    <div>{this.details.ourExperience}</div>
+                    <div><RichText>{this.details.ourExperience}</RichText></div>
                 </div>
             </div>
           

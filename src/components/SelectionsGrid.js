@@ -1,7 +1,7 @@
 import React from "react";
 import { withRouter } from "react-router-dom";
 import { Skeleton  } from "antd";
-import SelectionMini from "./SelectionMini";
+import SelectionCard from "./SelectionCard";
 import strapiConnector from "../class/strapiConnector";
 import Card from "./meta/Card";
   
@@ -44,8 +44,8 @@ class SelectionsGrid extends React.Component {
                 {this.state.loaded && 
                   
                   <div className="flexgrid grid-actus">
-                    {!this.props.showAll && this.details.Selections.map( n => <SelectionMini details={n.selection} reduce/> )}
-                    {this.props.showAll && this.details.map( n => <SelectionMini details={n} reduce/> )}
+                    {!this.props.showAll && this.details.Selections.map( n => <SelectionCard details={n.selection} reduce/> )}
+                    {this.props.showAll && this.details.map( n => <SelectionCard details={n} reduce/> )}
                     {!this.props.showAll &&
                         <Card className="seemore-card"
                             reduce={true}

@@ -2,7 +2,7 @@ import React from "react";
 import { withRouter } from "react-router-dom";
 import Card from "./meta/Card";
   
-class SelectionMini extends React.Component {
+class SelectionCard extends React.Component {
 
   static mapColor = {"Black":"#00000082",
                     "Gold":"#C08A0082",
@@ -25,8 +25,8 @@ class SelectionMini extends React.Component {
     }
     
     let color;
-    if( this.props.details.color && SelectionMini.mapColor[ this.props.details.color ] ) {
-      color = SelectionMini.mapColor[ this.props.details.color ];
+    if( this.props.details.color && SelectionCard.mapColor[ this.props.details.color ] ) {
+      color = SelectionCard.mapColor[ this.props.details.color ];
     }
 
     return (
@@ -49,4 +49,4 @@ class SelectionMini extends React.Component {
 }
 
 
-export default withRouter(SelectionMini);
+export default withRouter(SelectionCard);

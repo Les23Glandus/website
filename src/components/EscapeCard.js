@@ -4,6 +4,7 @@ import "../css/escapecard.scss";
 import { Tag } from "antd";
 import Card from "./meta/Card";
 import Note from "./meta/Note";
+import RichText from "./meta/RichText";
   
 class EscapeCard extends React.Component {
 
@@ -42,7 +43,7 @@ class EscapeCard extends React.Component {
             supTitle={topinfo}
             imageUrl={imageUrl}
             imageTitle={this.props.escape.scenario}
-            more={<div className="description">{ this.props.escape.scenario }</div>}
+            more={<div className="description"><RichText>{ this.props.escape.scenario }</RichText></div>}
         >
               {
                 this.props.date &&

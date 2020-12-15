@@ -34,8 +34,12 @@ div.article-container {
     }
 
     div.right a {
-        color:$primary-font-color;
+        color:$link-color-article;
         text-decoration: underline;
+    }
+
+    div.full-text img {
+        @include polaroid;
     }
 
     .article-highlight {

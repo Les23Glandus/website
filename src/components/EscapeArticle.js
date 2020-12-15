@@ -4,12 +4,13 @@ import { Link, withRouter } from "react-router-dom";
 import strapiConnector from "../class/strapiConnector";
 import Note from "./meta/Note";
 import ArticleEnseigne from "./EnseigneArticle";
-import SelectionMini from "./SelectionMini";
+import SelectionCard from "./SelectionCard";
 import EscapeLatestsTests from "./EscapeLatestsTests";
 import HtmlHead from "./HtmlHead";
 import '../css/article.scss';
 import '../css/escapeArticle.scss';
 import Card from "./meta/Card";
+import RichText from "./meta/RichText";
 
   
 class EscapeArticle extends React.Component {
@@ -238,13 +239,10 @@ class EscapeArticle extends React.Component {
                     }
                   </div>
 
-
-
-
               
                   {
                     this.details.scenario && 
-                    <div className="longtext scenario">{this.details.scenario}</div>
+                    <div className="longtext scenario"><RichText>{this.details.scenario}</RichText></div>
                   }
             </div>
           </div>
@@ -263,7 +261,7 @@ class EscapeArticle extends React.Component {
                       <source src={this.details.audio.url} type="audio/mpeg"/>
                     </audio>
                   }
-                  {this.details.story}
+                  <RichText>{this.details.story}</RichText>
                 </div>
               </div>
             </div>
@@ -282,7 +280,7 @@ class EscapeArticle extends React.Component {
                   </div>
                   <div className="right">
                       <div className="longtext">
-                        {this.details.lesPlus}
+                        <RichText>{this.details.lesPlus}</RichText>
                       </div>
                   </div>
                 </div>
@@ -295,7 +293,7 @@ class EscapeArticle extends React.Component {
                   </div>
                   <div className="right">
                       <div className="longtext">
-                        {this.details.lesMoins}
+                        <RichText>{this.details.lesMoins}</RichText>
                       </div>
                   </div>
                 </div>
@@ -351,7 +349,7 @@ class EscapeArticle extends React.Component {
             <h3>Présente dans les sélections suivantes</h3>
             <div className="flexgrid">
               {
-                this.details.selections.map( n => <SelectionMini reduce key={n.id} details={n}/> )
+                this.details.selections.map( n => <SelectionCard reduce key={n.id} details={n}/> )
               }
             </div>
           </div>

@@ -13,11 +13,43 @@ body {
             text-decoration: underline;
         }
     }
+    a.outlink:before {
+        content: "-";
+        background: url("pics/External_link_font_awesome.svg");
+        background-position: 100% 50%;
+        background-repeat: no-repeat;
+        background-size: contain;
+        height: 0.7em;
+        display: inline-block;
+        line-height: 1em;
+        overflow: hidden;
+        width: 1em;
+        text-indent: -2em;
+        margin-right: 0.2em;
+    }
     audio {
         display: block;
         width: 100%;
         outline: none;
         margin-bottom: 10px;
+    }
+
+    blockquote {
+        display: inline-block;
+        padding: 10px 20px;
+        border-left: 5px solid $default-darklightcolor;
+        margin: 5px 0;
+        p {
+            margin: 0;
+        }
+    }
+
+    code {
+        display: inline-block;
+        background: $zoning-background;
+        padding: 5px 10px;
+        border-radius: $default-radius;
+        color: $default-darklightcolor;
     }
 
     div.flexgrid {

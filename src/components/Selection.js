@@ -6,7 +6,7 @@ import EscapeCard from "../components/EscapeCard";
 import HtmlHead from "./HtmlHead";
 import TopIllustration from './meta/TopIllustration';
 import '../css/selection.scss';
-import SelectionMini from "./SelectionMini";
+import SelectionCard from "./SelectionCard";
 
   
 class Selection extends React.Component {
@@ -105,7 +105,7 @@ class Selection extends React.Component {
                     <div className="logo-area">
                         {
                           this.details.mini && 
-                          <SelectionMini details={this.details} reduce/>
+                          <SelectionCard details={this.details} reduce/>
                         }
                     </div>
                 </div>

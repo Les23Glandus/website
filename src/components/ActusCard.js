@@ -1,15 +1,16 @@
 import React from "react";
 import { withRouter } from "react-router-dom";
 import Card from "./meta/Card";
+import RichText from "./meta/RichText";
   
-class SelectionMini extends React.Component {
+class ActusCard extends React.Component {
 
   render() {
 
     let imageUrl;
     if( this.props.details.mini ) {
       if( this.props.details.mini.formats.small ) imageUrl = this.props.details.mini.formats.small.url
-      else  imageUrl = this.props.details.mini.url;
+      else imageUrl = this.props.details.mini.url;
     }
     
     return (
@@ -22,7 +23,7 @@ class SelectionMini extends React.Component {
           supTitle={""}
           imageUrl={imageUrl}
           imageTitle={this.props.details.description}
-          more={<div className="description">{ this.props.details.description }</div>}
+          more={<div className="description"><RichText>{ this.props.details.description }</RichText></div>}
       
       ></Card>
     )
@@ -31,4 +32,4 @@ class SelectionMini extends React.Component {
 }
 
 
-export default withRouter(SelectionMini);
+export default withRouter(ActusCard);

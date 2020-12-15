@@ -14,6 +14,8 @@ import Actu from './pages/Actu';
 import HtmlHead from './components/HtmlHead';
 import APropos from './pages/APropos';
 import ScrollToTop from './components/ScrollToTop';
+import Jeu from './pages/Jeu';
+import Jeux from './pages/Jeux';
 
 class App extends React.Component {
   render() {
@@ -42,6 +44,12 @@ class App extends React.Component {
                   </Route>
                   <Route path="/selections">
                     <Selections/>
+                  </Route>
+                  <Route exact path="/jeux/:jeu">
+                    <Jeu/>
+                  </Route>
+                  <Route path="/jeux">
+                    <Jeux/>
                   </Route>
                   <Route exact path="/news/:news">
                     <Actu/>

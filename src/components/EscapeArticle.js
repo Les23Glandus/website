@@ -45,9 +45,11 @@ class EscapeArticle extends React.Component {
     if(!this.state.loaded && !this.state.error && (this.props.escapeID || this.props.escapeRef)) this.loadDetails();
   }
 
+  /*
   componentDidUpdate() {
     if(!this.state.loaded && !this.state.error && (this.props.enseigneID || this.props.enseigneRef) ) this.loadDetails();
   }
+  */
 
   render() {
 

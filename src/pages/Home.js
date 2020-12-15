@@ -5,6 +5,7 @@ import Carousel from "../components/Carousel";
 import EscapeBilan from "../components/EscapeBilan";
 import EscapeLatestsTests from "../components/EscapeLatestsTests";
 import Group from "../components/Group";
+import JeuxGrid from "../components/JeuxGrid";
 import SelectionsGrid from "../components/SelectionsGrid";
 import "../css/home.scss";
 import Page500 from "./Page500";
@@ -16,6 +17,7 @@ class Home extends React.Component {
     super(props);
     this.state = {error:false};
   }
+  
 
   render() {
 
@@ -33,6 +35,9 @@ class Home extends React.Component {
             <EscapeLatestsTests onError={()=>this.setState({error:true})}/>
             <SelectionsGrid onError={()=>this.setState({error:true})}/>
             
+            <h2>Jeux de société</h2>
+            <JeuxGrid/>
+
             <h2>Notre actualité</h2>
             <ActusGrid onError={()=>this.setState({error:true})}/>
           </div>

@@ -12,7 +12,7 @@ class RichText extends React.Component {
     const renderers = {
         image: (value) => { 
             const cl = ["r1","r1","r2","r0","rm1","rm1","rm2"];
-            return <Image src={value.src} alt={value.alt} className={cl[ ~~(Math.random() * cl.length) ]}/>},
+            return <div className="rt-img-handler" alt={value.alt}><Image src={value.src} alt={value.alt} className={cl[ ~~(Math.random() * cl.length) ]}/></div>},
         link: (value) => { 
             const reg = /^\//;
             if( reg.test(value.href) ) {

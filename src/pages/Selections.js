@@ -32,7 +32,7 @@ class Selections extends React.Component {
             <h2>Les Gandus ont fait leurs choix !</h2>
             <p>Voici une liste de nos sélections régulièrement mise à jour. Elles devraint vous aider à rechercher votre prochaine salle !</p>
             <p>En laissant la souris au dessus d'une image vous aurez une brève description de la sélection.</p>
-            <SelectionsGrid showAll={true} title={false}/>
+            <SelectionsGrid showAll={true} title={false} onError={()=>this.setState({error:true})}/>
           </div>
         </div>
 

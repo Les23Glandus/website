@@ -20,7 +20,8 @@ class Enseigne extends React.Component {
     
     return (
       <div className="enseigne-main-container">
-        <EnseigneArticle enseigneRef={this.state.enseigneRef} updathead={true}/>
+        <EnseigneArticle enseigneRef={this.state.enseigneRef} updathead={true}
+         onError={()=>this.setState({error:true})}/>
       </div>
     )
   }

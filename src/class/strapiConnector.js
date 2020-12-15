@@ -128,7 +128,7 @@ class strapiConnector {
   }
 
   /**
-   * Enseigne 
+   * Actu 
    */
   getActuByRef(ref) {
     let body = this.builGQLdQuery("actus");
@@ -139,6 +139,29 @@ class strapiConnector {
   getRecentActus(limit) {
     let body = this.builGQLdQuery("actus:list");
     body.variables.where = {};
+    body.variables.limit = limit;
+    body.variables.sort = "date:DESC";
+    return this.graphql(body);
+  }
+
+  /**
+   * Jeux 
+   */
+  getJeux(limit) {
+    if(!limit) limit = 100;
+    let body = this.builGQLdQuery("jeuxes:list");
+    body.variables.limit = limit;
+    body.variables.sort = "name:ASC";
+    return this.graphql(body);
+  }
+  getJeuxByRef(ref) {
+    let body = this.builGQLdQuery("jeuxes");
+    body.variables.where = {"uniquepath":ref};
+    body.variables.limit = 1;
+    return this.graphql(body);
+  }
+  getRecentJeux(limit) {
+    let body = this.builGQLdQuery("jeuxes:list");
     body.variables.limit = limit;
     body.variables.sort = "date:DESC";
     return this.graphql(body);
@@ -324,6 +347,16 @@ class strapiConnector {
             } }
         }`,    
   
+        "jeuxes": `{ id name uniquepath date article description editeur 
+          illustration {id formats url}
+          jeux_types { name }
+          mini {id formats url}
+        }`,
+
+        "jeuxes:list": `{ id name uniquepath date description 
+          jeux_types { name }
+          mini {id formats url}
+        }`,
 
       
         "escapes:list":`{

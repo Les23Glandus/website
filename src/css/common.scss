@@ -8,6 +8,9 @@ body {
     font-family: 'Montserrat', sans-serif;
     background-color: $primary-background-color;
     font-size: $default-fontSize;
+    @include md {
+        font-size: #{$default-fontSize + 6};
+    }
 
     div.full-text {
         .rt-img-handler[alt$=">"] {

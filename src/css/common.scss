@@ -1,6 +1,8 @@
 @import '~antd/dist/antd.dark.css';
 @import '_theme.scss';
-
+html {
+    scroll-behavior: smooth;
+}
 body {
     font-family: 'Montserrat', sans-serif;
     background-color: $primary-background-color;
@@ -57,7 +59,7 @@ body {
         align-items: flex-start;
         justify-content: flex-start;
         &>div {
-          margin: 5px;  
+          margin: $default-card-margin;  
         }
     }
 

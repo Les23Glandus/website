@@ -7,6 +7,7 @@ import HtmlHead from "./HtmlHead";
 import TopIllustration from './meta/TopIllustration';
 import '../css/selection.scss';
 import SelectionCard from "./SelectionCard";
+import RichText from "./meta/RichText";
 
   
 class Selection extends React.Component {
@@ -105,14 +106,14 @@ class Selection extends React.Component {
                     <div className="logo-area">
                         {
                           this.details.mini && 
-                          <SelectionCard details={this.details} reduce/>
+                          <SelectionCard details={this.details} reduce arrow={false}/>
                         }
                     </div>
                 </div>
                 <div className="right">
                     <h2>{this.details.title}</h2> 
                     <div>
-                      {this.details.description && this.details.description}  
+                      {this.details.description && <RichText>{this.details.description}</RichText>}  
                     </div>
                 </div>
               </div>
@@ -124,7 +125,7 @@ class Selection extends React.Component {
                     <h3>Notre sélection</h3>
                   </div>
                   <div className="right">
-                      <div>{this.details.article}</div>
+                      <div><RichText>{this.details.article}</RichText></div>
                   </div>
                 </div>
               }

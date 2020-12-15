@@ -193,13 +193,12 @@ class EscapeArticle extends React.Component {
           }
 
         <div className="article-container article-escape">
-          <div className="glandus-or">
             {
-              this.details.tags.filter(t => t.isGold).map(t => {
-                  return <p key={t.id}><span>{t.name}</span></p>
-              })
+              this.details.glandusor &&
+              <div className="glandus-or">
+                  <p><span>{this.details.glandusor}</span></p>
+              </div>
             }
-          </div>
 
           <div className="article-part">
             <div className="left">

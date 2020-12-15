@@ -364,6 +364,7 @@ class strapiConnector {
           id
           name
           rate
+          glandusor
           date
           published_at
           updated_at
@@ -393,12 +394,6 @@ class strapiConnector {
             name
             isMention
             isGold description
-            picto {
-              id
-              name
-              url
-              formats
-            }
             useInFilter
           }
           preventPush

@@ -41,7 +41,7 @@ class SelectionCard extends React.Component {
           imageTitle={this.props.details.description}
           more={""}
           color={color}
-      
+          arrow={this.props.arrow === false ? false : true}
       ></Card>
     )
   }

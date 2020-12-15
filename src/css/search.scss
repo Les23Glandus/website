@@ -1,0 +1,49 @@
+@import "_theme.scss";
+
+div.search-main {
+    .search-presets {
+        position: relative;
+        margin: 0 $default-page-padding 60px $default-page-padding;
+        @include flex-container;
+        &>div {
+            margin: $default-card-margin;
+        }
+
+    }
+
+    .search-sort {
+        @include flex-container;
+        justify-content: space-between;
+        align-items: center;
+        padding: 10px 30px;
+    }
+
+    .search {
+        @include flex-container;
+        .search-filter {
+            width: 300px;
+            padding: 0 15px 50px 10px;
+            .ant-row.ant-form-item {
+                margin-bottom: 5px;
+                padding: 0 5px;
+                .ant-form-item-control-input-content {
+                    padding-left: 20px;
+                }
+            }
+            p.top-sec {
+                margin-left: 6px;
+            }
+        }
+    
+        .search-result {
+            flex: 1;
+            position: relative;
+            margin-bottom: 50px;
+            p.loading-spin {
+                position: absolute;
+                top:0;
+                left: 0;
+            }
+        }
+    }
+}

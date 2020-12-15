@@ -55,6 +55,9 @@ div.meta-card {
         border-radius: $default-radius;
         width: #{$picheight * $picratio};
         height: $picheight;
+        &.compact {
+            height: #{$picheight/2};
+        }
         background-repeat: no-repeat;
         background-size: cover;
         background-position: center;
@@ -95,6 +98,9 @@ div.meta-card {
         border-radius: $default-radius;
         width: #{$picheight * $picratio};
         height: $picheight;
+        &.compact {
+            height: #{$picheight/2};
+        }
         background-repeat: no-repeat;
         background-size: cover;
         background-position: center;
@@ -117,6 +123,9 @@ div.meta-card {
             border-radius: $default-radius;
             min-height: #{$picheight + 3 * 30};        
             padding: 30px 20px 20px #{$picheight * $picratio - 5px};
+            &.compact {
+                min-height: #{($picheight/2) + 3 * 30};        
+            }
             color:$default-darklightcolor;
             .title {
                 font-size: 2em;

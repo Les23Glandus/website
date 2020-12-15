@@ -3,6 +3,7 @@ import React from "react";
 import { Link, withRouter } from "react-router-dom";
 import strapiConnector from "../class/strapiConnector";
 import HtmlHead from "./HtmlHead";
+import RichText from "./meta/RichText";
 
   
 class Actus extends React.Component {
@@ -49,7 +50,7 @@ class Actus extends React.Component {
               <Link to={"/news/"+this.details.uniquepath}>
                 <h3>{this.details.title}</h3>
                 <p>{new Intl.DateTimeFormat('fr-FR', { dateStyle: 'full' }).format(new Date(this.details.date))}</p>
-                <p>{this.details.description}</p>
+                <p><RichText>{this.details.description}</RichText></p>
                 <p>{this.details.channel}</p>
               </Link>
           </div>
@@ -63,11 +64,11 @@ class Actus extends React.Component {
               <h2>{this.details.title}</h2>
               {this.details.description &&
                 <div>
-                  <div className="long-text">{this.details.description}</div>
+                  <div className="long-text"><RichText>{this.details.description}</RichText></div>
                 </div>
               }
               <hr/>
-              <div>{this.details.article}</div>
+              <div><RichText>{this.details.article}</RichText></div>
               <div className="illustrations">{this.details.illustration && <Image src={this.details.illustration.url}/>}</div>
         </div>
     )

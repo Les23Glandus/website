@@ -10,6 +10,9 @@ class Card extends React.Component {
   constructor(props) {
     super(props);
     this.picRef = React.createRef(); 
+
+    let rd = Math.floor(Math.random() * 12) + 1;
+    this.defaultpic = process.env.PUBLIC_URL + "/patterns/Pattern"+(rd<10?"0":"")+rd+".svg";
   }
 
   componentDidMount() {
@@ -50,6 +53,7 @@ class Card extends React.Component {
   render() {
     let pcolor = {};
     let reduceClassName = this.props.reduce ? "reduce" : "full";
+    if( this.props.compact ) reduceClassName += " compact";
     let classname = ["meta-card", reduceClassName];
     if( this.props.className ) classname.push( this.props.className );
     if( this.props.color ) {
@@ -57,10 +61,9 @@ class Card extends React.Component {
       pcolor = {"backgroundColor":this.props.color};
     }
 
-    let rd = Math.floor(Math.random() * 12) + 1;
 
     let imageUrl = this.props.imageUrl;
-    if(!imageUrl) imageUrl = process.env.PUBLIC_URL + "/patterns/Pattern"+(rd<10?"0":"")+rd+".svg";
+    if(!imageUrl) imageUrl = this.defaultpic;
 
     return (
       <div className={classname.join(" ")}>
@@ -69,15 +72,28 @@ class Card extends React.Component {
               ref={this.picRef}
               style={{"backgroundImage":`url(${imageUrl})`}}>
           </div>
-          
-          <Link to={this.props.url} 
-            className={`meta-card-minilink ${reduceClassName}`}
-            style={pcolor}
-            title={this.props.imageTitle}>
-              {this.props.bigText && <p><span>{this.props.bigText}</span><span className="chevron"><RightOutlined /></span></p>}
-          </Link>
 
-          <Link to={this.props.url}
+          {
+            (!this.props.url || this.props.url.indexOf("#") === 0) && 
+            <a href={this.props.url} onClick={this.props.onClick}
+              className={`meta-card-minilink ${reduceClassName}`}
+              style={pcolor}
+              title={this.props.imageTitle}>
+                {this.props.bigText && <p><span>{this.props.bigText}</span>{ this.props.arrow && <span className="chevron"><RightOutlined /></span>}</p>}
+            </a>
+          }
+          {
+            (this.props.url && this.props.url.indexOf("#") !== 0) && 
+            <Link to={this.props.url} onClick={this.props.onClick}
+              className={`meta-card-minilink ${reduceClassName}`}
+              style={pcolor}
+              title={this.props.imageTitle}>
+                {this.props.bigText && <p><span>{this.props.bigText}</span>{ this.props.arrow && <span className="chevron"><RightOutlined /></span>}</p>}
+            </Link>
+          }
+          
+
+          <Link to={this.props.url} onClick={this.props.onClick}
             className={`meta-card-details ${reduceClassName}`}
           >
             <div className="flexpart-left">
@@ -111,7 +127,10 @@ Card.defaultProps = {
   subTitle: "",
   supTitle:"",
   reduce:true,
+  compact:false,
   colorEffect:null,
   bigText:false,
+  arrow:true,
+  onClick:null,
 }
 export default withRouter(Card);

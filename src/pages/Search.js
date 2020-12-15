@@ -234,9 +234,9 @@ class SearchC extends React.Component {
 
 
 
-        <div id="search" className="search-sort" ref={this.searchTop}>
+        <div className="search-sort" ref={this.searchTop}>
           <h3>Trouvez votre prochaine escape</h3>
-          <div>
+          <div className="sort-by">
             <Form ref={this.sortformRef}>
               <Form.Item label="Trier par" name="sort" initialValue="date:DESC">
                 <Select onChange={this.onFilterChange.bind(this)}>

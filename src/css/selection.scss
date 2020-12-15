@@ -5,10 +5,10 @@ div.selection-main {
         margin: 10px 0;
     }
     div.escpae-include {
-        margin: 0 10% 60px 10% !important;
+        margin: 0 $default-page-padding 60px $default-page-padding !important;
     }
     div.page-back {
-        margin: 0 10% 0 10%;
+        margin: 0 $default-page-padding;
     }
 }
 div.all-selections {

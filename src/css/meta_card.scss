@@ -132,6 +132,13 @@ div.meta-card {
                 color: $default-darkcolor;
                 white-space: nowrap;
             }
+            @include lg {
+                flex-direction: column;
+            }
+            @include md {
+                padding: #{$picheight + 50} 10px 10px 10px;
+                align-items: flex-start;
+            }
         }
         &.reduce {
             .title {
@@ -166,6 +173,9 @@ div.meta-card {
         }
         .description {
             padding: 0 10px;
+            @include md {
+                padding: 20px 0;
+            }
         }
     }
 }

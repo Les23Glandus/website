@@ -4,6 +4,7 @@ html {
     scroll-behavior: smooth;
 }
 body {
+
     font-family: 'Montserrat', sans-serif;
     background-color: $primary-background-color;
     font-size: $default-fontSize;
@@ -76,6 +77,10 @@ body {
         @include flex-container;
         align-items: flex-start;
         justify-content: flex-start;
+        @include md {
+            justify-content: center;
+            align-items: center;
+        }
         &>div {
           margin: $default-card-margin;  
         }
@@ -98,6 +103,9 @@ body {
         justify-content: space-between;
         flex-wrap: nowrap;
         align-items: center;
+        @include md {
+            flex-direction: row;
+        }
         
         h1 {
             display: block;
@@ -149,11 +157,17 @@ body {
 
 
     .main-content-page {
-        padding: 10px 100px;
+        padding: 10px $default-page-padding;
+        @include md {
+            padding: 10px;
+        }
     }
 
     .main-footer {
         @include flex-container;
+        @include md {
+            align-items: center;
+        }
         background: #000000;
         padding: 50px 20px;
         & > div {

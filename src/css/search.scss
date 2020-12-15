@@ -16,13 +16,21 @@ div.search-main {
         justify-content: space-between;
         align-items: center;
         padding: 10px 30px;
+        div.sort-by {
+            @include md {
+                display: none;
+            }
+        }
     }
 
     .search {
         @include flex-container;
         .search-filter {
-            width: 300px;
+            width: 300px;           
             padding: 0 15px 50px 10px;
+            @include md {
+                width: 100%;                
+            }
             .ant-row.ant-form-item {
                 margin-bottom: 5px;
                 padding: 0 5px;

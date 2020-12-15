@@ -12,6 +12,9 @@ div.escape-card {
     }
     &.full .flexpart-left {
         min-width: 400px;
+        @include md {
+            min-width: auto;
+        }
     }
     .meta-card-details {
         .tags {

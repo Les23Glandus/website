@@ -5,7 +5,7 @@ $default-radius: 10px;
 $default-darkcolor: #171717;
 $default-darklightcolor: #8c8d8c;
 
-$default-page-padding: 10%;
+$default-page-padding: 9%;
 $default-card-margin: 5px;
 
 
@@ -24,6 +24,8 @@ $picheight: 210px;
 $picratio: 16/9;
 /*****/
 
+
+
 @mixin bold {
     font-weight: 700;
 }
@@ -39,6 +41,9 @@ $picratio: 16/9;
     justify-content: center;
     flex-direction: row;
     flex-wrap: wrap;
+    @include md {
+        flex-direction: column;
+    }
 }
 
 @mixin shadow {
@@ -67,4 +72,35 @@ $picratio: 16/9;
     &.rm2 {
         transform: scale(0.9) rotate(-2deg);
     }
+}
+
+
+
+
+
+
+
+
+// Small tablets (portrait view)
+$screen-md-min: 975px;
+// Tablets and small desktops
+$screen-lg-min: 1400px;
+
+// Medium devices
+@mixin md {
+   @media screen and (max-width: #{$screen-md-min}) {
+       @content;
+   }
+}
+// Large devices
+@mixin lg {
+    @media screen and (min-width: #{$screen-md-min}) and (max-width: #{$screen-lg-min}) {
+       @content;
+   }
+}
+// Extra large devices
+@mixin xl {
+   @media (min-width: #{$screen-lg-min}) {
+       @content;
+   }
 }

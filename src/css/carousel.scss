@@ -20,6 +20,9 @@ div.home-carousel {
         @include flex-container;
         align-content: flex-end;
         align-items: flex-end;
+        @include md {
+            flex-direction: row;
+        }
         &>div {
             background: rgba(23,23,23,0);
             background: linear-gradient(0deg, $primary-background-color 0%, $primary-background-color 10%, rgba(255,255,255,0) 100%);

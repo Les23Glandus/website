@@ -30,6 +30,7 @@ class RichText extends React.Component {
                 plugins={[gfm]}
                 renderers={renderers}
                 allowedTypes={ReactMarkdown.types}>{this.props.children}</ReactMarkdown>
+            <p style={{clear:"both"}}/>
         </div>
     )
   }

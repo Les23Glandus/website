@@ -1,4 +1,4 @@
-import { Divider, Form, Select, Skeleton, Spin } from "antd";
+import { Divider, Form, Pagination, Select, Skeleton, Spin } from "antd";
 import Checkbox from "antd/lib/checkbox/Checkbox";
 import React from "react";
 import { withRouter } from "react-router-dom";
@@ -17,10 +17,20 @@ class SearchC extends React.Component {
   payslist = null;
   regionlist = null;
   preventSearch = false;
+  inCache = {};
 
   constructor(props) {
     super(props);
-    this.state = {loaded:false, error:false, regionList:null, escapeList:null, presetList:[]};
+    this.state = {
+      loaded:false
+      , error:false
+      , loadingCard:false
+      , regionList:null
+      , escapeList:null
+      , presetList:[]
+      , lineperpage: 5
+      , currentpage: 0
+    };
 
     this.paysRef = React.createRef();
     this.formRef = React.createRef();
@@ -71,6 +81,30 @@ class SearchC extends React.Component {
   }
 
 
+  loadCards(list, cur, size) {
+    let refs = list.slice(cur * size, cur * size + size)
+      .map( n => n.uniquepath ).filter( n => typeof(this.inCache[n]) === "undefined" );
+    
+    if( refs && refs.length > 0 ) {
+      
+      this.setState({loadingCard:true});
+      new strapiConnector().getEscapeByRef(refs,true).then( res => {
+        if( res ) {
+          if( typeof(res.forEach) !== "function" ) res = [res];
+          res.forEach( n => this.inCache[ n.uniquepath ] = n );                       
+        }
+
+        this.setState({loadingCard:false});
+      });
+    }
+  }
+
+  onPaginationChange(cur,size) {
+    this.setState({currentpage:cur-1, lineperpage:size});
+    this.loadCards(this.state.escapeList, cur-1, size);
+    this.executeScroll();
+  }
+
   /**
    * 
    */
@@ -80,7 +114,7 @@ class SearchC extends React.Component {
     let query = {};
     let filter = this.formRef.current.getFieldsValue();
     console.info(JSON.stringify(filter));
-    let sort = this.sortformRef.current.getFieldsValue("sort");
+    let sort = this.sortformRef.current.getFieldsValue();
     let reg = /^tags-(\d+)$/;
     Object.keys( filter ).forEach((k) => {
       if( filter[k] !== undefined && filter[k] !== false ) {
@@ -101,10 +135,11 @@ class SearchC extends React.Component {
       }
     });
 
-    this.setState({loading:true});
-    new strapiConnector().searchEscapes( query, 300, 0, sort.sort )
+    this.setState({loading:true, currentpage:0});
+    new strapiConnector().searchEscapes( query, 1000, sort.sort )
     .then( d => {
       d = this.reduceListPerTags(d, query["tags.id"]);
+      this.loadCards(d, this.state.currentpage, this.state.lineperpage);
       this.setState({escapeList:d,loading:false});
     }).catch( e => {
       this.setState({error:true,loading:false});
@@ -155,6 +190,11 @@ class SearchC extends React.Component {
     this.onFilterChange();
   }
 
+  
+  executeScroll() {
+    if( this.searchTop.current )
+       this.searchTop.current.scrollIntoView();  
+  }
   /**
    * 
    */
@@ -183,8 +223,6 @@ class SearchC extends React.Component {
       )
     }
     
-
-    const executeScroll = () => this.searchTop.current.scrollIntoView();  
     return (
       <div className="search-main">
         
@@ -205,11 +243,12 @@ class SearchC extends React.Component {
                           reduce={true}
                           url={"#"}
                           arrow={false}
+                          key={n.id}
                           bigText={n.name}
                           compact
                           imageTitle={n.description}
                           imageUrl={n.illustration ? n.illustration.url : null}
-                          onClick={(e)=>{this.setFilterValue( n.preset ); e.preventDefault(); executeScroll(); }}
+                          onClick={(e)=>{this.setFilterValue( n.preset ); e.preventDefault(); this.executeScroll(); }}
                       ></Card>
                 }
               )
@@ -337,7 +376,31 @@ class SearchC extends React.Component {
           <div className="search-result">
               <div>
                   <div>{ this.state.loading && <p className="loading-spin"><Spin/></p>}</div>
-                  {this.state.escapeList && this.state.escapeList.map( n => <EscapeCard key={n.id} escape={n} enseigne={n.enseigne}/>)}
+                  { 
+                    this.state.escapeList && 
+                    this.state.escapeList
+                          .slice(this.state.currentpage * this.state.lineperpage, this.state.currentpage * this.state.lineperpage + this.state.lineperpage)
+                          .map( n => {
+                            if( this.inCache[n.uniquepath] ) {
+                              n = this.inCache[n.uniquepath];
+                            }
+                            return <EscapeCard key={n.id} escape={n} enseigne={n.enseigne}/>
+                          })
+                  
+                  }
+              </div>
+              <div className="pagination">
+                {
+                  this.state.escapeList && 
+                  <Pagination current={this.state.currentpage+1} total={this.state.escapeList.length} 
+                    showSizeChanger
+                    pageSizeOptions={[5,10,20,50]} 
+                    defaultPageSize={this.state.lineperpage}
+                    onChange={this.onPaginationChange.bind(this)}
+                    onShowSizeChange={this.onPaginationChange.bind(this)}
+                    showTotal={(t)=><span>{t} Escape{t>1 ? "s" : ""}</span>}
+                  />
+                }
               </div>
           </div>
         </div>

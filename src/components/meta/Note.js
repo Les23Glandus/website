@@ -4,17 +4,21 @@ import "../../css/meta_note.scss";
   
 class Note extends React.Component {
 
+  static desc = ['Nul', 'Bof', 'Bien', 'Trés bien', 'Excellente'];
+
+
   render() {
 
-    const desc = ['Nul', 'Bof', 'Bien', 'Trés bien', 'Excellente'];
 
     let v = this.props.value ? this.props.value : 3;
 
-    let style = {};// {"backgroundImage":`url(${process.env.PUBLIC_URL}/picture/gland.svg)`};
-
-    return (
-    <span className={"note " + (this.props.light ? "light" : "dark")} title={desc[Math.floor(v)]} style={style}>{v}{!this.props.compact && <i>/5</i>}</span>
-    )
+    if( !this.props.value ) {
+      return (<span/>)
+    } else {
+      return (
+      <span className={"note " + (this.props.light ? "light" : "dark")} title={Note.desc[Math.floor(v)]}>{v}{!this.props.compact && <i>/5</i>}</span>
+      )
+    }
   }
 
 }

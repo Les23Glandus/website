@@ -2,6 +2,7 @@ import React from "react";
 import { Link, withRouter } from "react-router-dom";
 import "../../css/meta_card.scss";
 import { RightOutlined } from '@ant-design/icons';
+import { Skeleton } from "antd";
   
 class Card extends React.Component {
 
@@ -101,7 +102,9 @@ class Card extends React.Component {
                 !this.props.reduce &&
                 <p className="sup-title">{this.props.supTitle}</p>
               }
-              <p className="title">{this.props.title}</p>
+              
+              {this.props.preview && <Skeleton title active paragraph={false}/>}
+              {!this.props.preview && <p className="title">{this.props.title}</p>}
               <p className="sub-title">{this.props.subTitle}</p>
 
               {!this.props.reduce && this.props.children}
@@ -110,6 +113,7 @@ class Card extends React.Component {
             {!this.props.reduce &&
               <div className="flexpart-2">
                 {!this.props.reduce && this.props.more}
+                {!this.props.reduce && this.props.preview && <Skeleton active/>}
               </div>
             }
           </Link>
@@ -132,5 +136,6 @@ Card.defaultProps = {
   bigText:false,
   arrow:true,
   onClick:null,
+  preview:false,
 }
 export default withRouter(Card);

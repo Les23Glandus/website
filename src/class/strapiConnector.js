@@ -89,10 +89,10 @@ class strapiConnector {
     body.variables.sort = "date:DESC";
     return this.graphql(body);
   }
-  getEscapeByRef(ref) {
-      let body = this.builGQLdQuery("escapes");
+  getEscapeByRef(ref, min) {
+      let body = this.builGQLdQuery("escapes" + (min ? ":list" : "") );
       body.variables.where = {"uniquepath":ref};
-      body.variables.limit = 1;
+      body.variables.limit = typeof(ref.map) === "function" ? ref.length : 1;
       return this.graphql(body);
   }
   getEscapeBetweenDate(dmin, dmax) {
@@ -102,11 +102,10 @@ class strapiConnector {
     body.variables.limit = 100;
     return this.graphql(body);
   }
-  searchEscapes(query, limit, start, sortby) {
-    let body = this.builGQLdQuery("escapes:list",true);
+  searchEscapes(query, limit, sortby) {
+    let body = this.builGQLdQuery("escapes:id");
     body.variables.where = query;
     body.variables.limit = limit ? limit : 100;
-    body.variables.start = start ? start : 0;
     body.variables.sort = sortby ? sortby : "date:DESC";
     return this.graphql(body);
   }
@@ -358,7 +357,18 @@ class strapiConnector {
           mini {id formats url}
         }`,
 
+
       
+        "escapes:id":`{
+          id
+          uniquepath
+          tags {
+            id
+          }
+        }`,
+
+      
+
         "escapes:list":`{
           id
           name

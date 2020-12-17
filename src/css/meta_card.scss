@@ -50,6 +50,7 @@ div.meta-card {
         }
     }
 
+
     .meta-card-minilink {
         display: block;
         border-radius: $default-radius;
@@ -138,6 +139,14 @@ div.meta-card {
             @include md {
                 padding: #{$picheight + 50} 10px 10px 10px;
                 align-items: flex-start;
+            }
+            .ant-skeleton span
+            ,.ant-skeleton h3
+            ,.ant-skeleton li {
+                @include shadow;
+            }
+            a, a:hover {
+                color:$default-darklightcolor;
             }
         }
         &.reduce {

@@ -36,7 +36,7 @@ class EscapeArticle extends React.Component {
         this.details = d;
         this.jsonld = this.generateJSONLD();
         this.setState({loaded:true, uref:this.details.uniquepath});
-      }).catch(e => {this.setState({error:true});if( typeof(this.props.onError) === "function" ) this.props.onError();} );
+      }).catch(e => {console.log(e);this.setState({error:true});if( typeof(this.props.onError) === "function" ) this.props.onError();} );
     
   }
 
@@ -85,7 +85,7 @@ class EscapeArticle extends React.Component {
         "ratingValue": this.details.rate,
         "bestRating": 5,
         "worstRating": 1,
-        "reviewCount": Math.max(1,this.details.avantapres.length) * 5
+        "reviewCount": Math.max(1,this.details.avantapres ? this.details.avantapres.length : 1) * 5
       },
       "publisher": {
         "@type": "Organization",
@@ -232,12 +232,12 @@ class EscapeArticle extends React.Component {
                     {this.details.nbPlayerMax === this.details.nbPlayerMin && this.details.nbPlayerMin >= 1 && <Tag>{this.details.nbPlayerMin} joueurs</Tag>}
                     {this.details.nbPlayerMax !== this.details.nbPlayerMin && <Tag>{this.details.nbPlayerMin} à {this.details.nbPlayerMax} joueurs</Tag >}
                     {
-                      this.state.loaded && this.details.tags.filter(t => !t.isMention).map(t => {
+                      this.state.loaded && this.details.tags && this.details.tags.filter(t => !t.isMention).map(t => {
                         return <Tag key={t.id}>{t.name}</Tag>
                       })
                     }
                     {
-                      this.state.loaded && this.details.tags.filter(t => t.isMention).map(t => {
+                      this.state.loaded && this.details.tags && this.details.tags.filter(t => t.isMention).map(t => {
                           return <Tag key={t.id}>{t.name}</Tag>
                       })
                     }
@@ -306,7 +306,7 @@ class EscapeArticle extends React.Component {
           }
 
 
-          {this.details.avantapres.length > 0 &&
+          {this.details.avantapres && this.details.avantapres.length > 0 &&
             <div className="article-part">
               <div className="left">
                 <h3>Avant / Aprés</h3>

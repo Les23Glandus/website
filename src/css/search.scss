@@ -23,8 +23,14 @@ div.search-main {
         }
     }
 
+    .pagination {
+        text-align: center;
+        margin: 60px 0 30px 0;
+    }
+
     .search {
         @include flex-container;
+        flex-wrap: nowrap;
         .search-filter {
             width: 300px;           
             padding: 0 15px 50px 10px;
@@ -49,8 +55,11 @@ div.search-main {
             margin-bottom: 50px;
             p.loading-spin {
                 position: absolute;
-                top:0;
-                left: 0;
+                top:-8px;
+                left: 19px;
+                .ant-spin-dot-item {
+                    background-color: #ffffff;
+                }
             }
         }
     }

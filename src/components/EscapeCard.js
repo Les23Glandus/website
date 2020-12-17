@@ -39,7 +39,7 @@ class EscapeCard extends React.Component {
             reduce={this.props.reduce ? true : false}
             url={"/escapegame/"+enseigneuip+"/"+this.props.escape.uniquepath}
             title={<span>{this.props.escape.name} <Note value={this.props.escape.rate} light={this.props.reduce ? true : false} compact/></span>}
-            subTitle={this.props.enseigne.name}
+            subTitle={this.props.enseigne ? this.props.enseigne.name : ""}
             supTitle={topinfo}
             imageUrl={imageUrl}
             imageTitle={this.props.escape.scenario}

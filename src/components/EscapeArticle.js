@@ -34,6 +34,7 @@ class EscapeArticle extends React.Component {
     let promise = this.props.escapeID ? strapi.getEscape(this.props.escapeID) : strapi.getEscapeByRef(this.props.escapeRef);
     promise.then( d => {
         this.details = d;
+        this.jsonld = this.generateJSONLD();
         this.setState({loaded:true, uref:this.details.uniquepath});
       }).catch(e => {this.setState({error:true});if( typeof(this.props.onError) === "function" ) this.props.onError();} );
     
@@ -45,11 +46,64 @@ class EscapeArticle extends React.Component {
     if(!this.state.loaded && !this.state.error && (this.props.escapeID || this.props.escapeRef)) this.loadDetails();
   }
 
-  /*
-  componentDidUpdate() {
-    if(!this.state.loaded && !this.state.error && (this.props.enseigneID || this.props.enseigneRef) ) this.loadDetails();
+  generateJSONLD() {
+    
+    //Used by google
+    let jsonld = {
+      "@context": "https://schema.org",
+      "@type": "ReviewNewsArticle",
+      "itemReviewed": {
+        "@type":"Game",
+        "name": this.details.name,
+        "numberOfPlayers": {
+          "minValue":this.details.nbPlayerMin,
+          "maxValue":this.details.nbPlayerMax,
+        },
+      },
+      "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": window.location.href
+      },
+      "inLanguage": {
+        "@type": "Language",
+        "name": "French",
+        "alternateName": "fr"
+      },
+      "reviewAspect":"Rating",
+      "abstract": this.details.description,
+      "articleSection":"Escape Game",
+      "headline": this.details.name,
+      "image": [],
+      "datePublished": this.details.published_at,
+      "dateModified": this.details.updated_at,
+      "author": {
+        "@type": "Organization",
+        "name": "Les Glandus"
+      },
+      "reviewRating": {
+        "@type": "AggregateRating",
+        "ratingValue": this.details.rate,
+        "bestRating": 5,
+        "worstRating": 1,
+        "reviewCount": Math.max(1,this.details.avantapres.length) * 5
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "Les Glandus",
+        "logo": {
+          "@type": "ImageObject",
+          "url": window.location.origin + "/AMP-logo.png"
+        }
+      }
+    };
+    
+    //TODO add audio
+
+    if( this.details.illustration ) jsonld["image"].push( window.location.origin + this.details.illustration.url);
+    if( this.details.mini ) jsonld["image"].push( window.location.origin + this.details.mini.url);
+
+    return jsonld;
   }
-  */
 
   render() {
 
@@ -109,60 +163,6 @@ class EscapeArticle extends React.Component {
               )
     }
 
-    //Used by google
-    let jsonld = {
-      "@context": "https://schema.org",
-      "@type": "ReviewNewsArticle",
-      "itemReviewed": {
-        "@type":"Game",
-        "name": this.details.name,
-        "numberOfPlayers": {
-          "minValue":this.details.nbPlayerMin,
-          "maxValue":this.details.nbPlayerMax,
-        },
-      },
-      "mainEntityOfPage": {
-        "@type": "WebPage",
-        "@id": window.location.href
-      },
-      "inLanguage": {
-        "@type": "Language",
-        "name": "French",
-        "alternateName": "fr"
-      },
-      "reviewAspect":"Rating",
-      "abstract": this.details.description,
-      "articleSection":"Escape Game",
-      "headline": this.details.name,
-      "image": [],
-      "datePublished": this.details.published_at,
-      "dateModified": this.details.updated_at,
-      "author": {
-        "@type": "Organization",
-        "name": "Les Glandus"
-      },
-      "reviewRating": {
-        "@type": "AggregateRating",
-        "ratingValue": this.details.rate,
-        "bestRating": 5,
-        "worstRating": 1,
-        "reviewCount": Math.max(1,this.details.avantapres.length)
-      },
-      "publisher": {
-        "@type": "Organization",
-        "name": "Les Glandus",
-        "logo": {
-          "@type": "ImageObject",
-          "url": window.location.origin + "/AMP-logo.png"
-        }
-      }
-    };
-    
-    //TODO add audio
-
-    if( this.details.illustration ) jsonld["image"].push( window.location.origin + this.details.illustration.url);
-    if( this.details.mini ) jsonld["image"].push( window.location.origin + this.details.mini.url);
-
     let pays = [];
     let regions = [];
     let town = null;
@@ -181,12 +181,15 @@ class EscapeArticle extends React.Component {
     return (
       <div>
           <HtmlHead title={`${this.details.name}` + (this.details.enseigne ? ` - ${this.details.enseigne.name}` : "")}>
-              <meta property="og:image" content={window.location.origin + this.details.mini.url}/>
+              {
+                this.details.mini &&
+                <meta property="og:image" content={window.location.origin + this.details.mini.url}/>
+              }
               <meta property="og:image:alt" content={this.details.name}/>
               <meta property="og:description" content={this.details.description}/> 
               <meta property="article:published_time" content={this.details.published_at}/> 
               {/*og:audio*/}
-              <script type="application/ld+json">{JSON.stringify(jsonld)}</script>
+              <script type="application/ld+json">{JSON.stringify(this.jsonld)}</script>
           </HtmlHead>
 
           {

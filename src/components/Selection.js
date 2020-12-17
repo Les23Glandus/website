@@ -23,12 +23,38 @@ class Selection extends React.Component {
   loadDetails() {  
     new strapiConnector().getSelectionByRef(this.props.selectionRef).then( d => {
         this.details = d;
+        this.jsonld = this.generateJSONLD();
         this.setState({loaded:true, uref:this.details.uniquepath});
       }).catch(e => {this.setState({error:true});if( typeof(this.props.onError) === "function" ) this.props.onError();} );
   }
 
   componentDidMount() {
     this.loadDetails();
+  }
+
+  generateJSONLD() {
+    let jsonld = 
+    {
+      "@context":"https://schema.org",
+      "@type":"ItemList",
+      "itemListElement":[]
+    }
+    
+    this.details.escapes.forEach( (n,i) =>  {
+      let enseigne = n.enseigne ? n.enseigne.uniquepath : "avis";
+      let url = window.location.origin + "/escapegame/"+enseigne+"/"+n.uniquepath;
+      let pic = window.location.origin + (n.mini ? n.mini.url : "");
+      jsonld.itemListElement.push(  
+        {
+          "@type":"ListItem",
+          "position":(i+1),
+          "url":url,
+          "name":n.name, 
+          "image":pic        
+        }
+      );
+    });
+    return jsonld;
   }
 
   render() {
@@ -57,34 +83,12 @@ class Selection extends React.Component {
       )
     } else {
 
-
-      let jsonld = 
-      {
-        "@context":"https://schema.org",
-        "@type":"ItemList",
-        "itemListElement":[]
-      }
-      
-      this.details.escapes.forEach( (n,i) =>  {
-        let enseigne = n.enseigne ? n.enseigne.uniquepath : "avis";
-        let url = window.location.origin + "/escapegame/"+enseigne+"/"+n.uniquepath;
-        let pic = window.location.origin + (n.mini ? n.mini.url : "");
-        jsonld.itemListElement.push(  
-          {
-            "@type":"ListItem",
-            "position":(i+1),
-            "url":url,
-            "name":n.name, 
-            "image":pic        
-          }
-        );
-      });
       
       return (
         <div class="selection-main">
           
             <HtmlHead title={`Nos sélections - ${this.details.title}`}>
-                <script type="application/ld+json">{JSON.stringify(jsonld)}</script>
+                <script type="application/ld+json">{JSON.stringify(this.jsonld)}</script>
             </HtmlHead>
 
 

@@ -18,6 +18,7 @@ class JeuxCard extends React.Component {
 
         <Card className="jeux-card"
             reduce={this.props.reduce ? true : false}
+            compact={this.props.compact ? true : false}
             url={"/jeux/"+this.props.jeux.uniquepath}
             title={<span>{this.props.jeux.name}</span>}
             subTitle={this.props.jeux.jeux_types && this.props.jeux.jeux_types.map(n=>n.name).join(", ")}

@@ -33,6 +33,7 @@ class SelectionCard extends React.Component {
       
       <Card className="selection-card"
           reduce={this.props.reduce ? true : false}
+          compact={this.props.compact ? true : false}
           url={"/selections/"+this.props.details.uniquepath}
           bigText={this.props.details.title}
           subTitle={""}

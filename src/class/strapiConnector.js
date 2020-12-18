@@ -22,6 +22,13 @@ class strapiConnector {
       body.variables.limit = 1;
       return this.graphql(body);
   }
+  searchSelection(query, limit) {
+    let body = this.builGQLdQuery("selections:list");
+    body.variables.where = {"title_contains":query};
+    body.variables.limit = limit;
+    body.variables.sort = "title:ASC";
+    return this.graphql(body);
+  }
 
 
   /**
@@ -102,7 +109,7 @@ class strapiConnector {
     body.variables.limit = 100;
     return this.graphql(body);
   }
-  searchEscapes(query, limit, sortby) {
+  browseEscapes(query, limit, sortby) {
     let body = this.builGQLdQuery("escapes:id");
     body.variables.where = query;
     body.variables.limit = limit ? limit : 100;
@@ -111,6 +118,13 @@ class strapiConnector {
   }
   getRealisation() {
     return this.fetch("/escapes/sum");
+  }
+  searchEscapes(query, limit) {
+    let body = this.builGQLdQuery("escapes:list");
+    body.variables.where = {"name_contains":query};
+    body.variables.limit = limit;
+    body.variables.sort = "date:DESC";
+    return this.graphql(body);
   }
 
   /**
@@ -125,6 +139,13 @@ class strapiConnector {
       body.variables.limit = 1;
       return this.graphql(body);
   }
+  searchEnseigne(query, limit) {
+    let body = this.builGQLdQuery("companies:list");
+    body.variables.where = {"name_contains":query};
+    body.variables.limit = limit;
+    body.variables.sort = "name:ASC";
+    return this.graphql(body);
+  }
 
   /**
    * Actu 
@@ -138,6 +159,13 @@ class strapiConnector {
   getRecentActus(limit) {
     let body = this.builGQLdQuery("actus:list");
     body.variables.where = {};
+    body.variables.limit = limit;
+    body.variables.sort = "date:DESC";
+    return this.graphql(body);
+  }
+  searchActus(query, limit) {
+    let body = this.builGQLdQuery("actus:list");
+    body.variables.where = {"title_contains":query};
     body.variables.limit = limit;
     body.variables.sort = "date:DESC";
     return this.graphql(body);
@@ -165,26 +193,33 @@ class strapiConnector {
     body.variables.sort = "date:DESC";
     return this.graphql(body);
   }
+  searchJeux(query, limit) {
+    let body = this.builGQLdQuery("jeuxes:list");
+    body.variables.where = {"name_contains":query};
+    body.variables.limit = limit;
+    body.variables.sort = "name:ASC";
+    return this.graphql(body);
+  }
 
 
-    /**
-     * GET to URL
-     * @param url 
-     */
-    fetch(url) {
-        return new Promise((resolve, reject) => {
+  /**
+   * GET to URL
+   * @param url 
+   */
+  fetch(url) {
+      return new Promise((resolve, reject) => {
 
-            fetch(this.API + url).then( response => {
-                if(response.ok) {
-                    response.json().then( r => resolve(r) );
-                } else {
-                    reject(response.error);
-                }
-              })
-              .catch(function(error) {
-                reject(error);
-              });
-        }); 
+          fetch(this.API + url).then( response => {
+              if(response.ok) {
+                  response.json().then( r => resolve(r) );
+              } else {
+                  reject(response.error);
+              }
+            })
+            .catch(function(error) {
+              reject(error);
+            });
+      }); 
     }
 
     /**
@@ -236,15 +271,15 @@ class strapiConnector {
         }`;
 
       return {query:q, variables:v};
-      }
-      builGQLdSingle(table) {
-          let v = {limit:10, where:{}, start:0, sort:"id"};
-          let q = `query{
-              ${table.replace(/:.+$/,"")} ${this.structure[table]}
-            }`;
+    }
+    builGQLdSingle(table) {
+        let v = {limit:10, where:{}, start:0, sort:"id"};
+        let q = `query{
+            ${table.replace(/:.+$/,"")} ${this.structure[table]}
+          }`;
 
-          return {query:q, variables:v};
-      }
+        return {query:q, variables:v};
+    }
 
 
 
@@ -269,6 +304,14 @@ class strapiConnector {
             addresses {pay {name} region {name} } 
           }
         }
+      }`,
+
+      "selections:list":`{
+        id
+        title
+        mini {id url formats}
+        color
+        description
       }`,
 
       
@@ -319,43 +362,59 @@ class strapiConnector {
   
   
       "companies":`{
-          id
-          name
-          introduction
-          ourExperience
-          published_at
-          updated_at
-          url
-          isOpen
-          addresses {id town postcode street name pay {id name} region {id name} }
-          logo {id url formats}
-          illustration {id formats url}
-          uniquepath
-          published_at
-          escapes { id name uniquepath date nbPlayerMin nbPlayerMax 
-            scenario
+        id
+        name
+        introduction
+        ourExperience
+        published_at
+        updated_at
+        url
+        isOpen
+        addresses {id town postcode street name pay {id name} region {id name} }
+        logo {id url formats}
+        illustration {id formats url}
+        uniquepath
+        published_at
+        escapes { id name uniquepath date nbPlayerMin nbPlayerMax 
+          scenario
+          description
+          mini { id formats url}
+          tags {
+            id
+            name
+            isMention
+            isGold 
             description
-            mini { id formats url}
-            tags {
-              id
-              name
-              isMention
-              isGold 
-              description
-              useInFilter
-            } }
-        }`,    
-  
-        "jeuxes": `{ id name uniquepath date article description editeur 
-          illustration {id formats url}
-          jeux_types { name }
-          mini {id formats url}
-        }`,
+            useInFilter
+          } }
+      }`,    
 
-        "jeuxes:list": `{ id name uniquepath date description 
-          jeux_types { name }
-          mini {id formats url}
-        }`,
+
+      
+  
+      "companies:list":`{
+        id
+        name
+        isOpen
+        logo {id url formats}
+        uniquepath
+      }`,    
+  
+
+
+      "jeuxes": `{ id name uniquepath date article description editeur 
+        illustration {id formats url}
+        jeux_types { name }
+        mini {id formats url}
+      }`,
+
+
+
+
+      "jeuxes:list": `{ id name uniquepath date description 
+        jeux_types { name }
+        mini {id formats url}
+      }`,
 
 
       

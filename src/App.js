@@ -6,7 +6,7 @@ import Home from './pages/Home';
 import Enseigne from './pages/Enseigne';
 import Escape from './pages/Escape';
 import Page404 from './pages/Page404';
-import Search from './pages/Search';
+import Browse from './pages/Browse';
 import Selections from './pages/Selections';
 import Selection from './pages/Selection';
 import News from './pages/News';
@@ -16,6 +16,7 @@ import APropos from './pages/APropos';
 import ScrollToTop from './components/ScrollToTop';
 import Jeu from './pages/Jeu';
 import Jeux from './pages/Jeux';
+import Search from './pages/Search';
 
 class App extends React.Component {
   render() {
@@ -38,7 +39,7 @@ class App extends React.Component {
                   </Route>
                   <Redirect from='/entreprise/:enseigne' to='/escapegame/:enseigne'/>
                   <Route path="/escapegame">
-                    <Search/>
+                    <Browse/>
                   </Route>
                   <Route exact path="/selections/:selection">
                     <Selection/>
@@ -57,6 +58,9 @@ class App extends React.Component {
                   </Route>
                   <Route path="/news">
                     <News/>
+                  </Route>
+                  <Route path="/search">
+                    <Search/>
                   </Route>
                   <Route path="/about">
                     <APropos/>

@@ -17,6 +17,7 @@ class ActusCard extends React.Component {
       
       <Card className="actu-card"
           reduce={this.props.reduce ? true : false}
+          compact={this.props.compact ? true : false}
           url={"/news/"+this.props.details.uniquepath}
           title={this.props.details.title}
           subTitle={new Intl.DateTimeFormat('fr-FR', { dateStyle: 'full' }).format(new Date(this.props.details.date))}

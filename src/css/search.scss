@@ -1,65 +1,47 @@
 @import "_theme.scss";
 
 div.search-main {
-    .search-presets {
-        position: relative;
-        margin: 0 $default-page-padding 60px $default-page-padding;
-        @include flex-container;
-        &>div {
-            margin: $default-card-margin;
-        }
+    position: relative;
+    padding: 0 $default-page-padding;
 
+    div.search-field {
+        border-radius: $default-radius;
+        padding: 30px;
+        background: #ffffff;
+        color: $primary-font-color;
+        p {
+            margin: 0;
+        }
+        .error {
+            @include bold;
+            color: $primary-error-font-color;
+        }
+        .ant-input-wrapper {
+            background: $default-darkcolor;
+        }
+        .ant-input-group, .ant-input {
+            line-height: 30px;
+        }
+        .ant-btn-icon-only {
+            width: 82px;
+        }
+        .ant-input-search > .ant-input-group > .ant-input-group-addon:last-child .ant-input-search-button:not(.ant-btn-primary) {
+            color: #ffffff;
+        }
     }
 
-    .search-sort {
-        @include flex-container;
-        justify-content: space-between;
-        align-items: center;
-        padding: 10px 30px;
-        div.sort-by {
-            @include md {
-                display: none;
+    div.search-result {
+        padding: 30px;
+        div.results {
+            @include flex-container;
+            justify-content: flex-start;
+            &>div {
+                width: 48%;
+                padding: 30px;
             }
-        }
-    }
-
-    .pagination {
-        text-align: center;
-        margin: 60px 0 30px 0;
-    }
-
-    .search {
-        @include flex-container;
-        flex-wrap: nowrap;
-        .search-filter {
-            width: 300px;           
-            padding: 0 15px 50px 10px;
-            @include md {
-                width: 100%;                
-            }
-            .ant-row.ant-form-item {
-                margin-bottom: 5px;
-                padding: 0 5px;
-                .ant-form-item-control-input-content {
-                    padding-left: 20px;
-                }
-            }
-            p.top-sec {
-                margin-left: 6px;
-            }
-        }
-    
-        .search-result {
-            flex: 1;
-            position: relative;
-            margin-bottom: 50px;
-            p.loading-spin {
-                position: absolute;
-                top:-8px;
-                left: 19px;
-                .ant-spin-dot-item {
-                    background-color: #ffffff;
-                }
+            .no-result {
+                @include light;
+                font-style: italic;
             }
         }
     }

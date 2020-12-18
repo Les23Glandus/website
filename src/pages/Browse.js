@@ -9,6 +9,9 @@ import Page500 from "./Page500";
 import TopIllustration from "../components/meta/TopIllustration";
 import "../css/browse.scss";
 import Card from "../components/meta/Card";
+import {
+  SearchOutlined
+} from '@ant-design/icons';
 
   
 class Browse extends React.Component {
@@ -253,17 +256,28 @@ class Browse extends React.Component {
                 }
               )
             }
-              <Card className="seemore-card"
-                  reduce={true}
-                  url={"/selections"}
-                  bigText={<span>Ou,<br/> parcourez nos sélections</span>}
-                  title={""}
-                  compact
-                  imageUrl={null}
-                  imageTitle={""}
-                  more={""}
-                  color={null}
-              ></Card>
+            <Card className="seemore-card"
+                reduce={true}
+                url={"/selections"}
+                bigText={<span>Ou,<br/> parcourez nos sélections</span>}
+                title={""}
+                compact
+                imageUrl={null}
+                imageTitle={""}
+                more={""}
+                color={null}
+            ></Card>
+            <Card className="search-card"
+                reduce={true}
+                url={"/search"}
+                bigText={<SearchOutlined />}
+                title={""}
+                compact
+                imageUrl={null}
+                imageTitle={""}
+                more={""}
+                color={null}
+            ></Card>
             </div>  
           }
 

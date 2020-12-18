@@ -100,7 +100,7 @@ class SearchP extends React.Component {
 
   onChange( e ) {
     if( e.target.value ) {
-      let {query,rawquery} = this.preprocessQuery( e.target.value );
+      let {query} = this.preprocessQuery( e.target.value );
       if( query.length !== 0 ) {
         this.setState({qtoshort:false});
       } 

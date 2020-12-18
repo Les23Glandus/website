@@ -36,7 +36,7 @@ class SelectionsGrid extends React.Component {
                 {this.state.loaded && 
                   <div className="flexgrid grid-actus">
 
-                    {this.details.map( n => <ActusCard details={n} reduce/> )}
+                    {this.details.map( n => <ActusCard  key={'ac'+n.id} details={n} reduce/> )}
                     {
                       
                         <Card className="seemore-card"

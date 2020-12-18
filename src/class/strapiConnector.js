@@ -309,6 +309,7 @@ class strapiConnector {
       "selections:list":`{
         id
         title
+        uniquepath
         mini {id url formats}
         color
         description

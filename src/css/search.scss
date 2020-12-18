@@ -34,10 +34,19 @@ div.search-main {
         padding: 30px;
         div.results {
             @include flex-container;
-            justify-content: flex-start;
+            justify-content: space-between;
             &>div {
-                width: 48%;
+                max-width: 48%;
                 padding: 30px;
+                &.escapes {
+                    min-width: 100%;
+                }
+            }
+            .sublist {
+                @include flex-container;
+                &>div {
+                    margin: $default-card-margin;
+                }
             }
             .no-result {
                 @include light;

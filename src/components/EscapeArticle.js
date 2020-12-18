@@ -11,6 +11,7 @@ import '../css/article.scss';
 import '../css/escapeArticle.scss';
 import Card from "./meta/Card";
 import RichText from "./meta/RichText";
+import TopIllustration from "./meta/TopIllustration";
 
   
 class EscapeArticle extends React.Component {
@@ -195,6 +196,10 @@ class EscapeArticle extends React.Component {
           {
           this.details.illustration && 
           <div className="article-illustration top-illustration" title={this.details.description} style={{backgroundImage:`url(${illusUrl})`}} />
+          }
+          {
+            !this.details.illustration && 
+            <TopIllustration/>
           }
 
         <div className="article-container article-escape">

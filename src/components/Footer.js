@@ -19,6 +19,7 @@ class Footer extends React.Component {
               <li><Link to="/jeux/">Jeux de société</Link></li>
               <li><Link to="/news">Actualités</Link></li>
               <li><Link to="/about">A propos</Link></li>
+              <li><Link to="/search">Recherchez</Link></li>
             </ul>
           </div>
           <ShareLinks/>

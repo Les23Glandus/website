@@ -76,8 +76,8 @@ class JeuxGrid extends React.Component {
                 {this.state.loaded && 
                   
                   <div className="flexgrid grid-actus">
-                    {!this.props.showAll && this.details.map( n => <JeuxCard jeux={n} reduce/> )}
-                    {this.props.showAll && this.details.map( n => <JeuxCard jeux={n} reduce/> )}
+                    {!this.props.showAll && this.details.map( n => <JeuxCard key={'jc'+n.id} jeux={n} reduce/> )}
+                    {this.props.showAll && this.details.map( n => <JeuxCard key={'jc'+n.id} jeux={n} reduce/> )}
                     {!this.props.showAll &&
                         <Card className="seemore-card"
                             reduce={true}

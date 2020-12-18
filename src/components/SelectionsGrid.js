@@ -44,8 +44,8 @@ class SelectionsGrid extends React.Component {
                 {this.state.loaded && 
                   
                   <div className="flexgrid grid-actus">
-                    {!this.props.showAll && this.details.Selections.map( n => <SelectionCard details={n.selection} reduce/> )}
-                    {this.props.showAll && this.details.map( n => <SelectionCard details={n} reduce/> )}
+                    {!this.props.showAll && this.details.Selections.map( n => <SelectionCard key={'sc'+n.selection.id} details={n.selection} reduce/> )}
+                    {this.props.showAll && this.details.map( n => <SelectionCard key={'sc'+n.id} details={n} reduce/> )}
                     {!this.props.showAll &&
                         <Card className="seemore-card"
                             reduce={true}

@@ -89,7 +89,7 @@ class APropos extends React.Component {
 
           <div className="groupe">
             {
-              this.glandus.map( n => <div className="gland" key={n.id}>
+              this.glandus.map( n => <div className="gland" key={"g"+n.id}>
                   <h3>{n.name}</h3>
                   <div>{n.description}</div>
               </div>)
@@ -98,7 +98,7 @@ class APropos extends React.Component {
           
           <div className="illustrations">
             {
-              this.details.illustrations && this.details.illustrations.map( n => <Image src={n.url}/>)
+              this.details.illustrations && this.details.illustrations.map( n => <Image key={"img"+n.id} src={n.url}/>)
             }
           </div>
         </div>

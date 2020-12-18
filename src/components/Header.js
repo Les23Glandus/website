@@ -2,7 +2,7 @@ import { Menu } from "antd";
 import React from "react";
 import { withRouter, Link } from "react-router-dom";
 import {
-  SearchOutlined
+  SearchOutlined, HomeFilled
 } from '@ant-design/icons';
   
 class Header extends React.Component {
@@ -47,12 +47,13 @@ class Header extends React.Component {
               <h1><Link to="/" style={{"background":'url(/Glandus-300px.png) 0 0 no-repeat'}}>Les Glandus</Link></h1>
             </div>
             <Menu theme="dark" mode="horizontal" defaultSelectedKeys={selected}>
+                <Menu.Item key="1"><Link to="/"><HomeFilled /></Link></Menu.Item>
                 <Menu.Item key="1"><Link to="/escapegame">Expériences Immersives</Link></Menu.Item>
                 <Menu.Item key="2"><Link to="/jeux">Jeux de société</Link></Menu.Item>
                 <Menu.Item key="3"><Link to="/news">Actualité</Link></Menu.Item>
                 <Menu.Item key="4"><Link to="/about">A Propos</Link></Menu.Item>
                 <Menu.Item key="5" onClick={this.doNotClick.bind(this)}>Ne pas cliquer</Menu.Item>
-                <Menu.Item key="6"><Link to="/escapegame"> <SearchOutlined /> </Link></Menu.Item>
+                <Menu.Item key="6"><Link to="/search"> <SearchOutlined /> </Link></Menu.Item>
             </Menu>
         </div>
     )

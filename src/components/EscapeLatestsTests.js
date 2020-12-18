@@ -40,7 +40,7 @@ class EscapeLatestsTests extends React.Component {
                   <div className="flexgrid grid-escape">
                     {
                       this.lastescapes.map( n => 
-                        <EscapeCard reduce escape={n} enseigne={n.enseigne}/>
+                        <EscapeCard key={'ec'+n.id} reduce escape={n} enseigne={n.enseigne}/>
                       )
                     }
                         <Card className="seemore-card"

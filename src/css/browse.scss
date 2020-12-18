@@ -11,6 +11,10 @@ div.browse-main {
 
     }
 
+    .zoning {
+        padding: 30px $default-page-padding;
+    }
+
     .browse-sort {
         @include flex-container;
         justify-content: space-between;

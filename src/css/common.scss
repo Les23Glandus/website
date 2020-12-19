@@ -37,7 +37,7 @@ body {
             text-decoration: underline;
         }
     }
-    a.outlink:before {
+    a.outlink:after {
         content: "-";
         background: url("pics/External_link_font_awesome.svg");
         background-position: 100% 50%;

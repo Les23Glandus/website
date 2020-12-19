@@ -156,22 +156,39 @@ class EnseigneArticle extends React.Component {
                         {this.details.logo && this.props.embeded && <Link to={"/escapegame/"+this.details.uniquepath}><img src={this.details.logo.formats.thumbnail.url} alt={this.details.name}/></Link>}
                     </div>
                 </div>
-                <div className="right">
-                    <h2>{this.details.name}</h2> 
-                    
-                    <RichText>{this.details.introduction && this.details.introduction}</RichText>
-                </div>
+                  <div className="right">
+                      <h2>{this.details.name}</h2> 
+                      
+                      {
+                        this.details.introduction && 
+                      <RichText>{this.details.introduction && this.details.introduction}</RichText>
+                      } 
+                  </div>
               </div>
               
+              {
+                this.details.ourExperience &&
+                <div className="article-part">
+                  <div className="left">
+                    <h3>Notre expérience</h3>
+                  </div>
+                  <div className="right">
+                      <div><RichText>{this.details.ourExperience}</RichText></div>
+                  </div>
+              </div>
+              }
               
-              <div className="article-part">
-                <div className="left">
-                  <h3>Notre expérience</h3>
-                </div>
-                <div className="right">
-                    <div><RichText>{this.details.ourExperience}</RichText></div>
-                </div>
-            </div>
+              {
+                this.details.url &&
+                <div className="article-part">
+                  <div className="left">
+                    <h3>Site de l'enseigne</h3>
+                  </div>
+                  <div className="right">
+                      <div><a href={this.details.url} target="_blank" rel="noreferrer" className="outlink">{this.details.url}</a></div>
+                  </div>
+              </div>
+              }
           
           </div>
   

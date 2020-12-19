@@ -278,6 +278,7 @@ class Browse extends React.Component {
                 bigText={<SearchOutlined />}
                 title={""}
                 compact
+                arrow={false}
                 imageUrl={null}
                 imageTitle={""}
                 more={""}
@@ -341,7 +342,7 @@ class Browse extends React.Component {
                 <div>
                   <Form.Item label="Nombre de joueurs" name="nbplayer">
                     <Select onChange={this.onFilterChange.bind(this)}>
-                      <Select.Option value=""> </Select.Option>
+                      <Select.Option value={false}> </Select.Option>
                       <Select.Option value={1}>1</Select.Option>
                       <Select.Option value={2}>2</Select.Option>
                       <Select.Option value={3}>3</Select.Option>
@@ -359,6 +360,7 @@ class Browse extends React.Component {
                 
                 <Divider orientation="left"></Divider>
                 <p className="top-sec">Mentions spéciales</p>
+                <div className="chkbx-tags">
                 {
                   this.tagslist.filter( n => n.isMention === true && n.isGold === false ).map( n => 
                   <div key={n.id}>
@@ -367,8 +369,10 @@ class Browse extends React.Component {
                     </Form.Item>
                   </div>)
                 }
+                </div>
                 <Divider orientation="left"></Divider>
                 <p className="top-sec">Tags</p>
+                <div className="chkbx-tags">
                 {
                   this.tagslist.filter( n => n.isMention === false && n.isGold === false ).map( n => 
                   
@@ -377,6 +381,7 @@ class Browse extends React.Component {
                     </Form.Item>
                   )
                 }
+                </div>
                 <Divider orientation="left"></Divider>
                 <div>
                   <Form.Item value="" name="gold">

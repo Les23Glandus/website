@@ -52,6 +52,13 @@ div.browse-main {
             p.top-sec {
                 margin-left: 6px;
             }
+            .chkbx-tags {
+                @include flex-container;
+                flex-direction: column;
+                @include md {
+                    flex-direction: row;
+                }
+            }
         }
     
         .browse-result {

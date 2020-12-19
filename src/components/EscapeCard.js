@@ -13,14 +13,17 @@ class EscapeCard extends React.Component {
     this.descp = React.createRef();
   }
 
-  componentDidMount() {
-    if( this.descp ) {
+  componentDidUpdate() {  
+    if( this.descp && this.descp.current ) {
       const maxln = 300;
       let txt = this.descp.current.innerText;
-      let after = txt.length > maxln ? "..." : "";
-      this.descp.current.innerHTML = txt.substring(0,maxln) + after;
-      this.descp.current.title = txt;
+      if( txt ) {
+        let after = txt.length > maxln ? "..." : "";
+        this.descp.current.innerHTML = txt.substring(0,maxln) + after;
+        this.descp.current.title = txt;
+      }
     }
+    
   }
 
   render() {

@@ -9,6 +9,17 @@ div.meta-card {
     }
     &.reduce {
         width: #{$picheight * $picratio};
+        &.search-card {
+            width: 100px;
+            .meta-card-mini,
+            .meta-card-minilink,
+            .meta-card-details {
+                width: 100px;
+            }
+            .meta-card-minilink {
+                font-size: 1.5em;
+            }
+        }
     }
     &.colored {
         .meta-card-mini {
@@ -186,7 +197,7 @@ div.meta-card {
         .description {
             padding: 0 10px;
             @include md {
-                padding: 20px 0;
+                padding: 0 20px 20px 0;
             }
         }
     }

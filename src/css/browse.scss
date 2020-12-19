@@ -37,7 +37,7 @@ div.browse-main {
         flex-wrap: nowrap;
         justify-content: flex-start;
         .browse-filter {
-            width: 300px;           
+            min-width: 300px;           
             padding: 0 15px 50px 10px;
             @include md {
                 width: 100%;                

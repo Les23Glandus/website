@@ -8,6 +8,21 @@ import RichText from "./meta/RichText";
   
 class EscapeCard extends React.Component {
 
+  constructor(props) {
+    super(props);
+    this.descp = React.createRef();
+  }
+
+  componentDidMount() {
+    if( this.descp ) {
+      const maxln = 300;
+      let txt = this.descp.current.innerText;
+      let after = txt.length > maxln ? "..." : "";
+      this.descp.current.innerHTML = txt.substring(0,maxln) + after;
+      this.descp.current.title = txt;
+    }
+  }
+
   render() {
 
     let imageUrl;
@@ -32,7 +47,6 @@ class EscapeCard extends React.Component {
       topinfo = <span className="region">{pays.length > 0 && pays.join(", ")}{regions.length > 0 && (' - '+regions.join(", "))}</span>
     } 
     
-    
     return (
 
         <Card className="escape-card"
@@ -45,7 +59,7 @@ class EscapeCard extends React.Component {
             supTitle={topinfo}
             imageUrl={imageUrl}
             imageTitle={this.props.escape.scenario}
-            more={<div className="description"><RichText>{ this.props.escape.scenario }</RichText></div>}
+            more={<div className="description" ref={this.descp}><RichText>{ this.props.escape.scenario }</RichText></div>}
         >
               {
                 this.props.date &&

@@ -2,6 +2,7 @@
  * Connector to strapi
  * to retreive information
  */
+import md5 from 'md5';
 
 class strapiConnector {
 
@@ -11,10 +12,10 @@ class strapiConnector {
    * Selections
    */
   getChoixSelection() {
-    return this.fetch("/choix-selection"); 
+    return this.fetch("/choix-selection","1"); 
   }
   getSelections() {
-    return this.fetch("/selections");
+    return this.fetch("/selections","1");
   }
   getSelectionByRef(ref) {
       let body = this.builGQLdQuery("selections");
@@ -27,6 +28,7 @@ class strapiConnector {
     body.variables.where = {"title_contains":query};
     body.variables.limit = limit;
     body.variables.sort = "title:ASC";
+    body.variables.cache = 0; 
     return this.graphql(body);
   }
 
@@ -35,7 +37,7 @@ class strapiConnector {
    * A Propos
    */
   getAPropos() {
-    return this.fetch("/a-propos"); 
+    return this.fetch("/a-propos","12"); 
   }
   getHomeAPropos() {
     let body = this.builGQLdSingle("aPropo");
@@ -43,7 +45,7 @@ class strapiConnector {
     return this.graphql(body);
   }
   getGlanduses() {
-    return this.fetch("/glanduses"); 
+    return this.fetch("/glanduses","12"); 
   }
   
 
@@ -71,7 +73,7 @@ class strapiConnector {
    * Carousel
    */
   getCarousel() {
-    return this.fetch("/carousels");
+    return this.fetch("/carousels","1");
   }
   
     
@@ -80,50 +82,54 @@ class strapiConnector {
    * filter-presets 
    */
   getFilterPresets() {
-    return this.fetch("/filter-presets");
+    return this.fetch("/filter-presets","1");
   }
 
   /**
    * Escapes 
    */
   getEscape(id) {
-      return this.fetch("/escapes/"+id);
+      return this.fetch("/escapes/"+id+"","1");
   }
   getRecentEscapes(limit) {
     let body = this.builGQLdQuery("escapes:list");
-    body.variables.where = {"preventPush":false};
+    body.variables.where = {"preventPush":false,"isOpen":true};
     body.variables.limit = limit;
     body.variables.sort = "date:DESC";
+    body.variables.cache = 1; 
     return this.graphql(body);
   }
   getEscapeByRef(ref, min) {
       let body = this.builGQLdQuery("escapes" + (min ? ":list" : "") );
       body.variables.where = {"uniquepath":ref};
       body.variables.limit = typeof(ref.map) === "function" ? ref.length : 1;
+      body.variables.cache = body.variables.limit === 1 ? 4 : 0;
       return this.graphql(body);
   }
   getEscapeBetweenDate(dmin, dmax) {
     let body = this.builGQLdQuery("escapes:list");
-    body.variables.where = {"date_gt":dmin, "date_lt":dmax, "preventPush":false};
+    body.variables.where = {"date_gt":dmin, "date_lt":dmax, "preventPush":false, "isOpen":true};
     body.variables.sort = "date:DESC";
     body.variables.limit = 100;
+    body.variables.cache = 0; 
     return this.graphql(body);
   }
   browseEscapes(query, limit, sortby) {
     let body = this.builGQLdQuery("escapes:id");
     body.variables.where = query;
     body.variables.limit = limit ? limit : 100;
-    body.variables.sort = sortby ? sortby : "date:DESC";
+    body.variables.sort = sortby ? sortby : "date:DESC"; 
     return this.graphql(body);
   }
   getRealisation() {
-    return this.fetch("/escapes/sum");
+    return this.fetch("/escapes/sum","1");
   }
   searchEscapes(query, limit) {
     let body = this.builGQLdQuery("escapes:list");
     body.variables.where = {"name_contains":query};
     body.variables.limit = limit;
     body.variables.sort = "date:DESC";
+    body.variables.cache = 0; 
     return this.graphql(body);
   }
 
@@ -144,6 +150,7 @@ class strapiConnector {
     body.variables.where = {"name_contains":query};
     body.variables.limit = limit;
     body.variables.sort = "name:ASC";
+    body.variables.cache = 0; 
     return this.graphql(body);
   }
 
@@ -161,6 +168,7 @@ class strapiConnector {
     body.variables.where = {};
     body.variables.limit = limit;
     body.variables.sort = "date:DESC";
+    body.variables.cache = 2; 
     return this.graphql(body);
   }
   searchActus(query, limit) {
@@ -168,6 +176,7 @@ class strapiConnector {
     body.variables.where = {"title_contains":query};
     body.variables.limit = limit;
     body.variables.sort = "date:DESC";
+    body.variables.cache = 0; 
     return this.graphql(body);
   }
 
@@ -191,6 +200,7 @@ class strapiConnector {
     let body = this.builGQLdQuery("jeuxes:list");
     body.variables.limit = limit;
     body.variables.sort = "date:DESC";
+    body.variables.cache = 1; 
     return this.graphql(body);
   }
   searchJeux(query, limit) {
@@ -198,6 +208,7 @@ class strapiConnector {
     body.variables.where = {"name_contains":query};
     body.variables.limit = limit;
     body.variables.sort = "name:ASC";
+    body.variables.cache = 0; 
     return this.graphql(body);
   }
 
@@ -206,10 +217,15 @@ class strapiConnector {
    * GET to URL
    * @param url 
    */
-  fetch(url) {
+  fetch(url, cache) {
       return new Promise((resolve, reject) => {
+        
+          const requestOptions = {
+              method: 'GET',
+              headers: { "x-cache":cache ? cache : 0 },
+          };
 
-          fetch(this.API + url).then( response => {
+          fetch(this.API + url, requestOptions).then( response => {
               if(response.ok) {
                   response.json().then( r => resolve(r) );
               } else {
@@ -231,7 +247,9 @@ class strapiConnector {
         return new Promise((resolve, reject) => {
             const requestOptions = {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
+                headers: { 'Content-Type': 'application/json' ,
+                            "x-cache":message.variables.cache ,
+                              "x-query": md5( JSON.stringify(message.variables) )  },
                 body: JSON.stringify(message)
             };
             fetch(this.API + "/graphql",requestOptions).then( response => {
@@ -263,7 +281,7 @@ class strapiConnector {
      * @param  table 
      */
     builGQLdQuery(table, includeCount) {
-      let v = {limit:10, where:{}, start:0, sort:"id"};
+      let v = {limit:10, where:{}, start:0, sort:"id", t:table, cache:4};//cache ~ cacheValue * 20min
       let count = includeCount ? table.replace(/:.+$/,"")+"Count(where:$where)" : "";
       let q = `query($limit:Int, $where:JSON, $start:Int, $sort:String){
           ${table.replace(/:.+$/,"")}(limit:$limit, where:$where, start:$start, sort:$sort) ${this.structure[table]}
@@ -273,7 +291,7 @@ class strapiConnector {
       return {query:q, variables:v};
     }
     builGQLdSingle(table) {
-        let v = {limit:10, where:{}, start:0, sort:"id"};
+        let v = {limit:10, where:{}, start:0, sort:"id", cache:12};
         let q = `query{
             ${table.replace(/:.+$/,"")} ${this.structure[table]}
           }`;

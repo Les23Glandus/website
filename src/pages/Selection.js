@@ -14,22 +14,6 @@ class Selection extends React.Component {
     this.state = {loaded:false, error:false};
   }
 
-
-  loadDetails() {  
-    new strapiConnector().getSelectionByRef(this.props.selectionRef).then( d => {
-        this.details = d;
-        this.loading = false;
-        this.setState({loaded:true, uref:this.details.uniquepath});
-    }).catch( e => {
-      this.loading = false;
-      this.setState({error:true});
-    });
-  }
-
-  componentDidMount() {
-    this.loadDetails();
-  }
-
   render() {
     if( this.state.error ) {
       return ( <Page500/> )

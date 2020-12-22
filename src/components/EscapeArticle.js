@@ -366,7 +366,7 @@ class EscapeArticle extends React.Component {
 
         {this.details.enseigne && 
           <div className="article-follower zoning">
-            <ArticleEnseigne reduce={true} enseigneID={this.details.enseigne.id} updathead={false} embeded hide={this.details.id}/>
+            <ArticleEnseigne reduce={true} enseigneRef={this.details.enseigne.uniquepath} updathead={false} embeded hide={this.details.id}/>
           </div>
         }
 

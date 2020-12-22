@@ -21,7 +21,7 @@ div.escape-card {
     }
     &.full {
         .t {
-            max-width: calc(100% - 3em);
+            max-width: calc(100% - 3.8em);
             display: inline-block;
             overflow: hidden;
             text-overflow: ellipsis;

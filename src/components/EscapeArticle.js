@@ -372,7 +372,7 @@ class EscapeArticle extends React.Component {
 
 
         <div className="article-follower moretosee">
-          <EscapeLatestsTests title="A voir aussi..."/>
+          <EscapeLatestsTests title="A voir aussi..." notID={this.details.id} tagslist={this.details.tags ? this.details.tags.map( n => n.id ) : []}/>
         </div>
       </div>
     )

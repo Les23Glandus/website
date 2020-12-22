@@ -15,13 +15,55 @@ class EscapeLatestsTests extends React.Component {
   }
 
   loadEscapes() {
+    const nbElement = 3;
     let strapi = new strapiConnector();
-    strapi.getRecentEscapes(3).then(
-      list => {
-        this.lastescapes = list;
-        this.setState({loaded:true});
+
+    if( this.props.tagslist ) {
+      let sortOptions = ["date:ASC","name:ASC","rate:ASC","date:DESC","name:DESC","rate:DESC"]
+      let query = {isOpen:true, preventPush:false};
+      query.isOpen = true
+
+      if( this.props.tagslist.length > 0 ) {
+        query.tags = this.props.tagslist;
       }
-    ).catch(e => {this.setState({error:true});if( typeof(this.props.onError) === "function" ) this.props.onError();} );
+      if( this.props.notID ) {
+        query["id_ne"] = this.props.notID;
+      }
+      if( this.props.pay ) {
+        //query["address.pay"] = this.props.pay;
+      }
+
+      strapi.browseEscapes(query, 30, sortOptions[ ~~(Math.random() * sortOptions.length) ], true).then(
+        list => {
+          let subList ;
+          if( list.length > nbElement ) {
+            subList = [];
+            for( let i = 0; i < nbElement; i++ ) {
+              let index = ~~(Math.random() * list.length);
+              subList.push( list.splice(index,1)[0].uniquepath );
+            }
+          } else {
+            subList = list.map( n => n.uniquepath );
+          }
+
+          strapi.getEscapeByRef(subList).then(
+            list => {
+              this.lastescapes = list;
+              this.setState({loaded:true});
+            }
+          ).catch(e => {} );
+
+        }
+      ).catch(e => {});
+
+    } else {
+      strapi.getRecentEscapes(nbElement).then(
+        list => {
+          this.lastescapes = list;
+          this.setState({loaded:true});
+        }
+      ).catch(e => {this.setState({error:true});if( typeof(this.props.onError) === "function" ) this.props.onError();} );
+    }
   }
 
   componentDidMount() {

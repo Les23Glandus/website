@@ -30,7 +30,7 @@ class EscapeCard extends React.Component {
 
     let imageUrl;
     if( this.props.escape.mini ) {
-      if( this.props.escape.mini.formats.small ) imageUrl = this.props.escape.mini.formats.small.url
+      if( this.props.escape.mini.formats && this.props.escape.mini.formats.small ) imageUrl = this.props.escape.mini.formats.small.url
       else  imageUrl = this.props.escape.mini.url;
     }
 

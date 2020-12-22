@@ -114,11 +114,12 @@ class strapiConnector {
     body.variables.cache = 0; 
     return this.graphql(body);
   }
-  browseEscapes(query, limit, sortby) {
+  browseEscapes(query, limit, sortby, nocache) {
     let body = this.builGQLdQuery("escapes:id");
     body.variables.where = query;
     body.variables.limit = limit ? limit : 100;
     body.variables.sort = sortby ? sortby : "date:DESC"; 
+    body.variables.cache = nocache ? 0 : 4;
     return this.graphql(body);
   }
   getRealisation() {

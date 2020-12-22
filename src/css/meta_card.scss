@@ -146,6 +146,8 @@ div.meta-card {
                 font-size: 2em;
                 color: $default-darkcolor;
                 white-space: nowrap;
+                text-overflow: ellipsis;
+                overflow: hidden;
             }
             @include lg {
                 flex-direction: column;
@@ -168,6 +170,8 @@ div.meta-card {
                 font-size: 1em;
                 color: #ffffff;
                 margin: 5px 0 -4px 0;
+                text-overflow: ellipsis;
+                overflow: hidden;
             }
             .sub-title {
                 font-style: italic;

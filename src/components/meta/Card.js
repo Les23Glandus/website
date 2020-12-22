@@ -65,7 +65,6 @@ class Card extends React.Component {
 
     let imageUrl = this.props.imageUrl;
     if(!imageUrl) imageUrl = this.defaultpic;
-
     return (
       <div className={classname.join(" ")}>
 
@@ -100,7 +99,7 @@ class Card extends React.Component {
             <div className="flexpart-left">
               {
                 !this.props.reduce &&
-                <p className="sup-title">{this.props.supTitle}</p>
+                <p className="sup-title" title={this.props.supTitle}>{this.props.supTitle}</p>
               }
               
               {this.props.preview && <Skeleton title active paragraph={false}/>}

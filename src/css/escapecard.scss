@@ -12,8 +12,19 @@ div.escape-card {
     }
     &.full .flexpart-left {
         min-width: 400px;
+        max-width: 400px;
         @include md {
             min-width: auto;
+            max-width: none;
+            width: 100%;
+        }
+    }
+    &.full {
+        .t {
+            max-width: calc(100% - 3em);
+            display: inline-block;
+            overflow: hidden;
+            text-overflow: ellipsis;
         }
     }
     .meta-card-details {

@@ -397,7 +397,7 @@ class Browse extends React.Component {
               </Form>
 
           </div>
-          <div className="search-result">
+          <div className="browse-result">
               <div>
                   <div>{ this.state.loading && <p className="loading-spin"><Spin/></p>}</div>
                   { 

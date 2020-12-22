@@ -1,6 +1,5 @@
 import React from "react";
 import { withRouter } from "react-router-dom";
-import strapiConnector from "../class/strapiConnector";
 import SelectionCompo from "../components/Selection";
 import Page500 from "./Page500";
 

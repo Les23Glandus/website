@@ -59,7 +59,16 @@ class Actus extends React.Component {
 
     return (
         <div className="single-actu">
-            <HtmlHead title={`News - ${this.details.title}`}/>
+            <HtmlHead title={`News - ${this.details.title}`}>
+              {
+                this.details.mini &&
+                <meta property="og:image" content={window.location.origin + this.details.mini.url}/>
+              }
+              <meta property="og:image:alt" content={this.details.name}/>
+              <meta property="og:description" content={this.details.description}/> 
+              <meta property="article:published_time" content={this.details.published_at}/> 
+            </HtmlHead>
+
               <p className="date">{new Intl.DateTimeFormat('fr-FR', { dateStyle: 'full' }).format(new Date(this.details.date))}</p>
               <h2>{this.details.title}</h2>
               {this.details.description &&

@@ -223,7 +223,7 @@ class strapiConnector {
         
           const requestOptions = {
               method: 'GET',
-              headers: { "x-cache":cache ? cache : 0 },
+              headers: { "My-Cache":cache ? cache : 0 },
           };
 
           fetch(this.API + url, requestOptions).then( response => {
@@ -249,8 +249,8 @@ class strapiConnector {
             const requestOptions = {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' ,
-                            "x-cache":message.variables.cache ,
-                              "x-query": md5( JSON.stringify(message.variables) )  },
+                            "My-Cache":message.variables.cache ,
+                              "My-Cache-Query": md5( JSON.stringify(message.variables) )  },
                 body: JSON.stringify(message)
             };
             fetch(this.API + "/graphql",requestOptions).then( response => {

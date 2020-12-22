@@ -12,6 +12,7 @@ import '../css/escapeArticle.scss';
 import Card from "./meta/Card";
 import RichText from "./meta/RichText";
 import TopIllustration from "./meta/TopIllustration";
+import CONFIG from "../class/config";
 
   
 class EscapeArticle extends React.Component {
@@ -93,15 +94,15 @@ class EscapeArticle extends React.Component {
         "name": "Les Glandus",
         "logo": {
           "@type": "ImageObject",
-          "url": window.location.origin + "/AMP-logo.png"
+          "url": CONFIG.origin + "/AMP-logo.png"
         }
       }
     };
     
     //TODO add audio
 
-    if( this.details.illustration ) jsonld["image"].push( window.location.origin + this.details.illustration.url);
-    if( this.details.mini ) jsonld["image"].push( window.location.origin + this.details.mini.url);
+    if( this.details.illustration ) jsonld["image"].push( CONFIG.origin + this.details.illustration.url);
+    if( this.details.mini ) jsonld["image"].push( CONFIG.origin + this.details.mini.url);
 
     return jsonld;
   }
@@ -184,7 +185,7 @@ class EscapeArticle extends React.Component {
           <HtmlHead title={`${this.details.name}` + (this.details.enseigne ? ` - ${this.details.enseigne.name}` : "")}>
               {
                 this.details.mini &&
-                <meta property="og:image" content={window.location.origin + this.details.mini.url}/>
+                <meta property="og:image" content={CONFIG.origin + this.details.mini.url}/>
               }
               <meta property="og:image:alt" content={this.details.name}/>
               <meta property="og:description" content={this.details.description}/> 

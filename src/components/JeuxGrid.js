@@ -5,6 +5,7 @@ import strapiConnector from "../class/strapiConnector";
 import Card from "./meta/Card";
 import JeuxCard from "./JeuxCard";
 import HtmlHead from "./HtmlHead";
+import CONFIG from "../class/config";
   
 class JeuxGrid extends React.Component {
 
@@ -45,8 +46,8 @@ class JeuxGrid extends React.Component {
         "itemListElement":[]
       }
       this.details.forEach( (n,i) =>  {
-        let url = window.location.origin + "/jeux/"+n.uniquepath;
-        let pic = window.location.origin + (n.mini ? n.mini.url : "");
+        let url = CONFIG.origin + "/jeux/"+n.uniquepath;
+        let pic = CONFIG.origin + (n.mini ? n.mini.url : "");
         jsonld.itemListElement.push(  
           {
             "@type":"ListItem",

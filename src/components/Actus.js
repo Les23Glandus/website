@@ -2,6 +2,7 @@ import { Image, Skeleton } from "antd";
 import React from "react";
 import { Link, withRouter } from "react-router-dom";
 import strapiConnector from "../class/strapiConnector";
+import CONFIG from "../class/config";
 import HtmlHead from "./HtmlHead";
 import RichText from "./meta/RichText";
 
@@ -62,7 +63,7 @@ class Actus extends React.Component {
             <HtmlHead title={`News - ${this.details.title}`}>
               {
                 this.details.mini &&
-                <meta property="og:image" content={window.location.origin + this.details.mini.url}/>
+                <meta property="og:image" content={CONFIG.origin + this.details.mini.url}/>
               }
               <meta property="og:image:alt" content={this.details.name}/>
               <meta property="og:description" content={this.details.description}/> 

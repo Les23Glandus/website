@@ -8,6 +8,7 @@ import TopIllustration from './meta/TopIllustration';
 import '../css/selection.scss';
 import SelectionCard from "./SelectionCard";
 import RichText from "./meta/RichText";
+import CONFIG from "../class/config";
 
   
 class Selection extends React.Component {
@@ -42,8 +43,8 @@ class Selection extends React.Component {
     
     this.details.escapes.forEach( (n,i) =>  {
       let enseigne = n.enseigne ? n.enseigne.uniquepath : "avis";
-      let url = window.location.origin + "/escapegame/"+enseigne+"/"+n.uniquepath;
-      let pic = window.location.origin + (n.mini ? n.mini.url : "");
+      let url = CONFIG.origin + "/escapegame/"+enseigne+"/"+n.uniquepath;
+      let pic = CONFIG.origin + (n.mini ? n.mini.url : "");
       jsonld.itemListElement.push(  
         {
           "@type":"ListItem",

@@ -7,6 +7,7 @@ import HtmlHead from "./HtmlHead";
 import "../css/enseigneArticle.scss";
 import TopIllustration from "./meta/TopIllustration";
 import RichText from "./meta/RichText";
+import CONFIG from "../class/config";
 
   
 class EnseigneArticle extends React.Component {
@@ -122,13 +123,13 @@ class EnseigneArticle extends React.Component {
           "name": "Les Glandus",
           "logo": {
             "@type": "ImageObject",
-            "url": window.location.origin + "/AMP-logo.png"
+            "url": CONFIG.origin + "/AMP-logo.png"
           }
         }
       };
     
-      if( this.details.illustration ) jsonld["image"].push( window.location.origin + this.details.illustration.url);
-      if( this.details.logo ) jsonld["image"].push( window.location.origin + this.details.logo.url);
+      if( this.details.illustration ) jsonld["image"].push( CONFIG.origin + this.details.illustration.url);
+      if( this.details.logo ) jsonld["image"].push( CONFIG.origin + this.details.logo.url);
   
 
       return (
@@ -137,7 +138,7 @@ class EnseigneArticle extends React.Component {
               this.props.updathead !== false &&
               <HtmlHead title={this.details.name}>
                 {this.details.logo && 
-                  <meta property="og:image" content={window.location.origin + this.details.logo.url}/>
+                  <meta property="og:image" content={CONFIG.origin + this.details.logo.url}/>
                 }
                   <meta property="og:image:alt" content={this.details.name}/>
                   <meta property="og:description" content={this.details.introduction && this.details.introduction}/> 

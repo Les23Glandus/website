@@ -7,6 +7,7 @@ import '../css/article.scss';
 import Card from "./meta/Card";
 import RichText from "./meta/RichText";
 import JeuxGrid from "./JeuxGrid";
+import CONFIG from "../class/config";
 
   
 class JeuxArticle extends React.Component {
@@ -98,20 +99,20 @@ class JeuxArticle extends React.Component {
         "name": "Les Glandus",
         "logo": {
           "@type": "ImageObject",
-          "url": window.location.origin + "/AMP-logo.png"
+          "url": CONFIG.origin + "/AMP-logo.png"
         }
       }
     };
 
-    if( this.details.illustration ) jsonld["image"].push( window.location.origin + this.details.illustration.url);
-    if( this.details.mini ) jsonld["image"].push( window.location.origin + this.details.mini.url);
+    if( this.details.illustration ) jsonld["image"].push( CONFIG.origin + this.details.illustration.url);
+    if( this.details.mini ) jsonld["image"].push( CONFIG.origin + this.details.mini.url);
 
     let illusUrl = this.details.illustration ? this.details.illustration.url : process.env.PUBLIC_URL + "/patterns/Pattern04.svg";
 
     return (
       <div>
           <HtmlHead title={this.details.name}>
-              <meta property="og:image" content={window.location.origin + this.details.mini.url}/>
+              <meta property="og:image" content={CONFIG.origin + this.details.mini.url}/>
               <meta property="og:image:alt" content={this.details.name}/>
               <meta property="og:description" content={this.details.description}/> 
               <meta property="article:published_time" content={this.details.published_at}/> 

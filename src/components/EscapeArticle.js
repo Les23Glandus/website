@@ -179,6 +179,10 @@ class EscapeArticle extends React.Component {
     }
 
     let illusUrl = this.details.illustration ? this.details.illustration.url : process.env.PUBLIC_URL + "/patterns/Pattern04.svg";
+    let ogimage = this.details.mini.url;
+    if( this.details.mini && this.details.mini.formats && this.details.mini.formats.medium ) {
+      ogimage = this.details.mini.formats.medium.url;
+    }
 
     return (
       <div>
@@ -187,7 +191,7 @@ class EscapeArticle extends React.Component {
           >
               {
                 this.details.mini &&
-                <meta property="og:image" content={CONFIG.origin + this.details.mini.url}/>
+                <meta property="og:image" content={CONFIG.origin + ogimage}/>
               }
               <meta property="og:image:alt" content={this.details.name}/>
               <meta property="article:published_time" content={this.details.published_at}/> 

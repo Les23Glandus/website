@@ -22,7 +22,7 @@ class Actu extends React.Component {
     
     return (
       <div>
-        <HtmlHead title={`News`}/>
+        <HtmlHead title={`News`} />
         
         <TopIllustration/>
         <div className="main-content-page">

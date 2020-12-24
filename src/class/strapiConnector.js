@@ -375,6 +375,7 @@ class strapiConnector {
         illustration {id formats url}
         channel
         date
+        published_at
         description
         title
         article

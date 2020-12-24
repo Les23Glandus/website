@@ -88,7 +88,9 @@ class Selection extends React.Component {
       return (
         <div class="selection-main">
           
-            <HtmlHead title={`Nos sélections - ${this.details.title}`}>
+            <HtmlHead title={`Nos sélections - ${this.details.title}`}
+                description={this.details.description}
+              >
                 <script type="application/ld+json">{JSON.stringify(this.jsonld)}</script>
             </HtmlHead>
 

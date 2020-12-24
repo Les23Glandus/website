@@ -58,15 +58,21 @@ class Actus extends React.Component {
         )
     } 
 
+    let ogimage = this.details.mini.url;
+    if( this.details.mini && this.details.mini.formats && this.details.mini.formats.medium ) {
+      ogimage = this.details.mini.formats.medium.url;
+    }
+
     return (
         <div className="single-actu">
-            <HtmlHead title={`News - ${this.details.title}`}>
+            <HtmlHead title={`News - ${this.details.title}`}
+                description={this.details.description}
+            >
               {
                 this.details.mini &&
-                <meta property="og:image" content={CONFIG.origin + this.details.mini.url}/>
+                <meta property="og:image" content={CONFIG.origin + ogimage}/>
               }
-              <meta property="og:image:alt" content={this.details.name}/>
-              <meta property="og:description" content={this.details.description}/> 
+              <meta property="og:image:alt" content={this.details.title}/>
               <meta property="article:published_time" content={this.details.published_at}/> 
             </HtmlHead>
 

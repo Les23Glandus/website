@@ -42,10 +42,8 @@ class Card extends React.Component {
       let before = pos.top + pos.height;;
       let after = this.getPageSize().y - pos.top;// - pos.height;
 
-      console.log(before, after);
-
       let newposY;
-      const marge = 0;
+      const marge = 5;
       if( before <= 0 ) newposY = marge;
       else if( after <= 0 ) newposY = 100 - marge;
       else newposY = 50 - Math.round( (50-marge) * (after - before) / Math.max(Math.abs(after),Math.abs(before)) );

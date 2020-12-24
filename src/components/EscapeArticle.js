@@ -182,15 +182,19 @@ class EscapeArticle extends React.Component {
 
     return (
       <div>
-          <HtmlHead title={`${this.details.name}` + (this.details.enseigne ? ` - ${this.details.enseigne.name}` : "")}>
+          <HtmlHead title={`${this.details.name}` + (this.details.enseigne ? ` - ${this.details.enseigne.name}` : "")}
+                  description={this.details.description ? this.details.description : this.details.scenario  }
+          >
               {
                 this.details.mini &&
                 <meta property="og:image" content={CONFIG.origin + this.details.mini.url}/>
               }
               <meta property="og:image:alt" content={this.details.name}/>
-              <meta property="og:description" content={this.details.description}/> 
               <meta property="article:published_time" content={this.details.published_at}/> 
-              {/*og:audio*/}
+              {
+                this.details.audio && 
+                <meta property="og:audio" content={CONFIG.origin +  this.details.audio.url} />
+              }
               <script type="application/ld+json">{JSON.stringify(this.jsonld)}</script>
           </HtmlHead>
 

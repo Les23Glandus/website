@@ -230,7 +230,7 @@ class Browse extends React.Component {
     return (
       <div className="browse-main">
         
-          <HtmlHead title={`Recherche`}/>
+          <HtmlHead title={`Toutes les escapes testées`}/>
           {
             !this.state.presetList && 
             <div>

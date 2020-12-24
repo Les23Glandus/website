@@ -136,12 +136,13 @@ class EnseigneArticle extends React.Component {
         <div class="enseigne-main">
             {
               this.props.updathead !== false &&
-              <HtmlHead title={this.details.name}>
+              <HtmlHead title={this.details.name}
+                      description={this.details.introduction && this.details.introduction}
+              >
                 {this.details.logo && 
                   <meta property="og:image" content={CONFIG.origin + this.details.logo.url}/>
                 }
                   <meta property="og:image:alt" content={this.details.name}/>
-                  <meta property="og:description" content={this.details.introduction && this.details.introduction}/> 
                   <script type="application/ld+json">{JSON.stringify(jsonld)}</script>
               </HtmlHead>
             }

@@ -65,7 +65,7 @@ class App extends React.Component {
                   <Route path="/about">
                     <APropos/>
                   </Route>
-                  <Route>
+                  <Route status={404} >
                     <Page404/>
                   </Route>
               </Switch>

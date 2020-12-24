@@ -111,10 +111,11 @@ class JeuxArticle extends React.Component {
 
     return (
       <div>
-          <HtmlHead title={this.details.name}>
+          <HtmlHead title={this.details.name}
+            description={this.details.description}
+          >
               <meta property="og:image" content={CONFIG.origin + this.details.mini.url}/>
               <meta property="og:image:alt" content={this.details.name}/>
-              <meta property="og:description" content={this.details.description}/> 
               <meta property="article:published_time" content={this.details.published_at}/> 
               <script type="application/ld+json">{JSON.stringify(jsonld)}</script>
           </HtmlHead>

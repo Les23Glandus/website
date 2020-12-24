@@ -1,6 +1,6 @@
 
 let config = {
-    "origin" : "https://dev.lesglandus.fr"
+    "origin" : "https://www.lesglandus.fr"
 }
 
 export default config;

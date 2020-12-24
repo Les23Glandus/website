@@ -39,13 +39,16 @@ class Card extends React.Component {
     if( this.picRef.current ) {
       const pos = this.picRef.current.getBoundingClientRect();
 
-      let before = pos.top;
-      let after = this.getPageSize().y - pos.top - pos.height;
+      let before = pos.top + pos.height;;
+      let after = this.getPageSize().y - pos.top;// - pos.height;
+
+      console.log(before, after);
 
       let newposY;
-      if( before <= 0 ) newposY = 20;
-      else if( after <= 0 ) newposY = 80;
-      else newposY = 50 - Math.round( 30 * (after - before) / Math.max(Math.abs(after),Math.abs(before)) );
+      const marge = 0;
+      if( before <= 0 ) newposY = marge;
+      else if( after <= 0 ) newposY = 100 - marge;
+      else newposY = 50 - Math.round( (50-marge) * (after - before) / Math.max(Math.abs(after),Math.abs(before)) );
 
       this.picRef.current.style.backgroundPositionY = newposY + "%";
     }

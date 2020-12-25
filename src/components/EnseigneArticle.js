@@ -197,7 +197,7 @@ class EnseigneArticle extends React.Component {
               this.details.escapes.length > 0 
               &&
               <div className="escpae-include">
-                {this.details.escapes.filter( n => n.id !== parseInt(this.props.hide)).map(n => <EscapeCard key={n.id} escape={n} enseigne={this.details}/>)}
+                {this.details.escapes.filter( n => parseInt(n.id) !== parseInt(this.props.hide)).map(n => <EscapeCard key={n.id} escape={n} enseigne={this.details}/>)}
               </div>
             }
   

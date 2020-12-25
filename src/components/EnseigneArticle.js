@@ -8,6 +8,7 @@ import "../css/enseigneArticle.scss";
 import TopIllustration from "./meta/TopIllustration";
 import RichText from "./meta/RichText";
 import CONFIG from "../class/config";
+import GoogleMaps from "./meta/GoogleMaps";
 
   
 class EnseigneArticle extends React.Component {
@@ -131,6 +132,18 @@ class EnseigneArticle extends React.Component {
       if( this.details.illustration ) jsonld["image"].push( CONFIG.origin + this.details.illustration.url);
       if( this.details.logo ) jsonld["image"].push( CONFIG.origin + this.details.logo.url);
   
+      let address = [];
+      if( this.details.addresses ) {
+        this.details.addresses.forEach( n => {
+          let pics = null;
+          if( this.details.logo ) {
+            if( this.details.logo.formats && this.details.logo.formats.thumbnail ) pics = CONFIG.origin + this.details.logo.formats.thumbnail.url;
+            else pics = CONFIG.origin + this.details.logo.url;
+          }
+          address.push( {name:n.name , icone:pics, address:[n.street, n.postcode, n.town, n.pay].join(" ")} );
+        });
+      }
+
 
       return (
         <div class="enseigne-main">
@@ -190,6 +203,13 @@ class EnseigneArticle extends React.Component {
                   </div>
               </div>
               }
+
+              {
+                this.props.embeded === false && address &&
+                <div className="googlemaps">
+                  <GoogleMaps address={address}/>
+                </div>
+              }
           
           </div>
   
@@ -208,6 +228,11 @@ class EnseigneArticle extends React.Component {
     }
   }
 
+}
+
+
+EnseigneArticle.defaultProps = {
+  embeded: false
 }
 
 

@@ -16,4 +16,8 @@ div.enseigne-main {
         text-align: center;
         padding-top: 20px;
     }
+    div.googlemaps {
+        border-radius: 0 0 $default-radius $default-radius;
+        overflow: hidden;
+    }
 }

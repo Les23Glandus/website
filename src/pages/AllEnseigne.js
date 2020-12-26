@@ -52,7 +52,7 @@ class AllEnseigne extends React.Component {
                   if( n.logo.formats && n.logo.formats.thumbnail ) img = n.logo.formats.thumbnail.url;
                   else if (n.logo.url) img = n.logo.url;
                 }
-                return <div key={'c'+n.id}><Link to={"/escapegame/"+n.uniquepath}><Image src={img} alt={n.name} title={n.name} width={150}/></Link></div>} )
+                return <div key={'c'+n.id}><Link to={"/escapegame/"+n.uniquepath}><Image src={img} alt={n.name} title={n.name} width={150} height={150}/></Link></div>} )
             }
           </div>
         </div>

@@ -133,6 +133,9 @@ class EnseigneArticle extends React.Component {
       if( this.details.logo ) jsonld["image"].push( CONFIG.origin + this.details.logo.url);
   
       let address = [];
+      let city = [];
+      let region = [];
+      let pays = [];
       if( this.details.addresses ) {
         this.details.addresses.forEach( n => {
           let pics = null;
@@ -140,10 +143,21 @@ class EnseigneArticle extends React.Component {
             if( this.details.logo.formats && this.details.logo.formats.thumbnail ) pics = CONFIG.origin + this.details.logo.formats.thumbnail.url;
             else pics = CONFIG.origin + this.details.logo.url;
           }
-          address.push( {name:n.name , icone:pics, address:[n.street, n.postcode, n.town, n.pay].join(" ")} );
+          let ad = [n.street, n.postcode, n.town];
+          let reg = /^\s*$/;
+          if( n.pay ) ad.push(n.pay.name);
+          ad = ad.join(" ");
+          if( !reg.test(ad) ) {
+            address.push( {name:n.name , icone:pics, address:ad} );
+          }
+
+          if( city.indexOf( n.town ) < 0 ) city.push( n.town );
+          if( n.region && region.indexOf( n.region.name ) < 0 ) region.push( n.region.name );
+          if( n.pay && pays.indexOf( n.pay.name ) < 0 ) pays.push( n.pay.name );
         });
       }
 
+      console.log(address);
 
       return (
         <div class="enseigne-main">
@@ -172,6 +186,10 @@ class EnseigneArticle extends React.Component {
                 </div>
                   <div className="right">
                       <h2>{this.details.name}</h2> 
+                      { 
+                        this.props.embeded === false && ( pays.length > 0 || region.length > 0 || city.length > 0 ) && 
+                        <p className="loc">{city.concat( region.concat(pays) ).join(" - ")}</p>
+                      }
                       
                       {
                         this.details.introduction && 
@@ -201,11 +219,11 @@ class EnseigneArticle extends React.Component {
                   <div className="right">
                       <div><a href={this.details.url} target="_blank" rel="noreferrer" className="outlink">{this.details.url}</a></div>
                   </div>
-              </div>
+                </div>
               }
 
               {
-                this.props.embeded === false && address &&
+                this.props.embeded === false && address && address.length > 0 &&
                 <div className="googlemaps">
                   <GoogleMaps address={address}/>
                 </div>
@@ -220,6 +238,7 @@ class EnseigneArticle extends React.Component {
                 {this.details.escapes.filter( n => parseInt(n.id) !== parseInt(this.props.hide)).map(n => <EscapeCard key={n.id} escape={n} enseigne={this.details}/>)}
               </div>
             }
+  
   
         </div>
       )

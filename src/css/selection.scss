@@ -9,6 +9,9 @@ div.selection-main {
     }
     div.page-back {
         margin: 0 $default-page-padding;
+        margin-bottom: -70px;
+        position: relative;
+        top: -70px;
     }
 }
 div.all-selections {

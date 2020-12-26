@@ -28,10 +28,19 @@ class SearchP extends React.Component {
             jeuxList:[],
             selectionList:[],
     };
+
+  }
+
+  componentDidMount() {
+    let q = new URLSearchParams( this.props.location.search ).get("q");
+    if( q ) this.doSearch( q );
   }
 
   doSearch( input ) {
     let {query,rawquery} = this.preprocessQuery(input);
+    if( window.history && typeof(window.history.pushState) === "function" ) {
+      window.history.pushState({page: "/search"}, "Résultat de recherche pour "+input, "/search?q="+encodeURI(input));
+    }
 
     if( query.length === 0 ) {
       this.setState({qtoshort:true});

@@ -20,4 +20,8 @@ div.enseigne-main {
         border-radius: 0 0 $default-radius $default-radius;
         overflow: hidden;
     }
+    p.loc {
+        @include light;
+        font-style: italic;
+    }
 }

@@ -93,6 +93,7 @@ body {
         @include md {
             justify-content: center;
             align-items: center;
+            flex-direction: row;
         }
         &>div {
           margin: $default-card-margin;  

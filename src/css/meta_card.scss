@@ -9,6 +9,9 @@ div.meta-card {
     }
     &.reduce {
         width: #{$picheight * $picratio};
+        @include md {
+            width: #{$picheight_md * $picratio};
+        }
         &.search-card {
             width: 100px;
             .meta-card-mini,
@@ -70,6 +73,13 @@ div.meta-card {
         border-radius: $default-radius;
         width: #{$picheight * $picratio};
         height: $picheight;
+        @include md {
+            width: #{$picheight_md * $picratio};
+            height: $picheight_md;
+            &.compact {
+                height: #{$picheight_md/2};
+            }
+        }
         &.compact {
             height: #{$picheight/2};
         }
@@ -113,6 +123,13 @@ div.meta-card {
         border-radius: $default-radius;
         width: #{$picheight * $picratio};
         height: $picheight;
+        @include md {
+            width: #{$picheight_md * $picratio};
+            height: $picheight_md;
+            &.compact {
+                height: #{$picheight_md/2};
+            }
+        }
         &.compact {
             height: #{$picheight/2};
         }
@@ -138,6 +155,13 @@ div.meta-card {
             border-radius: $default-radius;
             min-height: #{$picheight + 3 * 30};        
             padding: 30px 20px 20px #{$picheight * $picratio - 5px};
+            @include md {
+                min-height: #{$picheight_md + 3 * 30};        
+                padding: 30px 20px 20px #{$picheight_md * $picratio - 5px};
+                &.compact {
+                    min-height: #{($picheight_md/2) + 3 * 30}; 
+                }
+            }
             &.compact {
                 min-height: #{($picheight/2) + 3 * 30};        
             }
@@ -153,7 +177,7 @@ div.meta-card {
                 flex-direction: column;
             }
             @include md {
-                padding: #{$picheight + 50} 10px 10px 10px;
+                padding: #{$picheight_md + 50} 10px 10px 10px;
                 align-items: flex-start;
             }
             .ant-skeleton span

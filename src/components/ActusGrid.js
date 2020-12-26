@@ -43,7 +43,8 @@ class SelectionsGrid extends React.Component {
                           reduce={true}
                           url={"/news"}
                           bigText={"Toutes nos actus"}
-                          subTitle={""}
+                          subTitle={<span>&nbsp;</span>}
+                          title={<span>&nbsp;</span>}
                           supTitle={""}
                           imageUrl={null}
                           imageTitle={""}

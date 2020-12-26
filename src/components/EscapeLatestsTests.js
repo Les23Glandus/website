@@ -89,7 +89,8 @@ class EscapeLatestsTests extends React.Component {
                             reduce={true}
                             url={"/escapegame"}
                             bigText={"Toutes les expériences immersives"}
-                            subTitle={""}
+                            subTitle={<span>&nbsp;</span>}
+                            title={<span>&nbsp;</span>}
                             supTitle={""}
                             imageUrl={null}
                             imageTitle={""}

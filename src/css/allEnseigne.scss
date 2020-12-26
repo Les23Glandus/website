@@ -5,5 +5,9 @@ div.all-enseignes {
     padding: 0 $default-page-padding;
     div.list {
         @include flex-container;
+        @include md {
+            flex-direction: row;
+        }
+        margin-bottom: 30px;
     }
 }

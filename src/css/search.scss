@@ -41,11 +41,18 @@ div.search-main {
                 &.escapes {
                     min-width: 100%;
                 }
+                @include md {
+                    max-width: 100%;
+                }
             }
             .sublist {
                 @include flex-container;
                 &>div {
                     margin: $default-card-margin;
+                }
+                @include md {
+                    flex-direction: row;
+                    justify-content: flex-start;
                 }
             }
             .no-result {

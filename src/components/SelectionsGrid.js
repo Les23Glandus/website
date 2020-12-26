@@ -52,6 +52,7 @@ class SelectionsGrid extends React.Component {
                             url={"/selections"}
                             bigText={"Toutes nos sélections"}
                             subTitle={""}
+                            title={""}
                             supTitle={""}
                             imageUrl={null}
                             imageTitle={""}

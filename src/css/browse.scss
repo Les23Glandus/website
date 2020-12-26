@@ -5,6 +5,10 @@ div.browse-main {
         position: relative;
         margin: 0 $default-page-padding 60px $default-page-padding;
         @include flex-container;
+        @include md {
+            flex-direction: row;
+            margin: 0 10px;
+        }
         &>div {
             margin: $default-card-margin;
         }

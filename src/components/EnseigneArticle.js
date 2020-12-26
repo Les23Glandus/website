@@ -44,6 +44,31 @@ class EnseigneArticle extends React.Component {
     if(!this.state.loaded && !this.state.error && (this.props.enseigneID || this.props.enseigneRef) ) this.loadDetails();
   }
 
+  generateListJSONLD() {
+    let jsonld = 
+    {
+      "@context":"https://schema.org",
+      "@type":"ItemList",
+      "itemListElement":[]
+    }
+    
+    this.details.escapes.forEach( (n,i) =>  {
+      let enseigne = n.enseigne ? n.enseigne.uniquepath : "avis";
+      let url = CONFIG.origin + "/escapegame/"+enseigne+"/"+n.uniquepath;
+      let pic = CONFIG.origin + (n.mini ? n.mini.url : "");
+      jsonld.itemListElement.push(  
+        {
+          "@type":"ListItem",
+          "position":(i+1),
+          "url":url,
+          "name":n.name, 
+          "image":pic        
+        }
+      );
+    });
+    return jsonld;
+  }
+
   render() {
     
     if( !this.state.loaded ) {
@@ -106,10 +131,15 @@ class EnseigneArticle extends React.Component {
 
       let jsonld = {
         "@context": "https://schema.org",
-        "@type": "NewsArticle",
+        "@type": "CriticReview",
         "mainEntityOfPage": {
           "@type": "WebPage",
           "@id": window.location.href
+        },
+        "itemReviewed":{
+          "@type": "Organization",
+          "name": this.details.name,
+          "url": this.details.url
         },
         "headline": this.details.name,
         "image": [],
@@ -171,6 +201,7 @@ class EnseigneArticle extends React.Component {
                 }
                   <meta property="og:image:alt" content={this.details.name}/>
                   <script type="application/ld+json">{JSON.stringify(jsonld)}</script>
+                  <script type="application/ld+json">{JSON.stringify(this.generateListJSONLD())}</script>
               </HtmlHead>
             }
             

@@ -399,6 +399,7 @@ class strapiConnector {
         escapes { id name uniquepath date nbPlayerMin nbPlayerMax 
           scenario
           description
+          rate
           mini { id formats url}
           tags {
             id

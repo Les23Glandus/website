@@ -1,7 +1,7 @@
 import { Divider, Form, Pagination, Select, Skeleton, Spin } from "antd";
 import Checkbox from "antd/lib/checkbox/Checkbox";
 import React from "react";
-import { withRouter } from "react-router-dom";
+import { Link, withRouter } from "react-router-dom";
 import strapiConnector from "../class/strapiConnector";
 import EscapeCard from "../components/EscapeCard";
 import HtmlHead from "../components/HtmlHead";
@@ -427,6 +427,22 @@ class Browse extends React.Component {
                 }
               </div>
           </div>
+        </div>
+
+        <div className="browse-enseigne">
+            <h3>Les enseignes</h3>
+            <Card className="toenseigne-card"
+                reduce={true}
+                url={"/entreprise/"}
+                bigText="Parcourir les enseignes"
+                title={""}
+                compact
+                arrow={false}
+                imageUrl={null}
+                imageTitle={""}
+                more={""}
+                color={null}
+            ></Card>
         </div>
 
 

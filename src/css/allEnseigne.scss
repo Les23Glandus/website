@@ -1,0 +1,9 @@
+@import "_theme.scss";
+
+div.all-enseignes {
+    position: relative;
+    padding: 0 $default-page-padding;
+    div.list {
+        @include flex-container;
+    }
+}

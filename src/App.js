@@ -17,6 +17,7 @@ import ScrollToTop from './components/ScrollToTop';
 import Jeu from './pages/Jeu';
 import Jeux from './pages/Jeux';
 import Search from './pages/Search';
+import AllEnseigne from './pages/AllEnseigne';
 
 class App extends React.Component {
   render() {
@@ -30,6 +31,9 @@ class App extends React.Component {
               <Switch>
                   <Route exact path="/">
                     <Home/>
+                  </Route>
+                  <Route exact path="/entreprise/">
+                    <AllEnseigne/>
                   </Route>
                   <Route exact path="/escapegame/:enseigne/:escape">
                     <Escape/>

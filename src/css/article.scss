@@ -13,6 +13,9 @@ div.article-follower {
     margin-top: 30px; 
     padding: 0 $default-page-padding;
     position: relative;
+    @include md {
+        padding: 0 $mobile-page-padding;
+    }
 }
 
 div.article-container {
@@ -21,6 +24,9 @@ div.article-container {
     border-radius: $default-radius;
     position: relative;
     margin: 0 $default-page-padding;
+    @include md {
+        margin: 0 $mobile-page-padding;
+    }
 
     
     h2 {

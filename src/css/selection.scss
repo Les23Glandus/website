@@ -6,6 +6,9 @@ div.selection-main {
     }
     div.escpae-include {
         margin: 0 $default-page-padding 60px $default-page-padding !important;
+        @include md {
+            margin: 0 $mobile-page-padding 60px $mobile-page-padding !important;
+        }
     }
     div.page-back {
         margin: 0 $default-page-padding;

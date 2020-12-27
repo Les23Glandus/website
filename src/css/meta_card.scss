@@ -149,7 +149,6 @@ div.meta-card {
     .meta-card-details {
         &.full {
             @include flex-container;
-            resize: horizontal;
             overflow: hidden;
             background: #ffffff;
             border-radius: $default-radius;

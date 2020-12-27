@@ -3,9 +3,15 @@
 div.enseigne-main-container{
     div.article-container.article-enseigne {
         margin: 60px $default-page-padding 0 $default-page-padding !important;
+        @include md {
+            margin: 60px $mobile-page-padding 0 $mobile-page-padding !important;
+        }
     }
     div.escpae-include {
         margin: 0 $default-page-padding 60px $default-page-padding !important;
+        @include md {
+            margin: 0 $mobile-page-padding 60px $mobile-page-padding !important;
+        }
     }
 }
 div.enseigne-main {

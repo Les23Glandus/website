@@ -81,7 +81,7 @@ class News extends React.Component {
                     {
                         this.actusList.map( n => {
                             if( n.channel ) return (<Timeline.Item key={"A"+n.id}><ActusCard details={n}/></Timeline.Item>);
-                            else return (<Timeline.Item key={"E"+n.id}><EscapeCard date escape={n} enseigne={n.enseigne}/></Timeline.Item>);
+                            else return (<Timeline.Item key={"E"+n.id}><EscapeCard date escape={n} enseigne={n.enseigne} reduce compact/></Timeline.Item>);
                         })
                     }
                     <Timeline.Item>&nbsp;</Timeline.Item>

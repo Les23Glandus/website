@@ -12,10 +12,13 @@ class strapiConnector {
    * Selections
    */
   getChoixSelection() {
-    return this.fetch("/choix-selection","1"); 
+    let body = this.builGQLdSingle("choixSelection");
+    return this.graphql(body);
   }
   getSelections() {
-    return this.fetch("/selections","1");
+    let body = this.builGQLdQuery("selections:list");
+    body.variables.limit = 300;
+    return this.graphql(body);
   }
   getSelectionByRef(ref) {
       let body = this.builGQLdQuery("selections");
@@ -72,8 +75,11 @@ class strapiConnector {
   /**
    * Carousel
    */
-  getCarousel() {
-    return this.fetch("/carousels","1");
+  getCarousel() {    
+    let body = this.builGQLdQuery("carousels");
+    body.variables.limit = 10;
+    body.variables.sort = "date:ASC";
+    return this.graphql(body);
   }
   
     
@@ -334,6 +340,24 @@ class strapiConnector {
         description
       }`,
 
+
+      "choixSelection":`{
+        id Selections {
+          selection {
+            id
+            title
+            uniquepath
+            mini {id url formats}
+            color
+            description
+          }
+        }
+      }`,
+
+
+      "carousels":`{
+        id title link image {id url formats} date description published_at 
+      }`,
       
       "pays:list":`{
         id name regions {id name}

@@ -8,6 +8,7 @@ import Card from "./meta/Card";
 import RichText from "./meta/RichText";
 import JeuxGrid from "./JeuxGrid";
 import CONFIG from "../class/config";
+import TopIllustration from "./meta/TopIllustration";
 
   
 class JeuxArticle extends React.Component {
@@ -109,7 +110,7 @@ class JeuxArticle extends React.Component {
 
     let illusUrl = this.details.illustration ? this.details.illustration.url : process.env.PUBLIC_URL + "/patterns/Pattern04.svg";
 
-    let ogimage = this.details.mini.url;
+    let ogimage = this.details.mini ? this.details.mini.url : "";
     if( this.details.mini && this.details.mini.formats && this.details.mini.formats.medium ) {
       ogimage = this.details.mini.formats.medium.url;
     }
@@ -127,6 +128,10 @@ class JeuxArticle extends React.Component {
           {
           this.details.illustration && 
           <div className="article-illustration top-illustration" title={this.details.description} style={{backgroundImage:`url(${illusUrl})`}} />
+          }
+          {
+            !this.details.illustration && 
+            <TopIllustration/>
           }
 
         <div className="article-container article-jeux">

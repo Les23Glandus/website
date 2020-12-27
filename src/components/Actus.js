@@ -58,7 +58,7 @@ class Actus extends React.Component {
         )
     } 
 
-    let ogimage = this.details.mini.url;
+    let ogimage = this.details.mini ? this.details.mini.url : "";
     if( this.details.mini && this.details.mini.formats && this.details.mini.formats.medium ) {
       ogimage = this.details.mini.formats.medium.url;
     }

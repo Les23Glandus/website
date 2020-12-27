@@ -5,6 +5,7 @@ div.top-illustration {
     position: relative;
     height: 240px;
     margin-bottom: -130px;
+    background-position: 50% 50%;
     &:after {
         content:" - ";
         display: block;

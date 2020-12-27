@@ -26,7 +26,7 @@ function GoogleMaps(props) {
         geocoder.geocode({ address: info.address }, (results, status) => {
             if (status === window.google.maps.GeocoderStatus.OK) {
                 //const image = "https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png";
-                let image = null;
+                /*let image = null;
                 if( info.icone ) {
                     image = {
                         url:info.icone,
@@ -37,7 +37,7 @@ function GoogleMaps(props) {
                         // The anchor for this image is the base of the flagpole at (0, 32).
                         anchor: new window.google.maps.Point(20, 20),
                       };
-                }
+                }*/
                 let marker = new window.google.maps.Marker({
                     map: map,
                     title: info.name,
@@ -64,7 +64,7 @@ function GoogleMaps(props) {
             }
         });
     });
-  }, [])
+  }, [props.address])
 
   const onUnmount = React.useCallback(function callback(map) {
     setMap(null)

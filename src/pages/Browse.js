@@ -1,7 +1,7 @@
 import { Divider, Form, Pagination, Select, Skeleton, Spin } from "antd";
 import Checkbox from "antd/lib/checkbox/Checkbox";
 import React from "react";
-import { Link, withRouter } from "react-router-dom";
+import { withRouter } from "react-router-dom";
 import strapiConnector from "../class/strapiConnector";
 import EscapeCard from "../components/EscapeCard";
 import HtmlHead from "../components/HtmlHead";
@@ -116,6 +116,7 @@ class Browse extends React.Component {
     if( this.preventSearch ) return;
     //Buidl query
     let query = {};
+    let tagsOR = [];
     let filter = this.formRef.current.getFieldsValue();
     console.info(JSON.stringify(filter));
     let sort = this.sortformRef.current.getFieldsValue();
@@ -130,6 +131,7 @@ class Browse extends React.Component {
         } else if( k === "gold" ) {
           if( !query["tags.id"] ) query["tags.id"] = [];
           query["tags.id"] = query["tags.id"].concat( filter[k] );
+          tagsOR = tagsOR.concat( filter[k] );
         } else if( k === "nbplayer" ) {
           query["nbPlayerMin_lte"] = filter[k];
           query["nbPlayerMax_gte"] = filter[k];
@@ -142,7 +144,8 @@ class Browse extends React.Component {
     this.setState({loading:true, currentpage:0});
     new strapiConnector().browseEscapes( query, 1000, sort.sort )
     .then( d => {
-      d = this.reduceListPerTags(d, query["tags.id"]);
+      let tagsAND = query["tags.id"] ? query["tags.id"].filter( n => tagsOR.indexOf(n) < 0 ) : null;
+      d = this.reduceListPerTags(d, tagsAND, tagsOR);
       this.loadCards(d, this.state.currentpage, this.state.lineperpage);
       this.setState({escapeList:d,loading:false});
     }).catch( e => {
@@ -155,14 +158,18 @@ class Browse extends React.Component {
    * @param {*} list 
    * @param {*} tags 
    */
-  reduceListPerTags(list, tags) {
-    if( !tags || tags.length <= 1 ) return list;
+  reduceListPerTags(list, tagsAnd, tagsOr) {
+    if( !tagsAnd || (tagsAnd.length <= 1 && !tagsOr) ) return list;
 
     return list.map( n => {
-          if(!n["t"]) n["t"] = 0;
-          n.tags.forEach( t => {if( tags.indexOf(t.id) >= 0 ) n["t"]++;});
+          if(!n["ta"]) n["ta"] = 0;
+          if(!n["to"]) n["to"] = false;
+          n.tags.forEach( t => {
+            if( tagsAnd.indexOf(t.id) >= 0 ) n["ta"]++;
+            if( tagsOr.indexOf(t.id) >= 0 ) n["to"] = true;
+          });
           return n;
-        }).filter( n => n["t"] === tags.length);
+        }).filter( n => n["ta"] === tagsAnd.length && n["to"] );
   }
   
   

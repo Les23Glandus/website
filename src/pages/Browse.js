@@ -13,6 +13,7 @@ import SelectionsGrid from "../components/SelectionsGrid";
 import {
   SearchOutlined
 } from '@ant-design/icons';
+import OtherEnseigne from "../components/OtherEnseigne";
 
   
 class Browse extends React.Component {
@@ -438,22 +439,7 @@ class Browse extends React.Component {
           </div>
         </div>
 
-        <div className="browse-enseigne">
-            <h3>Les enseignes</h3>
-            <Card className="toenseigne-card"
-                reduce={true}
-                url={"/entreprise/"}
-                bigText="Parcourir les enseignes"
-                title={""}
-                compact
-                arrow={false}
-                imageUrl={null}
-                imageTitle={""}
-                more={""}
-                color={null}
-            ></Card>
-        </div>
-
+        <OtherEnseigne/>
 
         <div className="zoning">
           

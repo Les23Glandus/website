@@ -9,6 +9,7 @@ import TopIllustration from "./meta/TopIllustration";
 import RichText from "./meta/RichText";
 import CONFIG from "../class/config";
 import GoogleMaps from "./meta/GoogleMaps";
+import OtherEnseigne from "./OtherEnseigne";
 
   
 class EnseigneArticle extends React.Component {
@@ -270,6 +271,12 @@ class EnseigneArticle extends React.Component {
               </div>
             }
   
+  
+          <div className="zoning">
+            <div className="escpae-include">
+              <OtherEnseigne/>
+            </div>
+          </div>
   
         </div>
       )

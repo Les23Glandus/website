@@ -140,6 +140,7 @@ class Browse extends React.Component {
         }
       }
     });
+    if( query["tags.id"] && query["tags.id"].length <= 0 ) delete(query["tags.id"]);
 
     this.setState({loading:true, currentpage:0});
     new strapiConnector().browseEscapes( query, 1000, sort.sort )
@@ -160,10 +161,11 @@ class Browse extends React.Component {
    */
   reduceListPerTags(list, tagsAnd, tagsOr) {
     if( !tagsAnd || (tagsAnd.length <= 1 && !tagsOr) ) return list;
+    if(!tagsOr) tagsOr = [];
 
     return list.map( n => {
           if(!n["ta"]) n["ta"] = 0;
-          if(!n["to"]) n["to"] = false;
+          if(!n["to"]) n["to"] = tagsOr.length > 0 ? false : true;
           n.tags.forEach( t => {
             if( tagsAnd.indexOf(t.id) >= 0 ) n["ta"]++;
             if( tagsOr.indexOf(t.id) >= 0 ) n["to"] = true;

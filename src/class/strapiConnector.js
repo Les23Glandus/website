@@ -315,7 +315,7 @@ class strapiConnector {
         article
         mini {id url formats}
         image {id url formats} 
-        color
+        color colorpicker
         description
         escapes {
           id name uniquepath rate isOpen date
@@ -336,7 +336,7 @@ class strapiConnector {
         title
         uniquepath
         mini {id url formats}
-        color
+        color colorpicker
         description
       }`,
 

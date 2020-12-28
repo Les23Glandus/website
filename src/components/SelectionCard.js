@@ -27,6 +27,9 @@ class SelectionCard extends React.Component {
     let color;
     if( this.props.details.color && SelectionCard.mapColor[ this.props.details.color ] ) {
       color = SelectionCard.mapColor[ this.props.details.color ];
+    } else {
+      color = this.props.details.colorpicker;
+      if( color ) color += "82";
     }
 
     return (

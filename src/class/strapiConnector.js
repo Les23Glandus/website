@@ -348,7 +348,7 @@ class strapiConnector {
             title
             uniquepath
             mini {id url formats}
-            color
+            color colorpicker
             description
           }
         }

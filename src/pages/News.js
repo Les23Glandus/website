@@ -68,7 +68,6 @@ class News extends React.Component {
       }
       prev = Y;
     }
-    console.log( list );
   }
 
   componentDidMount() {

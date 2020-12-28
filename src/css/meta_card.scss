@@ -73,6 +73,8 @@ div.meta-card {
         border-radius: $default-radius;
         width: #{$picheight * $picratio};
         height: $picheight;
+        text-decoration: none;
+        color: $link-color; 
         @include md {
             width: #{$picheight_md * $picratio};
             height: $picheight_md;

@@ -111,10 +111,7 @@ class Selection extends React.Component {
               <div className="article-part">
                 <div className="left">
                     <div className="logo-area">
-                        {
-                          this.details.mini && 
                           <SelectionCard details={this.details} reduce arrow={false}/>
-                        }
                     </div>
                 </div>
                 <div className="right">

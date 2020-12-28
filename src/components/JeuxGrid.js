@@ -59,6 +59,11 @@ class JeuxGrid extends React.Component {
         );
       });
     }
+
+    let years = [];
+    for( let y = (new Date()).getFullYear(); y >= 2017; y-- ) {
+      years.push( y );           
+    }
     
     return (
         
@@ -71,31 +76,53 @@ class JeuxGrid extends React.Component {
               </HtmlHead>
             }
 
-            <h3>Nos articles</h3>
             <div>
                 {this.state.loaded === false && <Skeleton active/>}
-                {this.state.loaded && 
-                  
-                  <div className="flexgrid grid-actus">
-                    {!this.props.showAll && this.details.map( n => <JeuxCard key={'jc'+n.id} jeux={n} reduce/> )}
-                    {this.props.showAll && this.details.map( n => <JeuxCard key={'jc'+n.id} jeux={n} reduce/> )}
-                    {!this.props.showAll &&
+                
+
+                  {
+                    this.state.loaded && !this.props.showAll && 
+                    <div>
+                      <h3>Nos articles</h3>
+                      <div className="flexgrid grid-actus">
+                        { this.details.map( n => <JeuxCard key={'jc'+n.id} jeux={n} reduce/>) }
                         <Card className="seemore-card"
-                            reduce={true}
-                            url={"/jeux"}
-                            bigText={"Tous nos articles"}
-                            subTitle={""}
-                            title={<span>&nbsp;</span>}
-                            supTitle={""}
-                            imageUrl={null}
-                            imageTitle={""}
-                            more={""}
-                            color={null}
-                        
-                        ></Card>
-                    }
+                              reduce={true}
+                              url={"/jeux"}
+                              bigText={"Tous nos articles"}
+                              subTitle={""}
+                              title={<span>&nbsp;</span>}
+                              supTitle={""}
+                              imageUrl={null}
+                              imageTitle={""}
+                              more={""}
+                              color={null}
+                          
+                          ></Card>
+                      </div>
+                    </div>
+                  }
+                  
+                  {
+                    this.state.loaded && this.props.showAll && 
+                    <div className="flexgrid grid-actus">
+                      {
+                        years.map( y => {
+                          let list = this.details.filter( n => n["published_at"].indexOf(y) >= 0);
+                          if( list.length > 0 ) {
+                            return <div>
+                              <h3>{y}</h3>
+                              <div className="flexgrid grid-actus">
+                                { list.map( n => <JeuxCard key={'jc'+n.id} jeux={n} reduce/>) }
+                              </div>
+                            </div>
+                          } else return "";
+                        } )
+                      }
+                    </div>
+                  }
+                  <div className="flexgrid grid-actus">
                   </div>
-                }
             </div>
         </div>
     )

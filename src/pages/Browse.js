@@ -537,12 +537,14 @@ class Browse extends React.Component {
           </div>
         </div>
 
-        <OtherEnseigne/>
 
         <div className="zoning">
           
           <SelectionsGrid onError={()=>this.setState({error:true})}/>
         </div>
+
+        
+        <OtherEnseigne/>
 
       </div>
     )

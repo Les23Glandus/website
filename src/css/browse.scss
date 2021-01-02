@@ -61,10 +61,12 @@ div.browse-main {
         flex-wrap: nowrap;
         justify-content: flex-start;
         .browse-filter {
-            min-width: 300px;           
+            min-width: 300px;      
+            max-width: 400px;     
             padding: 0 15px 50px 10px;
             @include md {
-                width: 100%;                
+                width: 100%;             
+                max-width: none;         
             }
             .ant-row.ant-form-item {
                 margin-bottom: 5px;

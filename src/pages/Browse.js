@@ -214,10 +214,13 @@ class Browse extends React.Component {
     let p = this.payslist.find( n => n.id === selectedPaysId );
     let r = null;
     if( p ) r = p.regions;
-    this.formRef.current.setFieldsValue({"addresses.region.id":[]});     
+    let displayLang = selectedPaysId !== "1" && selectedPaysId !== false;
+    this.formRef.current.setFieldsValue({"addresses.region.id":[]});
+    if(!displayLang) this.formRef.current.setFieldsValue({"english":[]});
+     
     this.setState({
       regionList:r, 
-      displayLang: selectedPaysId !== "1" && selectedPaysId !== false
+      displayLang:displayLang
     });
     this.onFilterChange();
   }

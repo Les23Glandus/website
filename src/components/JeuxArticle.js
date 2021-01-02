@@ -159,21 +159,6 @@ class JeuxArticle extends React.Component {
                   </div>
             </div>
           </div>
-
-          {
-            this.details.description &&
-            <div className="article-part">
-              <div className="left">
-                <h3>Description</h3>
-              </div>
-              <div className="right">
-                <div className="longtext">
-                  <RichText>{this.details.description}</RichText>
-                </div>
-              </div>
-            </div>
-          }
-
           
           {
             this.details.paragraph && 

@@ -1,4 +1,4 @@
-import { Skeleton } from "antd";
+import { Skeleton, Tag } from "antd";
 import React from "react";
 import { withRouter } from "react-router-dom";
 import strapiConnector from "../class/strapiConnector";
@@ -149,6 +149,13 @@ class JeuxArticle extends React.Component {
                     {this.details.editeur && 
                       <p>{this.details.editeur}</p>
                     }
+                    <p className="tags-line">
+                    {
+                      this.details.jeux_types && this.details.jeux_types.map(t => {
+                          return <Tag key={t.id}>{t.name}</Tag>
+                      })
+                    }
+                    </p>
                   </div>
             </div>
           </div>
@@ -167,18 +174,23 @@ class JeuxArticle extends React.Component {
             </div>
           }
 
-
           
           {
-            this.details.article &&
-            <div className="article-part">
-              <div className="both">
-                <div className="longtext">
-                  <RichText>{this.details.article}</RichText>
+            this.details.paragraph && 
+            this.details.paragraph.map( n => 
+              <div className="article-part">
+                <div className="left">
+                  <h3>{n.title}</h3>
+                </div>
+                <div className="right">
+                  <div className="longtext">
+                    <RichText>{n.article}</RichText>
+                  </div>
                 </div>
               </div>
-            </div>
+              )
           }
+
 
 
           <div className="article-part end">

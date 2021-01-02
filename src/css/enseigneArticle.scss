@@ -30,4 +30,8 @@ div.enseigne-main {
         @include light;
         font-style: italic;
     }
+    span.closed-info {
+        font-size: 0.7em;
+        font-style: italic;
+    }
 }

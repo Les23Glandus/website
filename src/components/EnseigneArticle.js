@@ -188,7 +188,6 @@ class EnseigneArticle extends React.Component {
         });
       }
 
-      console.log(address);
 
       return (
         <div class="enseigne-main">
@@ -205,8 +204,14 @@ class EnseigneArticle extends React.Component {
                   <script type="application/ld+json">{JSON.stringify(this.generateListJSONLD())}</script>
               </HtmlHead>
             }
-            
-            {!this.props.embeded && <TopIllustration/>}
+            {
+            !this.props.embeded && this.details.illustration && 
+            <div className="article-illustration top-illustration" title={this.details.description} style={{backgroundImage:`url(${this.details.illustration.url})`}} />
+            }
+            {
+              !this.props.embeded && !this.details.illustration && 
+              <TopIllustration/>
+            }
             <div className="article-container article-enseigne">
 
               <div className="article-part">
@@ -217,7 +222,7 @@ class EnseigneArticle extends React.Component {
                     </div>
                 </div>
                   <div className="right">
-                      <h2>{this.details.name}</h2> 
+                      <h2>{this.details.name} {this.details.isOpen === false && <span className="closed-info">(Enseigne fermée)</span>}</h2> 
                       { 
                         this.props.embeded === false && ( pays.length > 0 || region.length > 0 || city.length > 0 ) && 
                         <p className="loc">{city.concat( region.concat(pays) ).join(" - ")}</p>

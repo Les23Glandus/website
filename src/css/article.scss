@@ -27,6 +27,14 @@ div.article-container {
     @include md {
         margin: 0 $mobile-page-padding;
     }
+    .tags-line {
+        margin-top: 20px;
+        .ant-tag {
+            color:$primary-font-color;
+            border-color: $primary-font-color;
+            margin-right: 2px;
+        }
+    }
 
     
     h2 {

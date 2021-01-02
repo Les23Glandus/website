@@ -452,6 +452,7 @@ class strapiConnector {
         illustration {id formats url}
         jeux_types { name }
         mini {id formats url}
+        paragraph {id title article}
       }`,
 
 

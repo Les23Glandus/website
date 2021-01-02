@@ -24,6 +24,8 @@ class Browse extends React.Component {
   preventSearch = false;
   inCache = {};
 
+  firstLoad = true;
+
   constructor(props) {
     super(props);
     this.state = {
@@ -100,6 +102,14 @@ class Browse extends React.Component {
         }
 
         this.setState({loadingCard:false});
+
+        if( this.firstLoad ) {
+          this.firstLoad = false;
+          if( window.sessionStorage["browseFilter"] ) {
+            let x = JSON.parse( window.sessionStorage["browseFilter"] );
+            if( x ) this.setFilterValue( x );
+          }
+        }
       });
     }
   }
@@ -120,6 +130,7 @@ class Browse extends React.Component {
     let tagsOR = [];
     let filter = this.formRef.current.getFieldsValue();
     console.info(JSON.stringify(filter));
+    if(!this.firstLoad) window.sessionStorage["browseFilter"] = JSON.stringify(filter);
     let sort = this.sortformRef.current.getFieldsValue();
     let reg = /^tags-(\d+)$/;
     Object.keys( filter ).forEach((k) => {

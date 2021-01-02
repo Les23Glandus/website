@@ -231,7 +231,7 @@ class EscapeArticle extends React.Component {
                     <div className="title-flex">
                       <div>
                         {pays.length > 0 && <p className="region">{pays.length > 0 && pays.join(", ")}{regions.length > 0 && (' - '+regions.join(", "))}{town && (' - '+town)}</p>}
-                        <h2>{this.details.name}</h2>
+                        <h2>{this.details.name} {this.details.isOpen === false && <span className="closed-info">(Fermée)</span>}</h2>
                         {this.details.enseigne && 
                           <p>Chez <Link to={"/escapegame/"+this.details.enseigne.uniquepath}>{this.details.enseigne.name}</Link></p>
                         }
@@ -247,12 +247,12 @@ class EscapeArticle extends React.Component {
                     {this.details.nbPlayerMax !== this.details.nbPlayerMin && <Tag>{this.details.nbPlayerMin} à {this.details.nbPlayerMax} joueurs</Tag >}
                     {
                       this.state.loaded && this.details.tags && this.details.tags.filter(t => !t.isMention).map(t => {
-                        return <Tag key={t.id}>{t.name}</Tag>
+                        return <Tag key={t.id} title={t.description}>{t.name}</Tag>
                       })
                     }
                     {
                       this.state.loaded && this.details.tags && this.details.tags.filter(t => t.isMention).map(t => {
-                          return <Tag key={t.id}>{t.name}</Tag>
+                          return <Tag key={t.id} title={t.description}>{t.name}</Tag>
                       })
                     }
                   </div>

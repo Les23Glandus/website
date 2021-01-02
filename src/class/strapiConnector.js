@@ -325,8 +325,8 @@ class strapiConnector {
           scenario
           nbPlayerMax
           mini {id url formats} 
-          tags {id name isMention isGold description}  
-          enseigne { id name uniquepath 
+          tags {id name isMention isGold description english}  
+          enseigne { id name uniquepath isOpen
             addresses {pay {name} region {name} } 
           }
         }
@@ -376,6 +376,7 @@ class strapiConnector {
         id
         name
         description
+        english
         isGold
         isMention
         useInFilter
@@ -424,11 +425,13 @@ class strapiConnector {
         escapes { id name uniquepath date nbPlayerMin nbPlayerMax 
           scenario
           description
+          isOpen
           rate
           mini { id formats url}
           tags {
             id
             name
+            english
             isMention
             isGold 
             description
@@ -496,6 +499,7 @@ class strapiConnector {
             id
             name
             isMention
+            english
             isGold 
             description
             useInFilter
@@ -505,7 +509,8 @@ class strapiConnector {
           nbPlayerMin
           nbPlayerMax
           enseigne { id name uniquepath 
-            addresses {pay {name} region {name} } 
+            isOpen
+            addresses {pay {name} region {name} town } 
           }
         }`,
 
@@ -545,6 +550,7 @@ class strapiConnector {
             id
             name
             isMention
+            english
             isGold description
             useInFilter
           }

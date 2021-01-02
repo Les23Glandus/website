@@ -9,6 +9,7 @@ import '../css/selection.scss';
 import SelectionCard from "./SelectionCard";
 import RichText from "./meta/RichText";
 import CONFIG from "../class/config";
+import SelectionsGrid from "./SelectionsGrid";
 
   
 class Selection extends React.Component {
@@ -103,9 +104,6 @@ class Selection extends React.Component {
               !this.details.image && 
               <TopIllustration/>
             }
-            <div className="page-back">
-              <PageHeader title="Toutes nos sélections" onBack={() => window.location.href = "/selections"}/>
-            </div>
             <div className="article-container article-selection">
 
               <div className="article-part">
@@ -150,6 +148,11 @@ class Selection extends React.Component {
               </div>
             }
 
+            <div className="zoning">
+              <div className="escpae-include">
+                <SelectionsGrid/>
+              </div>
+            </div>
         </div>
       )
     }

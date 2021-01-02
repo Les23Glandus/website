@@ -36,6 +36,10 @@ div.escape-card {
                 color:$default-darklightcolor;
                 border-color: $default-darklightcolor;
                 margin-right: 2px;
+                &.closed-tag {
+                    background: $default-darklightcolor;
+                    color: #ffffff;
+                }
             }
         }
     }

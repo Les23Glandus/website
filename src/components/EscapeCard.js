@@ -13,7 +13,14 @@ class EscapeCard extends React.Component {
     this.descp = React.createRef();
   }
 
+  componentDidMount() {  
+    this.reduceText();
+  }
   componentDidUpdate() {  
+    this.reduceText();
+  }
+
+  reduceText() {
     if( this.descp && this.descp.current ) {
       const maxln = 300;
       let txt = this.descp.current.innerText;
@@ -23,7 +30,6 @@ class EscapeCard extends React.Component {
         this.descp.current.title = txt;
       }
     }
-    
   }
 
   render() {
@@ -38,16 +44,18 @@ class EscapeCard extends React.Component {
 
     let pays = [];
     let regions = [];
+    let town = [];
     if( this.props.escape.addresses && this.props.escape.addresses.length > 0 ) {
       this.props.escape.addresses.forEach(addr => {
         if( addr.region && regions.indexOf(addr.region.name) < 0 ) regions.push( addr.region.name );
         if( addr.pay && regions.indexOf(addr.pay.name) < 0 ) pays.push( addr.pay.name );
+        if( addr.town && town.indexOf(addr.town) < 0 ) town.push( addr.town );
       });
     }
 
     let topinfo;
     if( pays.length > 0 ) {
-      topinfo = <span className="region">{pays.length > 0 && pays.join(", ")}{regions.length > 0 && (' - '+regions.join(", "))}</span>
+      topinfo = <span className="region">{pays.length > 0 && pays.join(", ")}{regions.length > 0 && (' - '+regions.join(", "))}{town.length > 0 && (' - '+town.join(", "))}</span>
     } 
     
     return (
@@ -79,6 +87,12 @@ class EscapeCard extends React.Component {
                   })
                 } 
               </div>
+              {
+                ( !this.props.escape.isOpen || (this.props.enseigne && !this.props.enseigne.isOpen) ) &&            
+                 <div className="tags">
+                  <Tag className="closed-tag">Fermée</Tag>
+                </div>
+              }
         </Card>
 
     )

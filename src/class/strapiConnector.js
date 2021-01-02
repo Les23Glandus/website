@@ -317,6 +317,7 @@ class strapiConnector {
         image {id url formats} 
         color colorpicker
         description
+        paragraph {id title article}
         escapes {
           id name uniquepath rate isOpen date
           nbPlayerMin
@@ -516,6 +517,7 @@ class strapiConnector {
           rate
           glandusor
           date
+          paragraph {id title article}
           published_at
           updated_at
           mini {

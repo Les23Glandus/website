@@ -18,10 +18,12 @@ import OtherEnseigne from "../components/OtherEnseigne";
   
 class Browse extends React.Component {
 
+  static ID_FRANCE = "1";
   tagslist = null;
   payslist = null;
   regionlist = null;
   preventSearch = false;
+  displayEnglish = false;
   inCache = {};
 
   firstLoad = true;
@@ -33,6 +35,7 @@ class Browse extends React.Component {
       , error:false
       , loadingCard:false
       , regionList:null
+      , displayLang:false
       , escapeList:null
       , presetList:[]
       , lineperpage: 5
@@ -140,7 +143,9 @@ class Browse extends React.Component {
           let tagId = mtch[1];
           if( !query["tags.id"] ) query["tags.id"] = [];
           query["tags.id"].push( tagId );
-        } else if( k === "gold" ) {
+        } else if( k === "addresses.pay.id" && filter[k] === "row" ) {
+          query["addresses.pay.id_ne"] = Browse.ID_FRANCE;
+        } else if( k === "gold" || k === "english" ) {
           if( !query["tags.id"] ) query["tags.id"] = [];
           query["tags.id"] = query["tags.id"].concat( filter[k] );
           tagsOR = tagsOR.concat( filter[k] );
@@ -148,7 +153,7 @@ class Browse extends React.Component {
           query["nbPlayerMin_lte"] = filter[k];
           query["nbPlayerMax_gte"] = filter[k];
         } else {
-          query[ k ] = filter[k];
+          query[k] = filter[k];
         }
       }
     });
@@ -192,11 +197,12 @@ class Browse extends React.Component {
    * @param {*} selectedPaysId 
    */
   onPaysChange(selectedPaysId) {
+    console.log(selectedPaysId);
     let p = this.payslist.find( n => n.id === selectedPaysId );
     let r = null;
     if( p ) r = p.regions;
     this.formRef.current.setFieldsValue({"addresses.region.id":[]});     
-    this.setState({regionList:r});
+    this.setState({regionList:r, displayLang: selectedPaysId !== "1" && selectedPaysId !== false });
     this.onFilterChange();
   }
 
@@ -321,8 +327,8 @@ class Browse extends React.Component {
               <Form.Item label="Trier par" name="sort" initialValue="date:DESC">
                 <Select onChange={this.onFilterChange.bind(this)}>
                   <Select.Option value="date:DESC">Date</Select.Option>
-                  <Select.Option value="rate:DESC,date:DESC">Note</Select.Option>
-                  <Select.Option value="name:ASC">Nom</Select.Option>
+                    <Select.Option value="rate:DESC,date:DESC">Note</Select.Option>
+                    <Select.Option value="name:ASC">Nom</Select.Option>
                 </Select>
               </Form.Item>
             </Form>
@@ -339,10 +345,18 @@ class Browse extends React.Component {
                     <Select onChange={this.onPaysChange.bind(this)} ref={this.paysRef}>
                       <Select.Option value={false}>Tous</Select.Option>
                       {
-                        this.payslist.map( n => 
+                        this.payslist.filter(n => n.id === Browse.ID_FRANCE ).map( n => 
                           <Select.Option value={n.id} key={n.id}>{n.name}</Select.Option>
                           )
                       }
+                      <Select.Option value="row">Reste du monde</Select.Option>
+                      <Select.OptGroup>
+                        {
+                          this.payslist.filter(n => n.id !== Browse.ID_FRANCE ).map( n => 
+                            <Select.Option value={n.id} key={n.id}>{n.name}</Select.Option>
+                            )
+                        }
+                      </Select.OptGroup>
                     </Select>
                   </Form.Item>
                 </div>
@@ -358,6 +372,26 @@ class Browse extends React.Component {
                     </Select>
                   </Form.Item>
                 </div>
+
+                {
+                  this.state.displayLang &&
+                  <div>
+                    <Divider orientation="left"></Divider>
+                    <p className="top-sec">Anglais requis:</p>
+                    <div className="chkbx-tags">
+                    
+                    <Form.Item label="" name="english">
+                      <Select onChange={this.onFilterChange.bind(this)} mode="multiple" placeholder="Anglais requis" showArrow  showSearch={false}>
+                        {
+                          this.tagslist.filter( n => n.english === true ).map( n => 
+                            <Select.Option value={n.id} key={n.id}>{n.name}</Select.Option>
+                            )
+                        }
+                      </Select>
+                    </Form.Item>
+                    </div>
+                  </div>
+                }
                 
                 <Divider orientation="left"></Divider>
                 <div>
@@ -378,12 +412,12 @@ class Browse extends React.Component {
                     </Select>
                   </Form.Item>
                 </div>
-                
+
                 <Divider orientation="left"></Divider>
                 <p className="top-sec">Mentions spéciales</p>
                 <div className="chkbx-tags">
                 {
-                  this.tagslist.filter( n => n.isMention === true && n.isGold === false ).map( n => 
+                  this.tagslist.filter( n => n.isMention === true && n.isGold === false && !n.english ).map( n => 
                   <div key={n.id}>
                     <Form.Item name={`tags-${n.id}`} tooltip={n.description} valuePropName="checked">
                       <Checkbox onChange={this.onFilterChange.bind(this)} title={n.description} value={n.id}>{n.name}</Checkbox>
@@ -395,7 +429,7 @@ class Browse extends React.Component {
                 <p className="top-sec">Tags</p>
                 <div className="chkbx-tags">
                 {
-                  this.tagslist.filter( n => n.isMention === false && n.isGold === false ).map( n => 
+                  this.tagslist.filter( n => n.isMention === false && n.isGold === false && !n.english ).map( n => 
                   
                     <Form.Item  key={n.id} name={`tags-${n.id}`} tooltip={n.description} valuePropName="checked">
                       <Checkbox onChange={this.onFilterChange.bind(this)} title={n.description} value={n.id}>{n.name}</Checkbox>
@@ -408,7 +442,7 @@ class Browse extends React.Component {
                   <Form.Item value="" name="gold">
                     <Select onChange={this.onFilterChange.bind(this)} mode="multiple" placeholder="Glandus d'Or" showArrow showbrowse={false}>
                     {
-                      this.tagslist.filter( n => n.isMention === false && n.isGold === true ).map( n => 
+                      this.tagslist.filter( n => n.isMention === false && n.isGold === true && !n.english ).map( n => 
                         <Select.Option value={n.id} key={n.id}>{n.name}</Select.Option>
                         )
                     }

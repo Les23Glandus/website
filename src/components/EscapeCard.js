@@ -88,6 +88,7 @@ class EscapeCard extends React.Component {
                 } 
               </div>
               {
+                this.props.escape.name &&
                 ( !this.props.escape.isOpen || (this.props.enseigne && !this.props.enseigne.isOpen) ) &&            
                  <div className="tags">
                   <Tag className="closed-tag">Fermée</Tag>

@@ -122,17 +122,23 @@ class Selection extends React.Component {
                 </div>
               </div>
 
+          
               {
-                this.details.article && 
-                <div className="article-part">
-                  <div className="left">
-                    <h3>Notre sélection</h3>
+                this.details.paragraph && 
+                this.details.paragraph.map( n => 
+                  <div className="article-part">
+                    <div className="left">
+                      <h3>{n.title}</h3>
+                    </div>
+                    <div className="right">
+                      <div className="longtext">
+                        <RichText>{n.article}</RichText>
+                      </div>
+                    </div>
                   </div>
-                  <div className="right">
-                      <div><RichText>{this.details.article}</RichText></div>
-                  </div>
-                </div>
+                  )
               }
+
 
             </div>
 

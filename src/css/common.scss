@@ -13,15 +13,16 @@ body {
     }
 
     div.full-text {
-        .rt-img-handler[alt$=">"] {
+        .rt-img-handler[alt~=">"] {
             float: right;
         }
         
-        .rt-img-handler[alt$="<"] {
+        .rt-img-handler[alt~="<"] {
             float: left;
         }
         
-        .rt-img-handler[alt$="><"] {
+        .rt-img-handler[alt~="><"],
+        .rt-img-handler[alt~="<>"] {
             display: block;
             max-width: 100%;
             height: auto;

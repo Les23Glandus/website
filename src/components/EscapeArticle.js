@@ -231,7 +231,7 @@ class EscapeArticle extends React.Component {
                     <div className="title-flex">
                       <div>
                         {pays.length > 0 && <p className="region">{pays.length > 0 && pays.join(", ")}{regions.length > 0 && (' - '+regions.join(", "))}{town && (' - '+town)}</p>}
-                        <h2>{this.details.name} {this.details.isOpen === false && <span className="closed-info">(Fermée)</span>}</h2>
+                        <h2>{this.details.name} {(this.details.isOpen === false || (this.details.enseigne && this.details.enseigne.isOpen === false)) && <span className="closed-info">(Fermée)</span>}</h2>
                         {this.details.enseigne && 
                           <p>Chez <Link to={"/escapegame/"+this.details.enseigne.uniquepath}>{this.details.enseigne.name}</Link></p>
                         }

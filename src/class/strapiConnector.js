@@ -559,7 +559,7 @@ class strapiConnector {
           nbPlayerMin
           nbPlayerMax
           addresses {pay {name} region {name}  town } 
-          enseigne { id name uniquepath 
+          enseigne { id name uniquepath isOpen
             addresses {pay {name} region {name} town } 
             escapes { id name uniquepath date nbPlayerMin nbPlayerMax tags {id name isGold} }
           }    

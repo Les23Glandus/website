@@ -11,8 +11,18 @@ class RichText extends React.Component {
 
     const renderers = {
         image: (value) => { 
-            const cl = ["r1","r1","r2","r0","rm1","rm1","rm2"];
-            return <div className="rt-img-handler" alt={value.alt}><Image src={value.src} alt={value.alt} className={cl[ ~~(Math.random() * cl.length) ]}/></div>},
+            let rg = /\.mp4$/;
+            if( rg.test( value.src ) ) {
+                return (<video controls>
+                            <source src={value.src} type="video/mp4"/>
+                            Votre navigateur ne supporte pas les vidéos
+                        </video>)
+            } else {
+
+                const cl = ["r1","r1","r2","r0","rm1","rm1","rm2"];
+                return <div className="rt-img-handler" alt={value.alt}><Image src={value.src} alt={value.alt} className={cl[ ~~(Math.random() * cl.length) ]}/></div>
+            }
+        },
         link: (value) => { 
             const reg = /^\//;
             if( reg.test(value.href) ) {
@@ -30,7 +40,7 @@ class RichText extends React.Component {
                 plugins={[gfm]}
                 renderers={renderers}
                 allowedTypes={ReactMarkdown.types}>{this.props.children}</ReactMarkdown>
-            <p style={{clear:"both"}}/>
+                
         </div>
     )
   }

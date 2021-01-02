@@ -55,8 +55,13 @@ div.article-container {
         text-decoration: underline;
     }
 
-    div.full-text img {
-        @include polaroid;
+    div.full-text {
+        div.rt-img-handler {
+            padding: 0 10px;
+        }
+        img {
+            @include polaroid;
+        }
     }
 
     .article-highlight {

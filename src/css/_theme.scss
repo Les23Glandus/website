@@ -61,19 +61,18 @@ $picratio: 16/9;
     border: 6px #ffffff solid;
     @include shadow;
     &.r0 {
-        transform: scale(0.9);
     }
     &.r1 {
-        transform: scale(0.9) rotate(1deg);
+        transform: rotate(1deg);
     }
     &.r2 {
-        transform: scale(0.9) rotate(2deg);
+        transform: rotate(2deg);
     }
     &.rm1 {
-        transform: scale(0.9) rotate(-1deg);
+        transform: rotate(-1deg);
     }
     &.rm2 {
-        transform: scale(0.9) rotate(-2deg);
+        transform: rotate(-2deg);
     }
 }
 

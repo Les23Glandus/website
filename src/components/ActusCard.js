@@ -5,6 +5,30 @@ import RichText from "./meta/RichText";
   
 class ActusCard extends React.Component {
 
+  constructor(props) {
+    super(props);
+    this.descp = React.createRef();
+  }
+
+  componentDidMount() {  
+    this.reduceText();
+  }
+  componentDidUpdate() {  
+    this.reduceText();
+  }
+
+  reduceText() {
+    if( this.descp && this.descp.current ) {
+      const maxln = 300;
+      let txt = this.descp.current.innerText;
+      if( txt ) {
+        let after = txt.length > maxln ? "..." : "";
+        this.descp.current.innerHTML = txt.substring(0,maxln) + after;
+        this.descp.current.title = txt;
+      }
+    }
+  }
+
   render() {
 
     let imageUrl;
@@ -24,7 +48,7 @@ class ActusCard extends React.Component {
           supTitle={""}
           imageUrl={imageUrl}
           imageTitle={this.props.details.description}
-          more={<div className="description"><RichText>{ this.props.details.description }</RichText></div>}
+          more={<div className="description" ref={this.descp}><RichText>{ this.props.details.description }</RichText></div>}
       
       ></Card>
     )

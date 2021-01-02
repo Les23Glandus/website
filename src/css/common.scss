@@ -25,6 +25,17 @@ body {
         .rt-img-handler[alt~="<>"] {
             text-align: center;
         }
+        p:after {
+            content: "";
+            clear: both;
+            display: block;
+            padding: 0;
+            margin: 0;
+            height: 0;
+        }
+        video {
+            width: 100%;
+        }
     }
 
     a {

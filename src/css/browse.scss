@@ -1,5 +1,21 @@
 @import "_theme.scss";
 
+
+.ant-select-item {
+    span.smo {
+        font-size: 0.7em;
+    }
+    &.ant-select-item-group {
+        color: rgba(255, 255, 255, 0.45);
+        cursor: default;
+        border-bottom: 1px solid #7e7e7e;
+        height: 1px;
+        min-height: 1px;
+        overflow: hidden;
+        margin: 0 10px 10px 10px;
+    }
+}
+
 div.browse-main {
     .browse-presets {
         position: relative;

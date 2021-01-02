@@ -1,4 +1,4 @@
-import { Divider, Form, Pagination, Select, Skeleton, Spin } from "antd";
+import { Button, Divider, Form, Pagination, Select, Skeleton, Spin } from "antd";
 import Checkbox from "antd/lib/checkbox/Checkbox";
 import React from "react";
 import { withRouter } from "react-router-dom";
@@ -19,6 +19,8 @@ import OtherEnseigne from "../components/OtherEnseigne";
 class Browse extends React.Component {
 
   static ID_FRANCE = "1";
+  static ID_IDF = "1";
+
   tagslist = null;
   payslist = null;
   regionlist = null;
@@ -36,6 +38,7 @@ class Browse extends React.Component {
       , loadingCard:false
       , regionList:null
       , displayLang:false
+      , displayDep:false
       , escapeList:null
       , presetList:[]
       , lineperpage: 5
@@ -106,15 +109,15 @@ class Browse extends React.Component {
 
         this.setState({loadingCard:false});
 
-        if( this.firstLoad ) {
-          this.firstLoad = false;
-          if( window.sessionStorage["browseFilter"] ) {
-            let x = JSON.parse( window.sessionStorage["browseFilter"] );
-            if( x ) this.setFilterValue( x );
-          }
-        }
       });
     }
+  }
+
+  reset() {
+    this.setFilterValue({});
+    this.onPaysChange(false);
+    this.onRegionChange(false);
+    this.executeScroll();
   }
 
   onPaginationChange(cur,size) {
@@ -131,7 +134,17 @@ class Browse extends React.Component {
     //Buidl query
     let query = {};
     let tagsOR = [];
-    let filter = this.formRef.current.getFieldsValue();
+    let filter;
+    
+    if( this.firstLoad ) {
+      this.firstLoad = false;
+      if( window.sessionStorage["browseFilter"] ) {
+        filter = JSON.parse( window.sessionStorage["browseFilter"] );
+        if( filter ) this.setFilterValue( filter );
+      }
+    }
+    if(!filter) filter = this.formRef.current.getFieldsValue();
+    if( filter["addresses.region.id"] && filter["addresses.region.id"].length === 0 ) delete( filter["addresses.region.id"] );
     console.info(JSON.stringify(filter));
     if(!this.firstLoad) window.sessionStorage["browseFilter"] = JSON.stringify(filter);
     let sort = this.sortformRef.current.getFieldsValue();
@@ -197,12 +210,25 @@ class Browse extends React.Component {
    * @param {*} selectedPaysId 
    */
   onPaysChange(selectedPaysId) {
-    console.log(selectedPaysId);
+    if(!selectedPaysId) selectedPaysId = false;
     let p = this.payslist.find( n => n.id === selectedPaysId );
     let r = null;
     if( p ) r = p.regions;
     this.formRef.current.setFieldsValue({"addresses.region.id":[]});     
-    this.setState({regionList:r, displayLang: selectedPaysId !== "1" && selectedPaysId !== false });
+    this.setState({
+      regionList:r, 
+      displayLang: selectedPaysId !== "1" && selectedPaysId !== false
+    });
+    this.onFilterChange();
+  }
+
+  onRegionChange(selected) {
+    if( selected && selected.length === 1 && selected[0] === Browse.ID_IDF ) {
+      this.setState({displayDep:true});
+    } else {
+      this.setState({displayDep:false});    
+      this.formRef.current.setFieldsValue({"addresses.postcode_contains":false});    
+    }
     this.onFilterChange();
   }
 
@@ -215,6 +241,7 @@ class Browse extends React.Component {
     this.preventSearch = true;
     this.formRef.current.resetFields();
     this.onPaysChange(setup["addresses.pay.id"]);
+    this.onRegionChange(setup["addresses.region.id"]);
     this.formRef.current.setFieldsValue(setup);
     
     this.preventSearch = false;
@@ -350,9 +377,9 @@ class Browse extends React.Component {
                           )
                       }
                       <Select.Option value="row">Reste du monde</Select.Option>
-                      <Select.OptGroup>
+                      <Select.OptGroup label="-----">
                         {
-                          this.payslist.filter(n => n.id !== Browse.ID_FRANCE ).map( n => 
+                          this.payslist.filter(n => n.id !== Browse.ID_FRANCE ).sort((a,b) => a.name.localeCompare( b.name ) ).map( n => 
                             <Select.Option value={n.id} key={n.id}>{n.name}</Select.Option>
                             )
                         }
@@ -363,7 +390,7 @@ class Browse extends React.Component {
 
                 <div style={{display:(this.state.regionList === null || this.state.regionList.length <= 0 ? "none" : "block")}}>
                   <Form.Item label="Régions" name="addresses.region.id">
-                    <Select onChange={this.onFilterChange.bind(this)} mode="multiple" placeholder="Régions" ref={this.regionRef} showArrow  showSearch={false}>
+                    <Select onChange={this.onRegionChange.bind(this)} mode="multiple" placeholder="Régions" ref={this.regionRef} showArrow  showSearch={false}>
                       {
                         this.state.regionList !== null && this.state.regionList.map( n => 
                           <Select.Option value={n.id} key={n.id}>{n.name}</Select.Option>
@@ -372,6 +399,24 @@ class Browse extends React.Component {
                     </Select>
                   </Form.Item>
                 </div>
+                {
+                  this.state.displayDep &&
+                  <div>
+                    <Form.Item label="Département" name="addresses.postcode_contains">
+                      <Select onChange={this.onFilterChange.bind(this)}>
+                        <Select.Option value={false}> </Select.Option>
+                        <Select.Option value={75}>75 - <span className='smo'>Paris</span></Select.Option>
+                        <Select.Option value={92}>92 - <span className='smo'>Hauts-de-Seine</span></Select.Option>
+                        <Select.Option value={93}>93 - <span className='smo'>Seine-Saint-Denis</span></Select.Option>
+                        <Select.Option value={94}>94 - <span className='smo'>Val-de-Marne</span></Select.Option>
+                        <Select.Option value={95}>95 - <span className='smo'>Val-d'Oise</span></Select.Option>
+                        <Select.Option value={91}>91 - <span className='smo'>Essone</span></Select.Option>
+                        <Select.Option value={78}>78 - <span className='smo'>Yvelines</span></Select.Option>
+                        <Select.Option value={77}>77 - <span className='smo'>Seine-et-Marne</span></Select.Option>
+                      </Select>
+                    </Form.Item>
+                  </div>
+                }
 
                 {
                   this.state.displayLang &&
@@ -448,6 +493,11 @@ class Browse extends React.Component {
                     }
                     </Select>
                   </Form.Item>
+                </div>
+
+                <div>
+                  <Divider></Divider>
+                  <Button onClick={this.reset.bind(this)}>Reset</Button>
                 </div>
               </Form>
 

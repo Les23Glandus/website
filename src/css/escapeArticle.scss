@@ -31,6 +31,9 @@ div.article-container {
         background: #c08a00;
         line-height: 3em;
         font-size: 1.5em;
+        @include md {
+            font-size: 1em;
+        }
         @include bold;
         border-radius: $default-radius $default-radius 0 0;
         color: #ffffff;

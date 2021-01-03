@@ -382,7 +382,7 @@ class EscapeArticle extends React.Component {
           
         {this.details.selections && this.details.selections.length > 0 && 
           <div className="article-follower article-selections">
-            <h3>Présente dans les sélections suivantes</h3>
+            <h3>Présente dans {this.details.selections.length === 1 ? "la sélection" : "les sélections suivantes"}</h3>
             <div className="flexgrid">
               {
                 this.details.selections.map( n => <SelectionCard reduce key={n.id} details={n}/> )

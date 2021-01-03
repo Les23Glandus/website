@@ -19,7 +19,7 @@ class Selection extends React.Component {
     }
     return (
       <div>
-        <SelectionCompo selectionRef={this.props.match.params.selection}
+        <SelectionCompo key={this.props.match.params.selection}  selectionRef={this.props.match.params.selection}
          onError={()=>this.setState({error:true})}/>
       </div>
     );

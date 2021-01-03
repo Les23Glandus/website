@@ -41,6 +41,14 @@ div.escape-card {
                     color: #ffffff;
                 }
             }
+            &.taggold {
+                .ant-tag {
+                    background: #c08a00;
+                    border-color: #c08a00;
+                    color: #ffffff;
+                    @include bold;
+                }
+            }
         }
     }
 }

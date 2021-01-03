@@ -86,6 +86,8 @@ class Actus extends React.Component {
               <p className="date">{new Intl.DateTimeFormat('fr-FR', { dateStyle: 'full' }).format(new Date(this.details.date))}</p>
             </div>
           </div>
+
+
           <div className="article-part">
             <div className="left">
             </div>
@@ -97,6 +99,25 @@ class Actus extends React.Component {
               }
             </div>
           </div>
+
+
+          {
+            this.details.paragraph && 
+            this.details.paragraph.map( n => 
+              <div className="article-part" key={n.id}>
+                <div className="left">
+                  <h3>{n.title}</h3>
+                </div>
+                <div className="right">
+                  <div className="longtext">
+                    <RichText>{n.article}</RichText>
+                  </div>
+                </div>
+              </div>
+              )
+          }
+
+
           <div className="article-part">
             <div className="left">
             </div>

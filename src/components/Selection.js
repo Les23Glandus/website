@@ -124,7 +124,7 @@ class Selection extends React.Component {
               {
                 this.details.paragraph && 
                 this.details.paragraph.map( n => 
-                  <div className="article-part">
+                  <div className="article-part" key={n.id}>
                     <div className="left">
                       <h3>{n.title}</h3>
                     </div>

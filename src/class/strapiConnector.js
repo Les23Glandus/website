@@ -323,6 +323,7 @@ class strapiConnector {
           nbPlayerMin
           description
           scenario
+          glandusor
           nbPlayerMax
           mini {id url formats} 
           tags {id name isMention isGold description english}  
@@ -403,6 +404,7 @@ class strapiConnector {
         date
         published_at
         description
+        paragraph {id title article}
         title
         article
       }`,
@@ -424,6 +426,7 @@ class strapiConnector {
         published_at
         escapes { id name uniquepath date nbPlayerMin nbPlayerMax 
           scenario
+          glandusor
           description
           isOpen
           rate
@@ -505,6 +508,7 @@ class strapiConnector {
             useInFilter
           }
           preventPush
+          glandusor
           isOpen
           nbPlayerMin
           nbPlayerMax

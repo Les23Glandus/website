@@ -15,15 +15,18 @@ body {
     div.full-text {
         .rt-img-handler[alt~=">"] {
             float: right;
+            max-width: 35%;
         }
         
         .rt-img-handler[alt~="<"] {
             float: left;
+            max-width: 35%;
         }
         
         .rt-img-handler[alt~="><"],
         .rt-img-handler[alt~="<>"] {
             text-align: center;
+            float: none;
         }
         p:after {
             content: "";
@@ -116,6 +119,14 @@ body {
         background: $zoning-background;
         padding-top: 60px !important;
         padding-bottom: 60px !important;
+    }
+
+    .ant-tag.mention {
+        background-image: url(("./pics/badge.svg"));
+        background-position: 2px 50%;
+        background-size: contain;
+        background-repeat: no-repeat;
+        padding-left: 25px;
     }
 
     .main-header {

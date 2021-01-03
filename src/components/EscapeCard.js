@@ -76,6 +76,12 @@ class EscapeCard extends React.Component {
                 this.props.date &&
                 <p className="date">{new Intl.DateTimeFormat('fr-FR', { dateStyle: 'full' }).format(new Date(this.props.escape.date))}</p>
               }
+              {
+                this.props.escape.glandusor && 
+                <div className="tags taggold">
+                  <Tag>{this.props.escape.glandusor}</Tag>
+                </div>
+              }
               <div className="tags">
                 
                 {this.props.escape.nbPlayerMax === this.props.escape.nbPlayerMin && this.props.escape.nbPlayerMin === 1 && <Tag>{this.props.escape.nbPlayerMin} joueur</Tag>}
@@ -83,7 +89,7 @@ class EscapeCard extends React.Component {
                 {this.props.escape.nbPlayerMax !== this.props.escape.nbPlayerMin && <Tag>{this.props.escape.nbPlayerMin} à {this.props.escape.nbPlayerMax} joueurs</Tag >}
                 {
                   this.props.escape.tags && this.props.escape.tags.filter(t => !t.isGold).map(t => {
-                    return <Tag key={t.id}>{t.name}</Tag>
+                    return <Tag key={t.id} className={t.isMention ? "mention" : ""}>{t.name}</Tag>
                   })
                 } 
               </div>

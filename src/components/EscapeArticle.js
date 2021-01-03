@@ -246,13 +246,13 @@ class EscapeArticle extends React.Component {
                     {this.details.nbPlayerMax === this.details.nbPlayerMin && this.details.nbPlayerMin >= 1 && <Tag>{this.details.nbPlayerMin} joueurs</Tag>}
                     {this.details.nbPlayerMax !== this.details.nbPlayerMin && <Tag>{this.details.nbPlayerMin} à {this.details.nbPlayerMax} joueurs</Tag >}
                     {
-                      this.state.loaded && this.details.tags && this.details.tags.filter(t => !t.isMention).map(t => {
-                        return <Tag key={t.id} title={t.description}>{t.name}</Tag>
+                      this.state.loaded && this.details.tags && this.details.tags.filter(t => t.isMention).map(t => {
+                          return <Tag key={t.id} title={t.description} className={t.isMention ? "mention" : ""}>{t.name}</Tag>
                       })
                     }
                     {
-                      this.state.loaded && this.details.tags && this.details.tags.filter(t => t.isMention).map(t => {
-                          return <Tag key={t.id} title={t.description}>{t.name}</Tag>
+                      this.state.loaded && this.details.tags && this.details.tags.filter(t => !t.isMention && !t.isGold).map(t => {
+                        return <Tag key={t.id} title={t.description}>{t.name}</Tag>
                       })
                     }
                   </div>
@@ -290,7 +290,7 @@ class EscapeArticle extends React.Component {
           {
             this.details.paragraph && 
             this.details.paragraph.map( n => 
-              <div className="article-part">
+              <div className="article-part" key={n.id}>
                 <div className="left">
                   <h3>{n.title}</h3>
                 </div>

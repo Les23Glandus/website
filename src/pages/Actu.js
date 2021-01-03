@@ -29,7 +29,7 @@ class Actu extends React.Component {
         <TopIllustration/>
         <div className="main-content-page">
           <PageHeader title="Actualité" onBack={() => window.location.href = "/news"}/>
-          <Actus actuRef={this.props.match.params.news}/>
+          <Actus key={this.props.match.params.news}   actuRef={this.props.match.params.news}/>
         </div>
         <div className="zoning">
           <div className="main-content-page">

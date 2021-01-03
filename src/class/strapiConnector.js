@@ -567,7 +567,7 @@ class strapiConnector {
             addresses {pay {name} region {name} town } 
             escapes { id name uniquepath date nbPlayerMin nbPlayerMax tags {id name isGold} }
           }    
-          selections {id title description uniquepath color mini {id url formats}}
+          selections {id title description uniquepath color colorpicker mini {id url formats}}
           avantapres {
             id
             when

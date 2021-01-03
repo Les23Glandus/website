@@ -6,11 +6,19 @@ div.enseigne-main-container{
         @include md {
             margin: 60px $mobile-page-padding 0 $mobile-page-padding !important;
         }
+        @include xxl {
+            margin: 0 auto !important;
+            max-width: 2100px;
+        }
     }
     div.escpae-include {
         margin: 0 $default-page-padding 60px $default-page-padding !important;
         @include md {
             margin: 0 $mobile-page-padding 60px $mobile-page-padding !important;
+        }
+        @include xxl {
+            margin: 0 auto !important;
+            max-width: 2100px;
         }
     }
 }

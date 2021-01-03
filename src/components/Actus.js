@@ -5,6 +5,7 @@ import strapiConnector from "../class/strapiConnector";
 import CONFIG from "../class/config";
 import HtmlHead from "./HtmlHead";
 import RichText from "./meta/RichText";
+import ActusCard from "./ActusCard";
 
   
 class Actus extends React.Component {
@@ -64,7 +65,7 @@ class Actus extends React.Component {
     }
 
     return (
-        <div className="single-actu">
+        <div className="article-container article-actu">
             <HtmlHead title={`News - ${this.details.title}`}
                 description={this.details.description}
             >
@@ -75,17 +76,36 @@ class Actus extends React.Component {
               <meta property="og:image:alt" content={this.details.title}/>
               <meta property="article:published_time" content={this.details.published_at}/> 
             </HtmlHead>
-
-              <p className="date">{new Intl.DateTimeFormat('fr-FR', { dateStyle: 'full' }).format(new Date(this.details.date))}</p>
+            
+          <div className="article-part">
+            <div className="left">
+              <ActusCard details={this.details} reduce/>
+            </div>
+            <div className="right">
               <h2>{this.details.title}</h2>
+              <p className="date">{new Intl.DateTimeFormat('fr-FR', { dateStyle: 'full' }).format(new Date(this.details.date))}</p>
+            </div>
+          </div>
+          <div className="article-part">
+            <div className="left">
+            </div>
+            <div className="right">
               {this.details.description &&
                 <div>
                   <div className="long-text"><RichText>{this.details.description}</RichText></div>
                 </div>
               }
-              <hr/>
+            </div>
+          </div>
+          <div className="article-part">
+            <div className="left">
+            </div>
+            <div className="right">
               <div><RichText>{this.details.article}</RichText></div>
               <div className="illustrations">{this.details.illustration && <Image src={this.details.illustration.url}/>}</div>
+            </div>
+          </div>
+
         </div>
     )
   }

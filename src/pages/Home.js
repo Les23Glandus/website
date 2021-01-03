@@ -34,10 +34,17 @@ class Home extends React.Component {
             <EscapeBilan/>
             <EscapeLatestsTests onError={()=>this.setState({error:true})}/>
             <SelectionsGrid onError={()=>this.setState({error:true})}/>
+          </div>
             
-            <h2>Jeux de société</h2>
-            <JeuxGrid/>
 
+          <div className="zoning section-jeux">
+            <div className="main-content-page">
+                <h2>Jeux de société</h2>
+                <JeuxGrid/>
+            </div>
+          </div>
+
+          <div className="main-content-page">
             <h2>Notre actualité</h2>
             <ActusGrid onError={()=>this.setState({error:true})}/>
           </div>

@@ -16,6 +16,12 @@ div.article-follower {
     @include md {
         padding: 0 $mobile-page-padding;
     }
+    >div {
+        @include xxl {
+            margin: 0 auto;
+            max-width: 2100px;
+        }
+    }
 }
 
 div.article-container {
@@ -26,6 +32,10 @@ div.article-container {
     margin: 0 $default-page-padding;
     @include md {
         margin: 0 $mobile-page-padding;
+    }
+    @include xxl {
+        margin: 0 auto;
+        max-width: 2100px;
     }
     .tags-line {
         margin-top: 20px;

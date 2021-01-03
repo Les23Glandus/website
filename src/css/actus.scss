@@ -1,21 +1,8 @@
 @import "_theme.scss";
 
-.single-actu {
-    position: relative;
-    border-radius: $default-radius;
-    background: $zoning-background;
-    padding: 30px 60px;
-
-    .date {
-        @include light;
-        font-style: italic;
-        text-transform: capitalize;
-    }
-    .illustrations {
-        text-align: center;
-    }
-    &>* {
-        margin: 30px 0;
+.article-actu {
+    .meta-card-details {
+        display: none;
     }
 }
 

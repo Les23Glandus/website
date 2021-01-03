@@ -6,7 +6,7 @@ $default-radius: 10px;
 $default-darkcolor: #171717;
 $default-darklightcolor: #8c8d8c;
 
-$default-page-padding: 9%;
+$default-page-padding: 5%;
 $mobile-page-padding: 5px;
 $default-card-margin: 5px;
 
@@ -19,7 +19,7 @@ $zoning-background: #2c2c2c;
 
 $default-anim-duration: 0.5s;
 
-$default-fontSize: 14px;
+$default-fontSize: 16px;
 
 /* Card setup */
 $picheight: 210px;
@@ -87,6 +87,8 @@ $picratio: 16/9;
 $screen-md-min: 1024px;
 // Tablets and small desktops
 $screen-lg-min: 1400px;
+// Tablets and small desktops
+$screen-xxl-min: 2100px;
 
 // Medium devices
 @mixin md {
@@ -103,6 +105,12 @@ $screen-lg-min: 1400px;
 // Extra large devices
 @mixin xl {
    @media (min-width: #{$screen-lg-min}) {
+       @content;
+   }
+}
+// Extra large devices
+@mixin xxl {
+   @media (min-width: #{$screen-xxl-min}) {
        @content;
    }
 }

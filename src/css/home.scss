@@ -9,6 +9,13 @@ div.home {
         margin-top: 30px;
     }
 
+    .section-jeux{
+        margin: 80px 0 0 0;
+        h2 {
+            margin-top: 0;
+        }
+    }
+
     div.realisation {
         @include light;
         margin: 10px;

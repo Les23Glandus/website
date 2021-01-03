@@ -5,3 +5,4 @@ git reset --hard
 git pull
 npm install
 npm run build
+sudo chmod +x ./update.sh

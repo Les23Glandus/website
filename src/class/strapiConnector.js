@@ -326,11 +326,10 @@ class strapiConnector {
           scenario
           glandusor
           nbPlayerMax
+          addresses { id town postcode street name pay {id name} region {id name} }
           mini {id url formats} 
           tags {id name isMention isGold description english}  
-          enseigne { id name uniquepath isOpen
-            addresses {pay {name} region {name} } 
-          }
+          enseigne { id name uniquepath isOpen }
         }
       }`,
 

@@ -91,8 +91,13 @@ class EscapeCard extends React.Component {
                 {this.props.escape.nbPlayerMax === this.props.escape.nbPlayerMin && this.props.escape.nbPlayerMin >= 1 && <Tag>{this.props.escape.nbPlayerMin} joueurs</Tag>}
                 {this.props.escape.nbPlayerMax !== this.props.escape.nbPlayerMin && <Tag>{this.props.escape.nbPlayerMin} à {this.props.escape.nbPlayerMax} joueurs</Tag >}
                 {
-                  this.props.escape.tags && this.props.escape.tags.filter(t => !t.isGold).map(t => {
-                    return <Tag key={t.id} className={t.isMention ? "mention" : ""}>{t.name}</Tag>
+                  this.props.escape.tags && this.props.escape.tags.filter(t => !t.isGold && t.isMention).sort((a,b) => { return !b.name ? 1 : a.name.localeCompare(b.name);} ).map(t => {
+                    return <Tag key={t.id} className="mention">{t.name}</Tag>
+                  })
+                } 
+                {
+                  this.props.escape.tags && this.props.escape.tags.filter(t => !t.isGold && !t.isMention).sort((a,b) => { return !b.name ? 1 : a.name.localeCompare(b.name);} ).map(t => {
+                    return <Tag key={t.id}>{t.name}</Tag>
                   })
                 } 
               </div>

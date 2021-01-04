@@ -36,6 +36,8 @@ class ActusCard extends React.Component {
       if( this.props.details.mini.formats.small ) imageUrl = this.props.details.mini.formats.small.url
       else imageUrl = this.props.details.mini.url;
     }
+
+    let date = new Intl.DateTimeFormat('fr-FR', { dateStyle: 'long' }).format(new Date(this.props.details.date));
     
     return (
       
@@ -44,8 +46,8 @@ class ActusCard extends React.Component {
           compact={this.props.compact ? true : false}
           url={"/news/"+this.props.details.uniquepath}
           title={this.props.details.title}
-          supTitle={new Intl.DateTimeFormat('fr-FR', { dateStyle: 'full' }).format(new Date(this.props.details.date))}
-          subTitle={""}
+          supTitle={!this.props.reduce && date}
+          subTitle={this.props.reduce && date}
           imageUrl={imageUrl}
           imageTitle={this.props.details.description}
           more={<div className="description" ref={this.descp}><RichText>{ this.props.details.description }</RichText></div>}

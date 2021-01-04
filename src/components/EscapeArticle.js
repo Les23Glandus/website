@@ -276,12 +276,12 @@ class EscapeArticle extends React.Component {
                       {this.details.nbPlayerMax === this.details.nbPlayerMin && this.details.nbPlayerMin >= 1 && <Tag>{this.details.nbPlayerMin} joueurs</Tag>}
                       {this.details.nbPlayerMax !== this.details.nbPlayerMin && <Tag>{this.details.nbPlayerMin} à {this.details.nbPlayerMax} joueurs</Tag >}
                       {
-                        this.state.loaded && this.details.tags && this.details.tags.filter(t => t.isMention).map(t => {
+                        this.state.loaded && this.details.tags && this.details.tags.filter(t => t.isMention).sort((a,b) => { return !b.name ? 1 : a.name.localeCompare(b.name);} ).map(t => {
                             return <Tag key={t.id} title={t.description} className={t.isMention ? "mention" : ""}>{t.name}</Tag>
                         })
                       }
                       {
-                        this.state.loaded && this.details.tags && this.details.tags.filter(t => !t.isMention && !t.isGold).map(t => {
+                        this.state.loaded && this.details.tags && this.details.tags.filter(t => !t.isMention && !t.isGold).sort((a,b) => { return !b.name ? 1 : a.name.localeCompare(b.name);} ).map(t => {
                           return <Tag key={t.id} title={t.description}>{t.name}</Tag>
                         })
                       }

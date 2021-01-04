@@ -59,6 +59,7 @@ class strapiConnector {
     let body = this.builGQLdQuery("tags:list");
     body.variables.where = {"useInFilter":true};
     body.variables.limit = 1000;
+    body.variables.sort = "name:ASC";
     return this.graphql(body);
   }
 

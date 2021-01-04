@@ -28,6 +28,13 @@ div.escape-card {
         }
     }
     .meta-card-details {
+        .region {
+            text-overflow: ellipsis;
+            overflow: hidden;
+            white-space: nowrap;
+            max-width: 100%;
+            display: inline-block;
+        }
         .tags {
             margin-top: 20px;
             margin-bottom: 20px;

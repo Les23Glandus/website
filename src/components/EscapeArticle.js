@@ -199,7 +199,7 @@ class EscapeArticle extends React.Component {
     if( this.details.addresses && this.details.addresses.length > 0 ) {
       this.details.addresses.forEach(addr => {
         if( addr.region && regions.indexOf(addr.region.name) < 0 ) regions.push( addr.region.name );
-        if( addr.pay && regions.indexOf(addr.pay.name) < 0 ) pays.push( addr.pay.name );
+        if( addr.pay && pays.indexOf(addr.pay.name) < 0 ) pays.push( addr.pay.name );
       });
       if( this.details.addresses.length === 1 ) {
         town = this.details.addresses[0].town;

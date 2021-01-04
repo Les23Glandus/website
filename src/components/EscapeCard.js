@@ -48,14 +48,17 @@ class EscapeCard extends React.Component {
     if( this.props.escape.addresses && this.props.escape.addresses.length > 0 ) {
       this.props.escape.addresses.forEach(addr => {
         if( addr.region && regions.indexOf(addr.region.name) < 0 ) regions.push( addr.region.name );
-        if( addr.pay && regions.indexOf(addr.pay.name) < 0 ) pays.push( addr.pay.name );
+        if( addr.pay && pays.indexOf(addr.pay.name) < 0 ) pays.push( addr.pay.name );
         if( addr.town && town.indexOf(addr.town) < 0 ) town.push( addr.town );
       });
     }
 
     let topinfo;
     if( pays.length > 0 ) {
-      topinfo = <span className="region">{pays.length > 0 && pays.join(", ")}{regions.length > 0 && (' - '+regions.join(", "))}{town.length > 0 && (' - '+town.join(", "))}</span>
+      let addrTxt = pays.join(", ");
+      if( regions.length > 0 ) addrTxt += " - " + regions.join(", ");
+      if( town.length > 0 ) addrTxt += " - " + town.join(", ");
+      topinfo = <span className="region" title={addrTxt}>{addrTxt}</span>
     } 
     
     return (

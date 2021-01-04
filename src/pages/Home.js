@@ -6,6 +6,7 @@ import EscapeBilan from "../components/EscapeBilan";
 import EscapeLatestsTests from "../components/EscapeLatestsTests";
 import Group from "../components/Group";
 import JeuxGrid from "../components/JeuxGrid";
+import Slice from "../components/meta/Slice";
 import SelectionsGrid from "../components/SelectionsGrid";
 import "../css/home.scss";
 import Page500 from "./Page500";
@@ -29,25 +30,23 @@ class Home extends React.Component {
       <div className="home">
           <Carousel/>
 
-          <div className="main-content-page">
+          <Slice breath>
             <h2 className="main-subtitle">Expériences Immersives</h2>
             <EscapeBilan/>
             <EscapeLatestsTests onError={()=>this.setState({error:true})}/>
             <SelectionsGrid onError={()=>this.setState({error:true})}/>
-          </div>
+          </Slice>
             
 
-          <div className="zoning section-jeux">
-            <div className="main-content-page">
-                <h2>Jeux de société</h2>
-                <JeuxGrid/>
-            </div>
-          </div>
+          <Slice breath colored className="section-jeux">
+              <h2>Jeux de société</h2>
+              <JeuxGrid/>
+          </Slice>
 
-          <div className="main-content-page">
+          <Slice breath>
             <h2>Notre actualité</h2>
             <ActusGrid onError={()=>this.setState({error:true})}/>
-          </div>
+          </Slice>
           
           <Group/>
       </div>

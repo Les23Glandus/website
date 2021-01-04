@@ -4,6 +4,7 @@ import HtmlHead from "../components/HtmlHead";
 import SelectionsGrid from "../components/SelectionsGrid";
 import Page500 from "./Page500";
 import TopIllustration from "../components/meta/TopIllustration";
+import Slice from "../components/meta/Slice";
 
   
 class Selections extends React.Component {
@@ -26,7 +27,7 @@ class Selections extends React.Component {
         
         <TopIllustration/>
 
-        <div className="main-content-page">
+        <Slice breath>
           <div className="all-selections">
 
             <h2>Les Gandus ont fait leurs choix !</h2>
@@ -34,8 +35,7 @@ class Selections extends React.Component {
             <p>En laissant la souris au dessus d'une image vous aurez une brève description de la sélection.</p>
             <SelectionsGrid showAll={true} title={false} onError={()=>this.setState({error:true})}/>
           </div>
-        </div>
-
+        </Slice>
           
       </div>
     )

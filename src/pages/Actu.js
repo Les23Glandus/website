@@ -8,6 +8,7 @@ import HtmlHead from "../components/HtmlHead";
 import TopIllustration from "../components/meta/TopIllustration";
 import Page500 from "./Page500";
 import "../css/actus.scss";
+import Slice from "../components/meta/Slice";
 
   
 class Actu extends React.Component {
@@ -27,18 +28,16 @@ class Actu extends React.Component {
         <HtmlHead title={`News`} />
         
         <TopIllustration/>
-        <div className="main-content-page">
+        <Slice breath>
           <PageHeader title="Actualité" onBack={() => window.location.href = "/news"}/>
           <Actus key={this.props.match.params.news}   actuRef={this.props.match.params.news}/>
-        </div>
-        <div className="zoning">
-          <div className="main-content-page">
-            <ActusGrid/>
-          </div>
-        </div>
-        <div className="main-content-page actu-relay">
-          <EscapeLatestsTest/>
-        </div>
+        </Slice>
+        <Slice colored breath>
+            <ActusGrid/> 
+        </Slice>
+        <Slice breath>
+            <EscapeLatestsTest/>  
+        </Slice>
       </div>
     )
   }

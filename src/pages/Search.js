@@ -11,6 +11,7 @@ import EscapeCard from "../components/EscapeCard";
 import JeuxCard from "../components/JeuxCard";
 import SelectionCard from "../components/SelectionCard";
 import ActusCard from "../components/ActusCard";
+import Slice from "../components/meta/Slice";
 
   
 class SearchP extends React.Component {
@@ -144,7 +145,7 @@ class SearchP extends React.Component {
 
 
         <TopIllustration/>
-        <div className="search-main">
+        <Slice className="search-main">
 
           <div className="search-field">
             <p>Recherchez sur le site :</p>
@@ -280,9 +281,10 @@ class SearchP extends React.Component {
 
             </div>
           </div>
+        </Slice>
 
 
-        </div>
+
 
       </div>
     )

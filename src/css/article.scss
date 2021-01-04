@@ -6,22 +6,11 @@ $highligh_decale: 25px;
 div.article-illustration.top-illustration {
     background-size: cover;
     height: 600px;
-    margin-bottom: -130px;
+    margin-bottom: -160px;
 }
 
 div.article-follower {
-    margin-top: 30px; 
-    padding: 0 $default-page-padding;
     position: relative;
-    @include md {
-        padding: 0 $mobile-page-padding;
-    }
-    >div {
-        @include xxl {
-            margin: 0 auto;
-            max-width: 2100px;
-        }
-    }
 }
 
 div.article-container {
@@ -29,14 +18,6 @@ div.article-container {
     color:$primary-font-color;
     border-radius: $default-radius;
     position: relative;
-    margin: 0 $default-page-padding;
-    @include md {
-        margin: 0 $mobile-page-padding;
-    }
-    @include xxl {
-        margin: 0 auto;
-        max-width: 2100px;
-    }
     .tags-line {
         margin-top: 20px;
         .ant-tag {

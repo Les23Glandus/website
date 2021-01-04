@@ -3,6 +3,7 @@ import Form from "antd/lib/form/Form";
 import Search from "antd/lib/input/Search";
 import React from "react";
 import { Link, withRouter } from "react-router-dom";
+import Slice from "../components/meta/Slice";
 
   
 class Page404 extends React.Component {
@@ -15,7 +16,7 @@ class Page404 extends React.Component {
   render() {
     
     return (
-      <div className="main-content-page page-404">
+      <Slice className="page-404">
         <Result
           status="404"
           title="404"
@@ -28,7 +29,7 @@ class Page404 extends React.Component {
               onSearch={(q) => { window.location.href = "/search?q=" + encodeURI(q) } }
             />
         </Form>
-      </div>
+      </Slice>
     )
   }
 

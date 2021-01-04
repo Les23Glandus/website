@@ -10,6 +10,7 @@ import SelectionCard from "./SelectionCard";
 import RichText from "./meta/RichText";
 import CONFIG from "../class/config";
 import SelectionsGrid from "./SelectionsGrid";
+import Slice from "./meta/Slice";
 
   
 class Selection extends React.Component {
@@ -65,22 +66,20 @@ class Selection extends React.Component {
       return (
         <div class="selection-main">
           <TopIllustration/>
-          <div className="page-back">
-            <PageHeader title="Toutes nos sélections" onBack={() => window.location.href = "/selections"}/>
-          </div>
-          <div className="article-container article-selection">
-
-            <div className="article-part">
-              <div className="left">
-                <Skeleton.Image />
-              </div>
-              <div className="right">
-                  <div className="longtext">
-                    <Skeleton active/>
-                  </div>
+          <Slice breath>
+            <div className="article-container article-selection">
+              <div className="article-part">
+                <div className="left">
+                  <Skeleton.Image />
+                </div>
+                <div className="right">
+                    <div className="longtext">
+                      <Skeleton active/>
+                    </div>
+                </div>
               </div>
             </div>
-          </div>
+          </Slice>
         </div>
       )
     } else {
@@ -94,8 +93,6 @@ class Selection extends React.Component {
               >
                 <script type="application/ld+json">{JSON.stringify(this.jsonld)}</script>
             </HtmlHead>
-
-
             {
               this.details.image && 
               <div className="article-illustration top-illustration" title={this.details.description} style={{backgroundImage:`url(${this.details.image.url})`}} />
@@ -104,55 +101,53 @@ class Selection extends React.Component {
               !this.details.image && 
               <TopIllustration/>
             }
-            <div className="article-container article-selection">
+            <Slice breath>
+              <div className="article-container article-selection">
 
-              <div className="article-part">
-                <div className="left">
-                    <div className="logo-area">
-                          <SelectionCard details={this.details} reduce arrow={false}/>
-                    </div>
+                <div className="article-part">
+                  <div className="left">
+                      <div className="logo-area">
+                            <SelectionCard details={this.details} reduce arrow={false}/>
+                      </div>
+                  </div>
+                  <div className="right">
+                      <h2>{this.details.title}</h2> 
+                      <div>
+                        {this.details.description && <RichText>{this.details.description}</RichText>}  
+                      </div>
+                  </div>
                 </div>
-                <div className="right">
-                    <h2>{this.details.title}</h2> 
-                    <div>
-                      {this.details.description && <RichText>{this.details.description}</RichText>}  
-                    </div>
-                </div>
-              </div>
 
-          
-              {
-                this.details.paragraph && 
-                this.details.paragraph.map( n => 
-                  <div className="article-part" key={n.id}>
-                    <div className="left">
-                      <h3>{n.title}</h3>
-                    </div>
-                    <div className="right">
-                      <div className="longtext">
-                        <RichText>{n.article}</RichText>
+            
+                {
+                  this.details.paragraph && 
+                  this.details.paragraph.map( n => 
+                    <div className="article-part" key={n.id}>
+                      <div className="left">
+                        <h3>{n.title}</h3>
+                      </div>
+                      <div className="right">
+                        <div className="longtext">
+                          <RichText>{n.article}</RichText>
+                        </div>
                       </div>
                     </div>
-                  </div>
-                  )
+                    )
+                }
+              </div>
+              {
+                this.details.escapes.length > 0 
+                &&
+                <div>
+                  {this.details.escapes.filter( n => n.id !== parseInt(this.props.hide)).sort((a,b) => b.rate - a.rate).map(n => <EscapeCard key={n.id} escape={n} enseigne={n.enseigne}/>)}
+                </div>
               }
+            </Slice>
 
 
-            </div>
-
-            {
-              this.details.escapes.length > 0 
-              &&
-              <div className="escpae-include">
-                {this.details.escapes.filter( n => n.id !== parseInt(this.props.hide)).sort((a,b) => b.rate - a.rate).map(n => <EscapeCard key={n.id} escape={n} enseigne={n.enseigne}/>)}
-              </div>
-            }
-
-            <div className="zoning">
-              <div className="escpae-include">
+            <Slice colored breath>
                 <SelectionsGrid/>
-              </div>
-            </div>
+            </Slice>
         </div>
       )
     }

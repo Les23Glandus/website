@@ -4,18 +4,7 @@ div.selection-main {
     div.meta-card.full {
         margin: 10px 0;
     }
-    div.escpae-include {
-        margin: 0 $default-page-padding 60px $default-page-padding !important;
-        @include md {
-            margin: 0 $mobile-page-padding 60px $mobile-page-padding !important;
-        }
-        @include xxl {
-            margin: 0 auto !important;
-            max-width: 2100px;
-        }
-    }
     div.page-back {
-        margin: 0 $default-page-padding;
         margin-bottom: -70px;
         position: relative;
         top: -70px;

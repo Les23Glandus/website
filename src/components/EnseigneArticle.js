@@ -10,6 +10,7 @@ import RichText from "./meta/RichText";
 import CONFIG from "../class/config";
 import GoogleMaps from "./meta/GoogleMaps";
 import OtherEnseigne from "./OtherEnseigne";
+import Slice from "./meta/Slice";
 
   
 class EnseigneArticle extends React.Component {
@@ -76,33 +77,49 @@ class EnseigneArticle extends React.Component {
 
       return (
         <div class="enseigne-main">
-              <TopIllustration/>
-              <div className="article-container article-enseigne">
+              {
+                  !this.props.embeded && <TopIllustration/>
+              }
+              <Slice breath>
 
-                  <div className="article-part">
-                    <div className="left">
-                      <Skeleton.Image />
-                    </div>
-                    <div className="right">
-                        <div className="longtext">
-                          <Skeleton active/>
-                        </div>
-                    </div>
-                  </div>
+                <div className="article-container article-enseigne">
 
-                  <div className="article-part">
-                    <div className="left">
-                      <h3>NOTRE EXPÉRIENCE</h3>
-                    </div>
-                    <div className="right">
-                        <div className="longtext">
-                          <Skeleton active/>
-                        </div>
-                    </div>
-                  </div>
-
-                  <div className="article-highlight">
                     <div className="article-part">
+                      <div className="left">
+                        <Skeleton.Image />
+                      </div>
+                      <div className="right">
+                          <div className="longtext">
+                            <Skeleton active/>
+                          </div>
+                      </div>
+                    </div>
+
+                    <div className="article-part">
+                      <div className="left">
+                        <h3>NOTRE EXPÉRIENCE</h3>
+                      </div>
+                      <div className="right">
+                          <div className="longtext">
+                            <Skeleton active/>
+                          </div>
+                      </div>
+                    </div>
+
+                    <div className="article-highlight">
+                      <div className="article-part">
+                        <div className="left">
+                          &nbsp;
+                        </div>
+                        <div className="right">
+                            <div className="longtext">
+                              <Skeleton active/>
+                            </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div className="article-part end">
                       <div className="left">
                         &nbsp;
                       </div>
@@ -112,19 +129,8 @@ class EnseigneArticle extends React.Component {
                           </div>
                       </div>
                     </div>
-                  </div>
-
-                  <div className="article-part end">
-                    <div className="left">
-                      &nbsp;
-                    </div>
-                    <div className="right">
-                        <div className="longtext">
-                          <Skeleton active/>
-                        </div>
-                    </div>
-                  </div>
-              </div>
+                </div>
+              </Slice>
             </div>
       )
     } else {
@@ -205,89 +211,90 @@ class EnseigneArticle extends React.Component {
               </HtmlHead>
             }
             {
-            !this.props.embeded && this.details.illustration && 
-            <div className="article-illustration top-illustration" title={this.details.description} style={{backgroundImage:`url(${this.details.illustration.url})`}} />
+              !this.props.embeded && this.details.illustration && 
+              <div className="article-illustration top-illustration" title={this.details.description} style={{backgroundImage:`url(${this.details.illustration.url})`}} />
             }
             {
               !this.props.embeded && !this.details.illustration && 
               <TopIllustration/>
             }
-            <div className="article-container article-enseigne">
+            <Slice breath>
 
-              <div className="article-part">
-                <div className="left">
-                    <div className="logo-area">
-                        {this.details.logo && !this.props.embeded && <img src={this.details.logo.formats.thumbnail.url} alt={this.details.name}/>}
-                        {this.details.logo && this.props.embeded && <Link to={"/escapegame/"+this.details.uniquepath}><img src={this.details.logo.formats.thumbnail.url} alt={this.details.name}/></Link>}
+                <div className="article-container article-enseigne">
+
+                  <div className="article-part">
+                    <div className="left">
+                        <div className="logo-area">
+                            {this.details.logo && !this.props.embeded && <img src={this.details.logo.formats.thumbnail.url} alt={this.details.name}/>}
+                            {this.details.logo && this.props.embeded && <Link to={"/escapegame/"+this.details.uniquepath}><img src={this.details.logo.formats.thumbnail.url} alt={this.details.name}/></Link>}
+                        </div>
                     </div>
-                </div>
-                  <div className="right">
-                      <h2>{this.details.name} {this.details.isOpen === false && <span className="closed-info">(Enseigne fermée)</span>}</h2> 
-                      { 
-                        this.props.embeded === false && ( pays.length > 0 || region.length > 0 || city.length > 0 ) && 
-                        <p className="loc">{city.concat( region.concat(pays) ).join(" - ")}</p>
-                      }
-                      
-                      {
-                        this.details.introduction && 
-                      <RichText>{this.details.introduction && this.details.introduction}</RichText>
-                      } 
+                      <div className="right">
+                          <h2>{this.details.name} {this.details.isOpen === false && <span className="closed-info">(Enseigne fermée)</span>}</h2> 
+                          { 
+                            this.props.embeded === false && ( pays.length > 0 || region.length > 0 || city.length > 0 ) && 
+                            <p className="loc">{city.concat( region.concat(pays) ).join(" - ")}</p>
+                          }
+                          
+                          {
+                            this.details.introduction && 
+                          <RichText>{this.details.introduction && this.details.introduction}</RichText>
+                          } 
+                      </div>
                   </div>
-              </div>
-              
-              {
-                this.details.ourExperience &&
-                <div className="article-part">
-                  <div className="left">
-                    <h3>Notre expérience</h3>
+                  
+                  {
+                    this.details.ourExperience &&
+                    <div className="article-part">
+                      <div className="left">
+                        <h3>Notre expérience</h3>
+                      </div>
+                      <div className="right">
+                          <div><RichText>{this.details.ourExperience}</RichText></div>
+                      </div>
                   </div>
-                  <div className="right">
-                      <div><RichText>{this.details.ourExperience}</RichText></div>
-                  </div>
-              </div>
-              }
-              
-              {
-                this.details.url &&
-                <div className="article-part">
-                  <div className="left">
-                    <h3>Site de l'enseigne</h3>
-                  </div>
-                  <div className="right">
-                      <div><a href={this.details.url} target="_blank" rel="noreferrer" className="outlink">{this.details.url}</a></div>
-                  </div>
-                </div>
-              }
+                  }
+                  
+                  {
+                    this.details.url &&
+                    <div className="article-part">
+                      <div className="left">
+                        <h3>Site de l'enseigne</h3>
+                      </div>
+                      <div className="right">
+                          <div><a href={this.details.url} target="_blank" rel="noreferrer" className="outlink">{this.details.url}</a></div>
+                      </div>
+                    </div>
+                  }
 
+                  {
+                    this.props.embeded === false && address && address.length > 0 &&
+                    <div className="googlemaps">
+                      <GoogleMaps address={address}/>
+                    </div>
+                  }
+              
+              </div>
               {
-                this.props.embeded === false && address && address.length > 0 &&
-                <div className="googlemaps">
-                  <GoogleMaps address={address}/>
+                this.details.escapes.length > 0 
+                &&
+                <div>
+                  {this.details.escapes.filter( n => n.isOpen && parseInt(n.id) !== parseInt(this.props.hide)).map(n => <EscapeCard key={n.id} escape={n} enseigne={this.details}/>)}
+                </div>
+              }{
+                !this.props.embeded &&
+                <div>
+                  {this.details.escapes.filter( n => !n.isOpen && parseInt(n.id) !== parseInt(this.props.hide)).map(n => <EscapeCard key={n.id} escape={n} enseigne={this.details}/>)}
                 </div>
               }
-          
-          </div>
+            </Slice>
   
-            {
-              this.details.escapes.length > 0 
-              &&
-              <div className="escpae-include">
-                {this.details.escapes.filter( n => n.isOpen && parseInt(n.id) !== parseInt(this.props.hide)).map(n => <EscapeCard key={n.id} escape={n} enseigne={this.details}/>)}
-              </div>
-            }{
-              !this.props.embeded &&
-              <div className="escpae-include">
-                {this.details.escapes.filter( n => !n.isOpen && parseInt(n.id) !== parseInt(this.props.hide)).map(n => <EscapeCard key={n.id} escape={n} enseigne={this.details}/>)}
-              </div>
-            }
   
             {
               !this.props.embeded &&
-              <div className="zoning">
-                <div className="escpae-include">
-                  <OtherEnseigne/>
-                </div>
-              </div>
+              <Slice breath colored>
+                <OtherEnseigne/>
+              </Slice>
             }
   
         </div>

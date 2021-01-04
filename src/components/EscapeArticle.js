@@ -13,6 +13,7 @@ import Card from "./meta/Card";
 import RichText from "./meta/RichText";
 import TopIllustration from "./meta/TopIllustration";
 import CONFIG from "../class/config";
+import Slice from "./meta/Slice";
 
   
 class EscapeArticle extends React.Component {
@@ -113,34 +114,72 @@ class EscapeArticle extends React.Component {
       return (
             <div>
               <div className="article-illustration top-illustration" style={{backgroundImage:`url(${process.env.PUBLIC_URL + "/patterns/Pattern04.svg"})`}} />
-              <div className="article-container article-escape">
+              <Slice breath>
 
-                  <div className="article-part">
-                    <div className="left">
-                      <Skeleton.Image />
-                    </div>
-                    <div className="right">
-                        <div className="longtext">
-                          <Skeleton active/>
-                        </div>
-                    </div>
-                  </div>
-
-                  <div className="article-part">
-                    <div className="left">
-                      <h3>Notre histore</h3>
-                    </div>
-                    <div className="right">
-                        <div className="longtext">
-                          <Skeleton active/>
-                        </div>
-                    </div>
-                  </div>
-
-                  <div className="article-highlight">
+                <div className="article-container article-escape">
                     <div className="article-part">
                       <div className="left">
-                        <h3>Les plus</h3>
+                        <Skeleton.Image />
+                      </div>
+                      <div className="right">
+                          <div className="longtext">
+                            <Skeleton active/>
+                          </div>
+                      </div>
+                    </div>
+
+                    <div className="article-part">
+                      <div className="left">
+                        <h3>Notre histore</h3>
+                      </div>
+                      <div className="right">
+                          <div className="longtext">
+                            <Skeleton active/>
+                          </div>
+                      </div>
+                    </div>
+
+                    <div className="article-highlight">
+                      <div className="article-part">
+                        <div className="left">
+                          <h3>Les plus</h3>
+                        </div>
+                        <div className="right">
+                            <div className="longtext">
+                              <Skeleton active/>
+                            </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div className="article-part end">
+                      <div className="left">
+                        &nbsp;
+                      </div>
+                      <div className="right">
+                          <div className="longtext">
+                            <Skeleton active/>
+                          </div>
+                      </div>
+                    </div>
+                </div>
+              </Slice>
+              <Slice breath colored>
+
+                <div className="article-container article-escape">
+                    <div className="article-part">
+                      <div className="left">
+                        <Skeleton.Image />
+                      </div>
+                      <div className="right">
+                          <div className="longtext">
+                            <Skeleton active/>
+                          </div>
+                      </div>
+                    </div>
+                    <div className="article-part end">
+                      <div className="left">
+                        &nbsp;
                       </div>
                       <div className="right">
                           <div className="longtext">
@@ -149,18 +188,7 @@ class EscapeArticle extends React.Component {
                       </div>
                     </div>
                   </div>
-
-                  <div className="article-part end">
-                    <div className="left">
-                      &nbsp;
-                    </div>
-                    <div className="right">
-                        <div className="longtext">
-                          <Skeleton active/>
-                        </div>
-                    </div>
-                  </div>
-              </div>
+                </Slice>
             </div>
               )
     }
@@ -211,169 +239,172 @@ class EscapeArticle extends React.Component {
             <TopIllustration/>
           }
 
-        <div className="article-container article-escape">
-            {
-              this.details.glandusor &&
-              <div className="glandus-or">
-                  <p><span>{this.details.glandusor}</span></p>
-              </div>
-            }
+        <Slice breath>
 
-          <div className="article-part">
-            <div className="left">
+          <div className="article-container article-escape">
               {
-                this.details.mini && 
-                <Card url="#" imageUrl={this.details.mini.url} imageTitle={this.details.description}/>
+                this.details.glandusor &&
+                <div className="glandus-or">
+                    <p><span>{this.details.glandusor}</span></p>
+                </div>
               }
-            </div>
-            <div className="right">
-              
-                    <div className="title-flex">
-                      <div>
-                        {pays.length > 0 && <p className="region">{pays.length > 0 && pays.join(", ")}{regions.length > 0 && (' - '+regions.join(", "))}{town && (' - '+town)}</p>}
-                        <h2>{this.details.name} {(this.details.isOpen === false || (this.details.enseigne && this.details.enseigne.isOpen === false)) && <span className="closed-info">(Fermée)</span>}</h2>
-                        {this.details.enseigne && 
-                          <p>Chez <Link to={"/escapegame/"+this.details.enseigne.uniquepath}>{this.details.enseigne.name}</Link></p>
-                        }
-                      </div>
-                      <div>
-                        <Note value={this.details.rate}/> 
-                      </div>
-                    </div>
 
-                  <div className="tags-line">
-                    {this.details.nbPlayerMax === this.details.nbPlayerMin && this.details.nbPlayerMin === 1 && <Tag>{this.details.nbPlayerMin} joueur</Tag>}
-                    {this.details.nbPlayerMax === this.details.nbPlayerMin && this.details.nbPlayerMin >= 1 && <Tag>{this.details.nbPlayerMin} joueurs</Tag>}
-                    {this.details.nbPlayerMax !== this.details.nbPlayerMin && <Tag>{this.details.nbPlayerMin} à {this.details.nbPlayerMax} joueurs</Tag >}
-                    {
-                      this.state.loaded && this.details.tags && this.details.tags.filter(t => t.isMention).map(t => {
-                          return <Tag key={t.id} title={t.description} className={t.isMention ? "mention" : ""}>{t.name}</Tag>
-                      })
-                    }
-                    {
-                      this.state.loaded && this.details.tags && this.details.tags.filter(t => !t.isMention && !t.isGold).map(t => {
-                        return <Tag key={t.id} title={t.description}>{t.name}</Tag>
-                      })
-                    }
-                  </div>
-
-              
-                  {
-                    this.details.scenario && 
-                    <div className="longtext scenario"><RichText>{this.details.scenario}</RichText></div>
-                  }
-            </div>
-          </div>
-
-          {
-            this.details.story &&
             <div className="article-part">
               <div className="left">
-                <h3>Notre Histoire</h3>
+                {
+                  this.details.mini && 
+                  <Card url="#" imageUrl={this.details.mini.url} imageTitle={this.details.description}/>
+                }
               </div>
               <div className="right">
-                <div className="longtext">
-                  {
-                    this.details.audio && 
-                    <audio controls controlsList="nodownload">
-                      <source src={this.details.audio.url} type="audio/mpeg"/>
-                    </audio>
-                  }
-                  <RichText>{this.details.story}</RichText>
-                </div>
+                
+                      <div className="title-flex">
+                        <div>
+                          {pays.length > 0 && <p className="region">{pays.length > 0 && pays.join(", ")}{regions.length > 0 && (' - '+regions.join(", "))}{town && (' - '+town)}</p>}
+                          <h2>{this.details.name} {(this.details.isOpen === false || (this.details.enseigne && this.details.enseigne.isOpen === false)) && <span className="closed-info">(Fermée)</span>}</h2>
+                          {this.details.enseigne && 
+                            <p>Chez <Link to={"/escapegame/"+this.details.enseigne.uniquepath}>{this.details.enseigne.name}</Link></p>
+                          }
+                        </div>
+                        <div>
+                          <Note value={this.details.rate}/> 
+                        </div>
+                      </div>
+
+                    <div className="tags-line">
+                      {this.details.nbPlayerMax === this.details.nbPlayerMin && this.details.nbPlayerMin === 1 && <Tag>{this.details.nbPlayerMin} joueur</Tag>}
+                      {this.details.nbPlayerMax === this.details.nbPlayerMin && this.details.nbPlayerMin >= 1 && <Tag>{this.details.nbPlayerMin} joueurs</Tag>}
+                      {this.details.nbPlayerMax !== this.details.nbPlayerMin && <Tag>{this.details.nbPlayerMin} à {this.details.nbPlayerMax} joueurs</Tag >}
+                      {
+                        this.state.loaded && this.details.tags && this.details.tags.filter(t => t.isMention).map(t => {
+                            return <Tag key={t.id} title={t.description} className={t.isMention ? "mention" : ""}>{t.name}</Tag>
+                        })
+                      }
+                      {
+                        this.state.loaded && this.details.tags && this.details.tags.filter(t => !t.isMention && !t.isGold).map(t => {
+                          return <Tag key={t.id} title={t.description}>{t.name}</Tag>
+                        })
+                      }
+                    </div>
+
+                
+                    {
+                      this.details.scenario && 
+                      <div className="longtext scenario"><RichText>{this.details.scenario}</RichText></div>
+                    }
               </div>
             </div>
-          }
 
-          
-          
-          {
-            this.details.paragraph && 
-            this.details.paragraph.map( n => 
-              <div className="article-part" key={n.id}>
+            {
+              this.details.story &&
+              <div className="article-part">
                 <div className="left">
-                  <h3>{n.title}</h3>
+                  <h3>Notre Histoire</h3>
                 </div>
                 <div className="right">
                   <div className="longtext">
-                    <RichText>{n.article}</RichText>
+                    {
+                      this.details.audio && 
+                      <audio controls controlsList="nodownload">
+                        <source src={this.details.audio.url} type="audio/mpeg"/>
+                      </audio>
+                    }
+                    <RichText>{this.details.story}</RichText>
                   </div>
                 </div>
               </div>
-              )
-          }
+            }
 
-
-          
-          {
-            ( this.details.lesPlus || this.details.lesPlus ) && 
-            <div className="article-highlight">
-              {
-                this.details.lesPlus && 
-                <div className="article-part">
+            
+            
+            {
+              this.details.paragraph && 
+              this.details.paragraph.map( n => 
+                <div className="article-part" key={n.id}>
                   <div className="left">
-                    <h3>Les plus</h3>
+                    <h3>{n.title}</h3>
                   </div>
                   <div className="right">
-                      <div className="longtext">
-                        <RichText>{this.details.lesPlus}</RichText>
-                      </div>
+                    <div className="longtext">
+                      <RichText>{n.article}</RichText>
+                    </div>
                   </div>
                 </div>
-              }
-              {
-                this.details.lesMoins && 
-                <div className="article-part">
-                  <div className="left">
-                    <h3>Les moins</h3>
-                  </div>
-                  <div className="right">
-                      <div className="longtext">
-                        <RichText>{this.details.lesMoins}</RichText>
-                      </div>
-                  </div>
-                </div>
-              }
-            </div>
-          }
+                )
+            }
 
 
-          {this.details.avantapres && this.details.avantapres.length > 0 &&
-            <div className="article-part">
-              <div className="left">
-                <h3>Avant / Aprés</h3>
+            
+            {
+              ( this.details.lesPlus || this.details.lesPlus ) && 
+              <div className="article-highlight">
+                {
+                  this.details.lesPlus && 
+                  <div className="article-part">
+                    <div className="left">
+                      <h3>Les plus</h3>
+                    </div>
+                    <div className="right">
+                        <div className="longtext">
+                          <RichText>{this.details.lesPlus}</RichText>
+                        </div>
+                    </div>
+                  </div>
+                }
+                {
+                  this.details.lesMoins && 
+                  <div className="article-part">
+                    <div className="left">
+                      <h3>Les moins</h3>
+                    </div>
+                    <div className="right">
+                        <div className="longtext">
+                          <RichText>{this.details.lesMoins}</RichText>
+                        </div>
+                    </div>
+                  </div>
+                }
               </div>
-              <div className="right avantapres">
-                {this.details.avantapres.map( (n,i) => {
-                  let rot = ["-4deg","3deg","-1deg","10deg"];
-                  return (
-                    <Image
-                      style={{"transform":`rotate(${rot[ i % rot.length ]})`}}
-                      key={n.id}
-                      width={300}
-                      src={n.image.url}
-                      title={n.when}
-                      placeholder={
-                        <Image
-                          src={n.image.formats.thumbnail.url}
-                          width={200}
+            }
+
+
+            {this.details.avantapres && this.details.avantapres.length > 0 &&
+              <div className="article-part">
+                <div className="left">
+                  <h3>Avant / Aprés</h3>
+                </div>
+                <div className="right avantapres">
+                  {this.details.avantapres.map( (n,i) => {
+                    let rot = ["-4deg","3deg","-1deg","10deg"];
+                    return (
+                      <Image
+                        style={{"transform":`rotate(${rot[ i % rot.length ]})`}}
+                        key={n.id}
+                        width={300}
+                        src={n.image.url}
+                        title={n.when}
+                        placeholder={
+                          <Image
+                            src={n.image.formats.thumbnail.url}
+                            width={200}
+                          />
+                        }
                         />
-                      }
-                      />
+                    )}
                   )}
-                )}
+                </div>
               </div>
-            </div>
-          }
-          <div className="article-part end">
-            <div className="left">
-              &nbsp;
-            </div>
-            <div className="right">
-              &nbsp;
+            }
+            <div className="article-part end">
+              <div className="left">
+                &nbsp;
+              </div>
+              <div className="right">
+                &nbsp;
+              </div>
             </div>
           </div>
-        </div>
+        </Slice>
 
 
 
@@ -392,16 +423,16 @@ class EscapeArticle extends React.Component {
         }
 
         {this.details.enseigne && 
-          <div className="article-follower zoning">
+          <Slice colored nopadding>
             <ArticleEnseigne reduce={true} enseigneRef={this.details.enseigne.uniquepath} updathead={false} embeded hide={this.details.id}/>
-          </div>
+          </Slice>
         }
 
 
-        <div className="article-follower moretosee">
+        <Slice breath>
           <EscapeLatestsTests title="A voir aussi..." notID={this.details.id} tagslist={this.details.tags ? this.details.tags.map( n => n.id ) : []}/>
+        </Slice>
         </div>
-      </div>
     )
   }
 

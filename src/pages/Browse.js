@@ -14,6 +14,7 @@ import {
   SearchOutlined
 } from '@ant-design/icons';
 import OtherEnseigne from "../components/OtherEnseigne";
+import Slice from "../components/meta/Slice";
 
   
 class Browse extends React.Component {
@@ -267,19 +268,21 @@ class Browse extends React.Component {
       return (
       <div className="browse-main">
           <TopIllustration/>
-          <div className="browse-presets">
-            <Skeleton active/>
-          </div>
-          <Divider/>
-          <div className="browse">
-            <div className="browse-filter">
+          <Slice>
+            <div className="browse-presets">
+              <Skeleton active/>
             </div>
-            <div className="browse-result">
-              <Skeleton active avatar={true}/>
-              <Skeleton active avatar={true}/>
-              <Skeleton active avatar={true}/>
+            <Divider/>
+            <div className="browse">
+              <div className="browse-filter">
+              </div>
+              <div className="browse-result">
+                <Skeleton active avatar={true}/>
+                <Skeleton active avatar={true}/>
+                <Skeleton active avatar={true}/>
+              </div>
             </div>
-          </div>
+          </Slice>
         </div>
       )
     }
@@ -295,256 +298,242 @@ class Browse extends React.Component {
             </div>  
           }
           <TopIllustration/>
-          {
-            this.state.presetList && this.state.presetList.presets &&
-            <div className="browse-presets">
-            {
-               this.state.presetList.presets.map( n => {
-                return <Card className="preset-card"
-                          reduce={true}
-                          url={"#"}
-                          arrow={false}
-                          key={n.id}
-                          bigText={n.name}
-                          compact
-                          imageTitle={n.description}
-                          imageUrl={n.illustration ? n.illustration.url : null}
-                          onClick={(e)=>{this.setFilterValue( n.preset ); e.preventDefault(); this.executeScroll(); }}
-                      ></Card>
-                }
-              )
-            }
-            {
-              /*
-              <Card className="seemore-card"
-                  reduce={true}
-                  url={"/selections"}
-                  bigText={<span>Ou,<br/> parcourez nos sélections</span>}
-                  title={""}
-                  compact
-                  imageUrl={null}
-                  imageTitle={""}
-                  more={""}
-                  color={null}
-              ></Card>
-              */
-            }
-            <Card className="search-card"
-                reduce={true}
-                url={"/search"}
-                bigText={<SearchOutlined />}
-                title={""}
-                compact
-                arrow={false}
-                imageUrl={null}
-                imageTitle={""}
-                more={""}
-                color={null}
-            ></Card>
-            </div>  
-          }
+          <Slice breath>
 
-
-
-
-
-
-
-        <div className="browse-sort" ref={this.searchTop}>
-          <h3>Trouvez votre prochaine escape</h3>
-          <div className="sort-by">
-            <Form ref={this.sortformRef}>
-              <Form.Item label="Trier par" name="sort" initialValue="date:DESC">
-                <Select onChange={this.onFilterChange.bind(this)}>
-                  <Select.Option value="date:DESC">Date</Select.Option>
-                    <Select.Option value="rate:DESC,date:DESC">Note</Select.Option>
-                    <Select.Option value="name:ASC">Nom</Select.Option>
-                </Select>
-              </Form.Item>
-            </Form>
-          </div>
-        </div>
-
-        <div className="browse">
-          <div className="browse-filter">
-
-            <Form ref={this.formRef}>
-                <Divider orientation="left"></Divider>
-                <div>
-                  <Form.Item label="Pays" name="addresses.pay.id">
-                    <Select onChange={this.onPaysChange.bind(this)} ref={this.paysRef}>
-                      <Select.Option value={false}>Tous</Select.Option>
-                      {
-                        this.payslist.filter(n => n.id === Browse.ID_FRANCE ).map( n => 
-                          <Select.Option value={n.id} key={n.id}>{n.name}</Select.Option>
-                          )
-                      }
-                      <Select.Option value="row">Reste du monde</Select.Option>
-                      <Select.OptGroup label="-----">
-                        {
-                          this.payslist.filter(n => n.id !== Browse.ID_FRANCE ).sort((a,b) => a.name.localeCompare( b.name ) ).map( n => 
-                            <Select.Option value={n.id} key={n.id}>{n.name}</Select.Option>
-                            )
-                        }
-                      </Select.OptGroup>
-                    </Select>
-                  </Form.Item>
-                </div>
-
-                <div style={{display:(this.state.regionList === null || this.state.regionList.length <= 0 ? "none" : "block")}}>
-                  <Form.Item label="Régions" name="addresses.region.id">
-                    <Select onChange={this.onRegionChange.bind(this)} mode="multiple" placeholder="Régions" ref={this.regionRef} showArrow  showSearch={false}>
-                      {
-                        this.state.regionList !== null && this.state.regionList.map( n => 
-                          <Select.Option value={n.id} key={n.id}>{n.name}</Select.Option>
-                          )
-                      }
-                    </Select>
-                  </Form.Item>
-                </div>
+              {
+                this.state.presetList && this.state.presetList.presets &&
+                <div className="browse-presets">
                 {
-                  this.state.displayDep &&
-                  <div>
-                    <Form.Item label="Département" name="addresses.postcode_contains">
-                      <Select onChange={this.onFilterChange.bind(this)}>
-                        <Select.Option value={false}> </Select.Option>
-                        <Select.Option value={75}>75 - <span className='smo'>Paris</span></Select.Option>
-                        <Select.Option value={92}>92 - <span className='smo'>Hauts-de-Seine</span></Select.Option>
-                        <Select.Option value={93}>93 - <span className='smo'>Seine-Saint-Denis</span></Select.Option>
-                        <Select.Option value={94}>94 - <span className='smo'>Val-de-Marne</span></Select.Option>
-                        <Select.Option value={95}>95 - <span className='smo'>Val-d'Oise</span></Select.Option>
-                        <Select.Option value={91}>91 - <span className='smo'>Essone</span></Select.Option>
-                        <Select.Option value={78}>78 - <span className='smo'>Yvelines</span></Select.Option>
-                        <Select.Option value={77}>77 - <span className='smo'>Seine-et-Marne</span></Select.Option>
-                      </Select>
-                    </Form.Item>
-                  </div>
-                }
-
-                {
-                  this.state.displayLang &&
-                  <div>
-                    <Divider orientation="left"></Divider>
-                    <p className="top-sec">Anglais requis:</p>
-                    <div className="chkbx-tags">
-                    
-                    <Form.Item label="" name="english">
-                      <Select onChange={this.onFilterChange.bind(this)} mode="multiple" placeholder="Anglais requis" showArrow  showSearch={false}>
-                        {
-                          this.tagslist.filter( n => n.english === true ).map( n => 
-                            <Select.Option value={n.id} key={n.id}>{n.name}</Select.Option>
-                            )
-                        }
-                      </Select>
-                    </Form.Item>
-                    </div>
-                  </div>
-                }
-                
-                <Divider orientation="left"></Divider>
-                <div>
-                  <Form.Item label="Nombre de joueurs" name="nbplayer">
-                    <Select onChange={this.onFilterChange.bind(this)}>
-                      <Select.Option value={false}> </Select.Option>
-                      <Select.Option value={1}>1</Select.Option>
-                      <Select.Option value={2}>2</Select.Option>
-                      <Select.Option value={3}>3</Select.Option>
-                      <Select.Option value={4}>4</Select.Option>
-                      <Select.Option value={5}>5</Select.Option>
-                      <Select.Option value={6}>6</Select.Option>
-                      <Select.Option value={7}>7</Select.Option>
-                      <Select.Option value={8}>8</Select.Option>
-                      <Select.Option value={9}>9</Select.Option>
-                      <Select.Option value={10}>10</Select.Option>
-                      <Select.Option value={11}>10+</Select.Option>
-                    </Select>
-                  </Form.Item>
-                </div>
-
-                <Divider orientation="left"></Divider>
-                <p className="top-sec">Mentions spéciales</p>
-                <div className="chkbx-tags">
-                {
-                  this.tagslist.filter( n => n.isMention === true && n.isGold === false && !n.english ).map( n => 
-                  <div key={n.id}>
-                    <Form.Item name={`tags-${n.id}`} tooltip={n.description} valuePropName="checked">
-                      <Checkbox onChange={this.onFilterChange.bind(this)} title={n.description} value={n.id}>{n.name}</Checkbox>
-                    </Form.Item>
-                  </div>)
-                }
-                </div>
-                <Divider orientation="left"></Divider>
-                <p className="top-sec">Tags</p>
-                <div className="chkbx-tags">
-                {
-                  this.tagslist.filter( n => n.isMention === false && n.isGold === false && !n.english ).map( n => 
-                  
-                    <Form.Item  key={n.id} name={`tags-${n.id}`} tooltip={n.description} valuePropName="checked">
-                      <Checkbox onChange={this.onFilterChange.bind(this)} title={n.description} value={n.id}>{n.name}</Checkbox>
-                    </Form.Item>
+                  this.state.presetList.presets.map( n => {
+                    return <Card className="preset-card"
+                              reduce={true}
+                              url={"#"}
+                              arrow={false}
+                              key={n.id}
+                              bigText={n.name}
+                              compact
+                              imageTitle={n.description}
+                              imageUrl={n.illustration ? n.illustration.url : null}
+                              onClick={(e)=>{this.setFilterValue( n.preset ); e.preventDefault(); this.executeScroll(); }}
+                          ></Card>
+                    }
                   )
                 }
-                </div>
-                <Divider orientation="left"></Divider>
-                <div>
-                  <Form.Item value="" name="gold">
-                    <Select onChange={this.onFilterChange.bind(this)} mode="multiple" placeholder="Glandus d'Or" showArrow showbrowse={false}>
-                    {
-                      this.tagslist.filter( n => n.isMention === false && n.isGold === true && !n.english ).map( n => 
-                        <Select.Option value={n.id} key={n.id}>{n.name}</Select.Option>
-                        )
-                    }
+                <Card className="search-card"
+                    reduce={true}
+                    url={"/search"}
+                    bigText={<SearchOutlined />}
+                    title={""}
+                    compact
+                    arrow={false}
+                    imageUrl={null}
+                    imageTitle={""}
+                    more={""}
+                    color={null}
+                ></Card>
+                </div>  
+              }
+          </Slice>
+          <Slice breath>
+
+
+            <div className="browse-sort" ref={this.searchTop}>
+              <h3>Trouvez votre prochaine escape</h3>
+              <div className="sort-by">
+                <Form ref={this.sortformRef}>
+                  <Form.Item label="Trier par" name="sort" initialValue="date:DESC">
+                    <Select onChange={this.onFilterChange.bind(this)}>
+                      <Select.Option value="date:DESC">Date</Select.Option>
+                        <Select.Option value="rate:DESC,date:DESC">Note</Select.Option>
+                        <Select.Option value="name:ASC">Nom</Select.Option>
                     </Select>
                   </Form.Item>
-                </div>
+                </Form>
+              </div>
+            </div>
 
-                <div>
-                  <Divider></Divider>
-                  <Button onClick={this.reset.bind(this)}>Reset</Button>
-                </div>
-              </Form>
+            <div className="browse">
+              <div className="browse-filter">
 
-          </div>
-          <div className="browse-result">
-              <div>
-                  <div>{ this.state.loading && <p className="loading-spin"><Spin/></p>}</div>
-                  { 
-                    this.state.escapeList && 
-                    this.state.escapeList
-                          .slice(this.state.currentpage * this.state.lineperpage, this.state.currentpage * this.state.lineperpage + this.state.lineperpage)
-                          .map( n => {
-                            if( this.inCache[n.uniquepath] ) {
-                              n = this.inCache[n.uniquepath];
+                <Form ref={this.formRef}>
+                    <Divider orientation="left"></Divider>
+                    <div>
+                      <Form.Item label="Pays" name="addresses.pay.id">
+                        <Select onChange={this.onPaysChange.bind(this)} ref={this.paysRef}>
+                          <Select.Option value={false}>Tous</Select.Option>
+                          {
+                            this.payslist.filter(n => n.id === Browse.ID_FRANCE ).map( n => 
+                              <Select.Option value={n.id} key={n.id}>{n.name}</Select.Option>
+                              )
+                          }
+                          <Select.Option value="row">Reste du monde</Select.Option>
+                          <Select.OptGroup label="-----">
+                            {
+                              this.payslist.filter(n => n.id !== Browse.ID_FRANCE ).sort((a,b) => a.name.localeCompare( b.name ) ).map( n => 
+                                <Select.Option value={n.id} key={n.id}>{n.name}</Select.Option>
+                                )
                             }
-                            return <EscapeCard key={n.id} escape={n} enseigne={n.enseigne}/>
-                          })
-                  
-                  }
+                          </Select.OptGroup>
+                        </Select>
+                      </Form.Item>
+                    </div>
+
+                    <div style={{display:(this.state.regionList === null || this.state.regionList.length <= 0 ? "none" : "block")}}>
+                      <Form.Item label="Régions" name="addresses.region.id">
+                        <Select onChange={this.onRegionChange.bind(this)} mode="multiple" placeholder="Régions" ref={this.regionRef} showArrow  showSearch={false}>
+                          {
+                            this.state.regionList !== null && this.state.regionList.map( n => 
+                              <Select.Option value={n.id} key={n.id}>{n.name}</Select.Option>
+                              )
+                          }
+                        </Select>
+                      </Form.Item>
+                    </div>
+                    {
+                      this.state.displayDep &&
+                      <div>
+                        <Form.Item label="Département" name="addresses.postcode_contains">
+                          <Select onChange={this.onFilterChange.bind(this)}>
+                            <Select.Option value={false}> </Select.Option>
+                            <Select.Option value={75}>75 - <span className='smo'>Paris</span></Select.Option>
+                            <Select.Option value={92}>92 - <span className='smo'>Hauts-de-Seine</span></Select.Option>
+                            <Select.Option value={93}>93 - <span className='smo'>Seine-Saint-Denis</span></Select.Option>
+                            <Select.Option value={94}>94 - <span className='smo'>Val-de-Marne</span></Select.Option>
+                            <Select.Option value={95}>95 - <span className='smo'>Val-d'Oise</span></Select.Option>
+                            <Select.Option value={91}>91 - <span className='smo'>Essone</span></Select.Option>
+                            <Select.Option value={78}>78 - <span className='smo'>Yvelines</span></Select.Option>
+                            <Select.Option value={77}>77 - <span className='smo'>Seine-et-Marne</span></Select.Option>
+                          </Select>
+                        </Form.Item>
+                      </div>
+                    }
+
+                    {
+                      this.state.displayLang &&
+                      <div>
+                        <Divider orientation="left"></Divider>
+                        <p className="top-sec">Anglais requis:</p>
+                        <div className="chkbx-tags">
+                        
+                        <Form.Item label="" name="english">
+                          <Select onChange={this.onFilterChange.bind(this)} mode="multiple" placeholder="Anglais requis" showArrow  showSearch={false}>
+                            {
+                              this.tagslist.filter( n => n.english === true ).map( n => 
+                                <Select.Option value={n.id} key={n.id}>{n.name}</Select.Option>
+                                )
+                            }
+                          </Select>
+                        </Form.Item>
+                        </div>
+                      </div>
+                    }
+                    
+                    <Divider orientation="left"></Divider>
+                    <div>
+                      <Form.Item label="Nombre de joueurs" name="nbplayer">
+                        <Select onChange={this.onFilterChange.bind(this)}>
+                          <Select.Option value={false}> </Select.Option>
+                          <Select.Option value={1}>1</Select.Option>
+                          <Select.Option value={2}>2</Select.Option>
+                          <Select.Option value={3}>3</Select.Option>
+                          <Select.Option value={4}>4</Select.Option>
+                          <Select.Option value={5}>5</Select.Option>
+                          <Select.Option value={6}>6</Select.Option>
+                          <Select.Option value={7}>7</Select.Option>
+                          <Select.Option value={8}>8</Select.Option>
+                          <Select.Option value={9}>9</Select.Option>
+                          <Select.Option value={10}>10</Select.Option>
+                          <Select.Option value={11}>10+</Select.Option>
+                        </Select>
+                      </Form.Item>
+                    </div>
+
+                    <Divider orientation="left"></Divider>
+                    <p className="top-sec">Mentions spéciales</p>
+                    <div className="chkbx-tags">
+                    {
+                      this.tagslist.filter( n => n.isMention === true && n.isGold === false && !n.english ).map( n => 
+                      <div key={n.id}>
+                        <Form.Item name={`tags-${n.id}`} tooltip={n.description} valuePropName="checked">
+                          <Checkbox onChange={this.onFilterChange.bind(this)} title={n.description} value={n.id}>{n.name}</Checkbox>
+                        </Form.Item>
+                      </div>)
+                    }
+                    </div>
+                    <Divider orientation="left"></Divider>
+                    <p className="top-sec">Tags</p>
+                    <div className="chkbx-tags">
+                    {
+                      this.tagslist.filter( n => n.isMention === false && n.isGold === false && !n.english ).map( n => 
+                      
+                        <Form.Item  key={n.id} name={`tags-${n.id}`} tooltip={n.description} valuePropName="checked">
+                          <Checkbox onChange={this.onFilterChange.bind(this)} title={n.description} value={n.id}>{n.name}</Checkbox>
+                        </Form.Item>
+                      )
+                    }
+                    </div>
+                    <Divider orientation="left"></Divider>
+                    <div>
+                      <Form.Item value="" name="gold">
+                        <Select onChange={this.onFilterChange.bind(this)} mode="multiple" placeholder="Glandus d'Or" showArrow showbrowse={false}>
+                        {
+                          this.tagslist.filter( n => n.isMention === false && n.isGold === true && !n.english ).map( n => 
+                            <Select.Option value={n.id} key={n.id}>{n.name}</Select.Option>
+                            )
+                        }
+                        </Select>
+                      </Form.Item>
+                    </div>
+
+                    <div>
+                      <Divider></Divider>
+                      <Button onClick={this.reset.bind(this)}>Reset</Button>
+                    </div>
+                  </Form>
+
               </div>
-              <div className="pagination">
-                {
-                  this.state.escapeList && 
-                  <Pagination current={this.state.currentpage+1} total={this.state.escapeList.length} 
-                    showSizeChanger
-                    pageSizeOptions={[5,10,20,50]} 
-                    defaultPageSize={this.state.lineperpage}
-                    onChange={this.onPaginationChange.bind(this)}
-                    onShowSizeChange={this.onPaginationChange.bind(this)}
-                    showTotal={(t)=><span>{t} Escape{t>1 ? "s" : ""}</span>}
-                  />
-                }
+              <div className="browse-result">
+                  <div>
+                      <div>{ this.state.loading && <p className="loading-spin"><Spin/></p>}</div>
+                      { 
+                        this.state.escapeList && 
+                        this.state.escapeList
+                              .slice(this.state.currentpage * this.state.lineperpage, this.state.currentpage * this.state.lineperpage + this.state.lineperpage)
+                              .map( n => {
+                                if( this.inCache[n.uniquepath] ) {
+                                  n = this.inCache[n.uniquepath];
+                                }
+                                return <EscapeCard key={n.id} escape={n} enseigne={n.enseigne}/>
+                              })
+                      
+                      }
+                  </div>
+                  <div className="pagination">
+                    {
+                      this.state.escapeList && 
+                      <Pagination current={this.state.currentpage+1} total={this.state.escapeList.length} 
+                        showSizeChanger
+                        pageSizeOptions={[5,10,20,50]} 
+                        defaultPageSize={this.state.lineperpage}
+                        onChange={this.onPaginationChange.bind(this)}
+                        onShowSizeChange={this.onPaginationChange.bind(this)}
+                        showTotal={(t)=><span>{t} Escape{t>1 ? "s" : ""}</span>}
+                      />
+                    }
+                  </div>
               </div>
-          </div>
-        </div>
+            </div>
+          </Slice>
 
 
-        <div className="zoning">
+          <Slice colored breath>
+            <SelectionsGrid onError={()=>this.setState({error:true})}/>
+          </Slice>
           
-          <SelectionsGrid onError={()=>this.setState({error:true})}/>
-        </div>
-
+          <Slice breath>
+            <OtherEnseigne/>
+          </Slice>
         
-        <OtherEnseigne/>
 
       </div>
     )

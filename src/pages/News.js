@@ -4,6 +4,7 @@ import { withRouter } from "react-router-dom";
 import strapiConnector from "../class/strapiConnector";
 import ActusCard from "../components/ActusCard";
 import EscapeCard from "../components/EscapeCard";
+import Slice from "../components/meta/Slice";
 import TopIllustration from "../components/meta/TopIllustration";
 import Page500 from "./Page500";
 
@@ -89,7 +90,7 @@ class News extends React.Component {
           return (
             <div>
               <TopIllustration/>
-              <div className="main-content-page">
+              <Slice breath>
                 <div className="toggle-actu">
                   <Switch size="small" checked={this.includeEscapes} loading title="Afficher nos tests dans la timeline"/> Inclure les tests
                 </div>
@@ -100,14 +101,14 @@ class News extends React.Component {
                     <Timeline.Item><Skeleton active avatar/></Timeline.Item>
                     <Timeline.Item><Skeleton active avatar/></Timeline.Item>
                 </Timeline>
-              </div>
+              </Slice>
             </div>
           );
       } else {
         return (
             <div>
               <TopIllustration/>
-              <div className="main-content-page">
+              <Slice breath>
                 <div className="toggle-actu">
                   <Switch onChange={this.onSwitchChange.bind(this)} size="small" checked={this.includeEscapes} title="Afficher nos tests dans la timeline"/> Inclure les tests
                 </div>
@@ -121,7 +122,7 @@ class News extends React.Component {
                     }
                     <Timeline.Item>&nbsp;</Timeline.Item>
                 </Timeline>
-              </div>
+              </Slice>
             </div>
           );
       }

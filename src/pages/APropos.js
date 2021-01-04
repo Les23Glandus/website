@@ -2,6 +2,7 @@ import { Skeleton, Image } from "antd";
 import React from "react";
 import { withRouter } from "react-router-dom";
 import strapiConnector from "../class/strapiConnector";
+import Slice from "../components/meta/Slice";
 import TopIllustration from "../components/meta/TopIllustration";
 import "../css/apropos.scss";
 import Page500 from "./Page500";
@@ -71,38 +72,37 @@ class APropos extends React.Component {
 
 
     return (
-      <div>
+        <Slice>
+          <div className="top-illustrations">
+            {
+              this.firstimage && <Image src={this.firstimage.url}/>
+            }
+          </div>
 
-        <div className="top-illustrations">
-          {
-            this.firstimage && <Image src={this.firstimage.url}/>
-          }
-        </div>
+          <div className="a-propos main-content-page">
+            <div className="article">
+              <h2>{this.details.title}</h2>
+              <div>
+                { this.details.article }
+              </div>
+            </div>
 
-        <div className="a-propos main-content-page">
-          <div className="article">
-            <h2>{this.details.title}</h2>
-            <div>
-              { this.details.article }
+            <div className="groupe">
+              {
+                this.glandus.map( n => <div className="gland" key={"g"+n.id}>
+                    <h3>{n.name}</h3>
+                    <div>{n.description}</div>
+                </div>)
+              }
+            </div>
+            
+            <div className="illustrations">
+              {
+                this.details.illustrations && this.details.illustrations.map( n => <Image key={"img"+n.id} src={n.url}/>)
+              }
             </div>
           </div>
-
-          <div className="groupe">
-            {
-              this.glandus.map( n => <div className="gland" key={"g"+n.id}>
-                  <h3>{n.name}</h3>
-                  <div>{n.description}</div>
-              </div>)
-            }
-          </div>
-          
-          <div className="illustrations">
-            {
-              this.details.illustrations && this.details.illustrations.map( n => <Image key={"img"+n.id} src={n.url}/>)
-            }
-          </div>
-        </div>
-      </div>
+        </Slice>
     )
   }
 

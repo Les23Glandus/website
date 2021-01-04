@@ -5,6 +5,7 @@ import strapiConnector from "../class/strapiConnector";
 import TopIllustration from "../components/meta/TopIllustration";
 import Page500 from "./Page500";
 import "../css/allEnseigne.scss";
+import Slice from "../components/meta/Slice";
 
   
 class AllEnseigne extends React.Component {
@@ -39,7 +40,7 @@ class AllEnseigne extends React.Component {
     return (
       <div>
         <TopIllustration/>
-        <div className="all-enseignes">
+        <Slice breath className="all-enseignes">
           <h2>Toutes les enseignes en une seule liste.</h2>
           <div className="list">
             {
@@ -55,7 +56,7 @@ class AllEnseigne extends React.Component {
                 return <div key={'c'+n.id}><Link to={"/escapegame/"+n.uniquepath}><Image src={img} alt={n.name} title={n.name} width={150} height={150}/></Link></div>} )
             }
           </div>
-        </div>
+        </Slice>
       </div>
     )
   }

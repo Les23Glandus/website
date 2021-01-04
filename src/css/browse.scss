@@ -19,7 +19,6 @@
 div.browse-main {
     .browse-presets {
         position: relative;
-        margin: 0 $default-page-padding 60px $default-page-padding;
         @include flex-container;
         @include md {
             flex-direction: row;
@@ -29,10 +28,6 @@ div.browse-main {
             margin: $default-card-margin;
         }
 
-    }
-
-    .zoning {
-        padding: 30px $default-page-padding;
     }
 
     .browse-sort {
@@ -45,10 +40,6 @@ div.browse-main {
                 display: none;
             }
         }
-    }
-
-    .browse-enseigne {
-        padding: 30px $default-page-padding;
     }
 
     .pagination {

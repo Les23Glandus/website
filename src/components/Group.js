@@ -2,6 +2,7 @@ import { Skeleton, Image } from "antd";
 import React from "react";
 import { Link, withRouter } from "react-router-dom";
 import strapiConnector from "../class/strapiConnector";
+import Slice from "./meta/Slice";
 
 class Group extends React.Component {
 
@@ -44,7 +45,7 @@ class Group extends React.Component {
     }
 
     return (
-        <div className="main-group">
+        <Slice className="main-group" colored>
             <div>
               {
                 this.details.illustrations && this.details.illustrations.length > 0 &&
@@ -59,7 +60,7 @@ class Group extends React.Component {
                 <p><Link to="/about">En savoir plus</Link></p>
               </div>
             </div>
-        </div>
+        </Slice>
     )
   }
 

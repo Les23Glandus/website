@@ -3,6 +3,7 @@ import { withRouter } from "react-router-dom";
 import Page500 from "./Page500";
 import TopIllustration from "../components/meta/TopIllustration";
 import JeuxGrid from "../components/JeuxGrid";
+import Slice from "../components/meta/Slice";
 
   
 class Jeux extends React.Component {
@@ -22,13 +23,12 @@ class Jeux extends React.Component {
            
         <TopIllustration/>
 
-        <div className="main-content-page">
-          <div className="all-selections">
-
+        <Slice className="all-selections" breath>
             <h2>Les Gandus sont joueurs !</h2>
             <JeuxGrid showAll={true} title={false} onError={()=>this.setState({error:true})}/>
-          </div>
-        </div>
+        </Slice>
+
+          
 
           
       </div>

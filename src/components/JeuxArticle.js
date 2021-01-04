@@ -9,6 +9,7 @@ import RichText from "./meta/RichText";
 import JeuxGrid from "./JeuxGrid";
 import CONFIG from "../class/config";
 import TopIllustration from "./meta/TopIllustration";
+import Slice from "./meta/Slice";
 
   
 class JeuxArticle extends React.Component {
@@ -38,8 +39,8 @@ class JeuxArticle extends React.Component {
     if(!this.state.loaded) {
       return (
             <div>
-              <div className="article-illustration top-illustration" style={{backgroundImage:`url(${process.env.PUBLIC_URL + "/patterns/Pattern04.svg"})`}} />
-              <div className="article-container article-jeux">
+              <TopIllustration/>
+              <Slice breath>
 
                   <div className="article-part">
                     <div className="left">
@@ -61,8 +62,9 @@ class JeuxArticle extends React.Component {
                         </div>
                     </div>
                   </div>
+              </Slice>
 
-              </div>
+
             </div>
               )
     }
@@ -134,7 +136,7 @@ class JeuxArticle extends React.Component {
             <TopIllustration/>
           }
 
-        <div className="article-container article-jeux">
+        <Slice className="article-container article-jeux">
 
           <div className="article-part">
             <div className="left">
@@ -186,14 +188,14 @@ class JeuxArticle extends React.Component {
               &nbsp;
             </div>
           </div>
-        </div>
+        </Slice>
 
 
 
 
-        <div className="article-follower moretosee">
+        <Slice breath>
           <JeuxGrid title="A voir aussi..."/>
-        </div>
+        </Slice>
       </div>
     )
   }

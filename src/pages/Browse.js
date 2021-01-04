@@ -334,7 +334,7 @@ class Browse extends React.Component {
                 </div>  
               }
           </Slice>
-          <Slice breath>
+          <Slice breath nopadding className="browse-slice">
 
 
             <div className="browse-sort" ref={this.searchTop}>

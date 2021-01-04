@@ -97,25 +97,26 @@ class Card extends React.Component {
           <Link to={this.props.url} onClick={this.props.onClick}
             className={`meta-card-details ${reduceClassName}`}
           >
-            <div className="flexpart-left">
+            <div className="noflexpart">
               {
                 !this.props.reduce &&
                 <p className="sup-title" title={this.props.supTitle}>{this.props.supTitle}</p>
               }
-              
               {this.props.preview && <Skeleton title active paragraph={false}/>}
               {!this.props.preview && <p className="title">{this.props.title}</p>}
-              <p className="sub-title">{this.props.subTitle}</p>
-
-              {!this.props.reduce && this.props.children}
-              
             </div>
-            {!this.props.reduce &&
-              <div className="flexpart-2">
-                {!this.props.reduce && this.props.more}
-                {!this.props.reduce && this.props.preview && <Skeleton active/>}
+            <div className="flexpart">
+              <div className="flexpart-left">
+                <p className="sub-title">{this.props.subTitle}</p>
+                {!this.props.reduce && this.props.children}
               </div>
-            }
+              {!this.props.reduce &&
+                <div className="flexpart-2">
+                  {!this.props.reduce && this.props.more}
+                  {!this.props.reduce && this.props.preview && <Skeleton active/>}
+                </div>
+              }
+            </div>
           </Link>
       </div>
     )

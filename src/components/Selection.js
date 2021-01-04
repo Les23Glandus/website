@@ -1,4 +1,4 @@
-import { PageHeader, Skeleton } from "antd";
+import { Skeleton } from "antd";
 import React from "react";
 import { withRouter } from "react-router-dom";
 import strapiConnector from "../class/strapiConnector";

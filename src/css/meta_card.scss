@@ -150,7 +150,11 @@ div.meta-card {
     }
     .meta-card-details {
         &.full {
-            @include flex-container;
+            display: block;
+            .flexpart {
+                @include flex-container;
+                justify-content: flex-start;
+            }
             overflow: hidden;
             background: #ffffff;
             border-radius: $default-radius;
@@ -224,7 +228,7 @@ div.meta-card {
             font-style: italic;
         }
         .description {
-            padding: 0 10px;
+            padding-right: 10px;
             @include md {
                 padding: 0 20px 20px 0;
             }

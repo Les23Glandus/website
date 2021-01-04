@@ -8,7 +8,7 @@ body {
     font-family: 'Montserrat', sans-serif;
     background-color: $primary-background-color;
     font-size: $default-fontSize;
-    @include md {
+    @include sm {
         font-size: #{$default-fontSize + 6};
     }
 
@@ -123,7 +123,7 @@ body {
         >div.container {
             margin-left: auto;
             margin-right: auto;
-            max-width: 1600px;
+            max-width: 1720px;
         }
         @include md {
             padding-left: $mobile-page-padding;

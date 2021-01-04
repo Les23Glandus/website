@@ -44,8 +44,8 @@ class ActusCard extends React.Component {
           compact={this.props.compact ? true : false}
           url={"/news/"+this.props.details.uniquepath}
           title={this.props.details.title}
-          subTitle={new Intl.DateTimeFormat('fr-FR', { dateStyle: 'full' }).format(new Date(this.props.details.date))}
-          supTitle={""}
+          supTitle={new Intl.DateTimeFormat('fr-FR', { dateStyle: 'full' }).format(new Date(this.props.details.date))}
+          subTitle={""}
           imageUrl={imageUrl}
           imageTitle={this.props.details.description}
           more={<div className="description" ref={this.descp}><RichText>{ this.props.details.description }</RichText></div>}

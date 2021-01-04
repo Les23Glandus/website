@@ -83,13 +83,21 @@ $picratio: 16/9;
 
 
 
+
+$screen-sm-min: 800px;
 // Small tablets (portrait view)
-$screen-md-min: 1024px;
+$screen-md-min: 1178px;
 // Tablets and small desktops
 $screen-lg-min: 1400px;
 // Tablets and small desktops
 $screen-xxl-min: 2100px;
 
+// Small devices
+@mixin sm {
+    @media screen and (max-width: #{$screen-sm-min}) {
+        @content;
+    }
+ }
 // Medium devices
 @mixin md {
    @media screen and (max-width: #{$screen-md-min}) {

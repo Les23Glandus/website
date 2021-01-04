@@ -30,6 +30,11 @@ div.browse-main {
 
     }
 
+    
+    .browse-slice {
+        max-width: 2000px !important;
+    }
+
     .browse-sort {
         @include flex-container;
         justify-content: space-between;

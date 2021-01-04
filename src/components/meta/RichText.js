@@ -24,6 +24,7 @@ class RichText extends React.Component {
             }
         },
         link: (value) => { 
+            if( value.href ) value.href = value.href.replace(/^https?:\/\/(lesglandus.fr|www\.lesglandus.fr|dev\.lesglandus.fr|15.188.205.192)/i, "");
             const reg = /^\//;
             if( reg.test(value.href) ) {
                 return <Link to={value.href}>{value.children}</Link> 

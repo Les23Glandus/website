@@ -313,10 +313,10 @@ class strapiConnector {
       "selections":`{
         id
         title
-        article
         mini {id url formats}
         image {id url formats} 
         color colorpicker
+        priority
         description
         paragraph {id title article}
         escapes {
@@ -338,6 +338,7 @@ class strapiConnector {
         id
         title
         uniquepath
+        priority
         mini {id url formats}
         color colorpicker
         description
@@ -568,7 +569,7 @@ class strapiConnector {
             addresses {pay {name} region {name} town } 
             escapes { id name uniquepath date nbPlayerMin nbPlayerMax tags {id name isGold} }
           }    
-          selections {id title description uniquepath color colorpicker mini {id url formats}}
+          selections {id title priority description uniquepath color colorpicker mini {id url formats}}
           avantapres {
             id
             when

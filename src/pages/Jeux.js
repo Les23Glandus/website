@@ -25,6 +25,7 @@ class Jeux extends React.Component {
 
         <Slice className="all-selections" breath>
             <h2>Les Gandus sont joueurs !</h2>
+            <p>Entre deux missions, on s’entraîne et puis on aime bien jeter des dés, mélanger des cartes, fomenter les pires trahisons etc… etc…</p>
             <JeuxGrid showAll={true} title={false} onError={()=>this.setState({error:true})}/>
         </Slice>
 

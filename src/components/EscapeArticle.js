@@ -201,7 +201,7 @@ class EscapeArticle extends React.Component {
         if( addr.pay && pays.indexOf(addr.pay.name) < 0 ) pays.push( addr.pay.name );
         if( addr.region && regions.indexOf(addr.region.name) < 0 ) regions.push( addr.region.name );
       });
-      if( this.details.addresses.length === 1 ) {
+      if( this.details.addresses.length === 1 && regions.indexOf(this.details.addresses[0].town) < 0 ) {
         town = this.details.addresses[0].town;
       }
     }

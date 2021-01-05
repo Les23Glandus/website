@@ -195,15 +195,13 @@ class EscapeArticle extends React.Component {
 
     let pays = [];
     let regions = [];
-    let town = null;
+    let town = [];
     if( this.details.addresses && this.details.addresses.length > 0 ) {
       this.details.addresses.forEach(addr => {
         if( addr.pay && pays.indexOf(addr.pay.name) < 0 ) pays.push( addr.pay.name );
         if( addr.region && regions.indexOf(addr.region.name) < 0 ) regions.push( addr.region.name );
+        if( addr.town && regions.indexOf(addr.town) < 0 && town.indexOf(addr.town) < 0 ) town.push( addr.town );
       });
-      if( this.details.addresses.length === 1 && regions.indexOf(this.details.addresses[0].town) < 0 ) {
-        town = this.details.addresses[0].town;
-      }
     }
 
     let illusUrl = this.details.illustration ? this.details.illustration.url : process.env.PUBLIC_URL + "/patterns/Pattern04.svg";
@@ -260,7 +258,7 @@ class EscapeArticle extends React.Component {
                 
                       <div className="title-flex">
                         <div>
-                          {pays.length > 0 && <p className="region">{pays.length > 0 && pays.join(", ")}{regions.length > 0 && (' - '+regions.join(", "))}{town && (' - '+town)}</p>}
+                          {pays.length > 0 && <p className="region">{pays.length > 0 && pays.join(", ")}{regions.length > 0 && (' - '+regions.join(", "))}{town.length > 0 && (' - '+town.join(", "))}</p>}
                           <h2>{this.details.name} {(this.details.isOpen === false || (this.details.enseigne && this.details.enseigne.isOpen === false)) && <span className="closed-info">(Fermée)</span>}</h2>
                           {this.details.enseigne && 
                             <p>Chez <Link to={"/escapegame/"+this.details.enseigne.uniquepath}>{this.details.enseigne.name}</Link></p>

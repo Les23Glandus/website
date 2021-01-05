@@ -49,7 +49,7 @@ class ActusCard extends React.Component {
           supTitle={!this.props.reduce && date}
           subTitle={this.props.reduce && date}
           imageUrl={imageUrl}
-          imageTitle={this.props.details.description}
+          imageTitle=""
           more={<div className="description" ref={this.descp}><RichText>{ this.props.details.description }</RichText></div>}
       
       ></Card>

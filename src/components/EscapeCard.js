@@ -47,9 +47,9 @@ class EscapeCard extends React.Component {
     let town = [];
     if( this.props.escape.addresses && this.props.escape.addresses.length > 0 ) {
       this.props.escape.addresses.forEach(addr => {
-        if( addr.region && regions.indexOf(addr.region.name) < 0 ) regions.push( addr.region.name );
         if( addr.pay && pays.indexOf(addr.pay.name) < 0 ) pays.push( addr.pay.name );
-        if( addr.town && town.indexOf(addr.town) < 0 ) town.push( addr.town );
+        if( addr.region && regions.indexOf(addr.region.name) < 0 ) regions.push( addr.region.name );
+        if( addr.town && regions.indexOf(addr.town) < 0 && town.indexOf(addr.town) < 0 ) town.push( addr.town );
       });
     }
 

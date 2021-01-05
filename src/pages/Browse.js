@@ -242,7 +242,7 @@ class Browse extends React.Component {
 
   onRegionChange(selected) {
     let regroupList = [];
-    if( this.regroupements ) {
+    if( this.regroupements && selected && selected.length > 0 ) {
       regroupList = this.regroupements.filter(n => selected.indexOf( n.region.id ) >= 0 );
     }
     this.setState({regroupementList:regroupList});
@@ -411,18 +411,6 @@ class Browse extends React.Component {
                             <Select.Option value={false}> </Select.Option>
                             {
                               this.state.regroupementList.map( n => <Select.Option value={n.id}>{n.name}</Select.Option> )
-                            }
-                            {
-                              /*
-                              <Select.Option value={75}>75 - <span className='smo'>Paris</span></Select.Option>
-                              <Select.Option value={92}>92 - <span className='smo'>Hauts-de-Seine</span></Select.Option>
-                              <Select.Option value={93}>93 - <span className='smo'>Seine-Saint-Denis</span></Select.Option>
-                              <Select.Option value={94}>94 - <span className='smo'>Val-de-Marne</span></Select.Option>
-                              <Select.Option value={95}>95 - <span className='smo'>Val-d'Oise</span></Select.Option>
-                              <Select.Option value={91}>91 - <span className='smo'>Essone</span></Select.Option>
-                              <Select.Option value={78}>78 - <span className='smo'>Yvelines</span></Select.Option>
-                              <Select.Option value={77}>77 - <span className='smo'>Seine-et-Marne</span></Select.Option>
-                              */
                             }
                           </Select>
                         </Form.Item>

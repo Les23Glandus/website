@@ -108,7 +108,7 @@ class JeuxGrid extends React.Component {
                     <div className="flexgrid grid-actus">
                       {
                         years.map( y => {
-                          let list = this.details.filter( n => n["published_at"].indexOf(y) >= 0);
+                          let list = this.details.filter( n => n["date"].indexOf(y) >= 0);
                           if( list.length > 0 ) {
                             return <div>
                               <h3>{y}</h3>

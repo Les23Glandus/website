@@ -63,6 +63,17 @@ class strapiConnector {
     return this.graphql(body);
   }
 
+
+  /**
+   * Regroupements
+   */
+  getRegroupements() {
+      let body = this.builGQLdQuery("regroupements");
+      body.variables.limit = 300;
+      body.variables.sort = "name:ASC";
+      return this.graphql(body);
+  }
+
   /**
    * Pays
    */
@@ -364,6 +375,10 @@ class strapiConnector {
       
       "pays:list":`{
         id name regions {id name}
+      }`,
+
+      "regroupements":`{
+        id name region {id name}
       }`,
 
 

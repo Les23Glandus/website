@@ -25,6 +25,7 @@ class Browse extends React.Component {
   tagslist = null;
   payslist = null;
   regionlist = null;
+  regroupements = null;
   preventSearch = false;
   displayEnglish = false;
   inCache = {};
@@ -42,6 +43,7 @@ class Browse extends React.Component {
       , displayDep:false
       , escapeList:null
       , presetList:[]
+      , regroupementList:[]
       , lineperpage: 5
       , currentpage: 0
     };
@@ -64,7 +66,7 @@ class Browse extends React.Component {
     strapi.getTags()
     .then( d => {
         this.tagslist = d;
-        if(this.payslist !== null && this.tagslist !== null) {
+        if(this.payslist !== null && this.tagslist !== null && this.regroupements !== null) {
           this.setState({loaded:true});
           this.onFilterChange();
         }
@@ -76,7 +78,19 @@ class Browse extends React.Component {
     strapi.getPays()
     .then( d => {
         this.payslist = d;
-        if(this.payslist !== null && this.tagslist !== null) {
+        if(this.payslist !== null && this.tagslist !== null && this.regroupements !== null) {
+          this.setState({loaded:true});
+          this.onFilterChange();
+        }
+    }).catch( e => {
+      this.payslist = [];
+      this.setState({error:true});
+    });
+
+    strapi.getRegroupements()
+    .then( d => {
+        this.regroupements = d;
+        if(this.payslist !== null && this.tagslist !== null && this.regroupements !== null) {
           this.setState({loaded:true});
           this.onFilterChange();
         }
@@ -227,12 +241,12 @@ class Browse extends React.Component {
   }
 
   onRegionChange(selected) {
-    if( selected && selected.length === 1 && selected[0] === Browse.ID_IDF ) {
-      this.setState({displayDep:true});
-    } else {
-      this.setState({displayDep:false});    
-      this.formRef.current.setFieldsValue({"addresses.postcode_contains":false});    
+    let regroupList = [];
+    if( this.regroupements ) {
+      regroupList = this.regroupements.filter(n => selected.indexOf( n.region.id ) >= 0 );
     }
+    this.setState({regroupementList:regroupList});
+    this.formRef.current.setFieldsValue({"addresses.regroupement.id":false});    
     this.onFilterChange();
   }
 
@@ -390,19 +404,26 @@ class Browse extends React.Component {
                       </Form.Item>
                     </div>
                     {
-                      this.state.displayDep &&
+                      this.state.regroupementList.length > 0 &&
                       <div>
-                        <Form.Item label="Département" name="addresses.postcode_contains">
+                        <Form.Item label="" name="addresses.regroupement.id">
                           <Select onChange={this.onFilterChange.bind(this)}>
                             <Select.Option value={false}> </Select.Option>
-                            <Select.Option value={75}>75 - <span className='smo'>Paris</span></Select.Option>
-                            <Select.Option value={92}>92 - <span className='smo'>Hauts-de-Seine</span></Select.Option>
-                            <Select.Option value={93}>93 - <span className='smo'>Seine-Saint-Denis</span></Select.Option>
-                            <Select.Option value={94}>94 - <span className='smo'>Val-de-Marne</span></Select.Option>
-                            <Select.Option value={95}>95 - <span className='smo'>Val-d'Oise</span></Select.Option>
-                            <Select.Option value={91}>91 - <span className='smo'>Essone</span></Select.Option>
-                            <Select.Option value={78}>78 - <span className='smo'>Yvelines</span></Select.Option>
-                            <Select.Option value={77}>77 - <span className='smo'>Seine-et-Marne</span></Select.Option>
+                            {
+                              this.state.regroupementList.map( n => <Select.Option value={n.id}>{n.name}</Select.Option> )
+                            }
+                            {
+                              /*
+                              <Select.Option value={75}>75 - <span className='smo'>Paris</span></Select.Option>
+                              <Select.Option value={92}>92 - <span className='smo'>Hauts-de-Seine</span></Select.Option>
+                              <Select.Option value={93}>93 - <span className='smo'>Seine-Saint-Denis</span></Select.Option>
+                              <Select.Option value={94}>94 - <span className='smo'>Val-de-Marne</span></Select.Option>
+                              <Select.Option value={95}>95 - <span className='smo'>Val-d'Oise</span></Select.Option>
+                              <Select.Option value={91}>91 - <span className='smo'>Essone</span></Select.Option>
+                              <Select.Option value={78}>78 - <span className='smo'>Yvelines</span></Select.Option>
+                              <Select.Option value={77}>77 - <span className='smo'>Seine-et-Marne</span></Select.Option>
+                              */
+                            }
                           </Select>
                         </Form.Item>
                       </div>

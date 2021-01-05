@@ -24,12 +24,13 @@ class RichText extends React.Component {
             }
         },
         link: (value) => { 
-            if( value.href ) value.href = value.href.replace(/^https?:\/\/(lesglandus.fr|www\.lesglandus.fr|dev\.lesglandus.fr|15.188.205.192)/i, "");
+            let href = value.href;
+            if( href ) href = href.replace(/^https?:\/\/(lesglandus.fr|www\.lesglandus.fr|dev\.lesglandus.fr|15.188.205.192)/i, "");
             const reg = /^\//;
-            if( reg.test(value.href) ) {
-                return <Link to={value.href}>{value.children}</Link> 
+            if( reg.test(href) ) {
+                return <Link to={href}>{value.children}</Link> 
             } else {
-                return <a href={value.href} className="outlink" target="_blank" rel="noreferrer">{value.children}</a> 
+                return <a href={href} className="outlink" target="_blank" rel="noreferrer">{value.children}</a> 
             }
         }
             

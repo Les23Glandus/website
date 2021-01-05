@@ -206,7 +206,7 @@ class strapiConnector {
     if(!limit) limit = 100;
     let body = this.builGQLdQuery("jeuxes:list");
     body.variables.limit = limit;
-    body.variables.sort = "published_at:DESC";
+    body.variables.sort = "date:DESC";
     return this.graphql(body);
   }
   getJeuxByRef(ref) {

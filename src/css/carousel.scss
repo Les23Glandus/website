@@ -35,6 +35,12 @@ div.home-carousel {
             width: 100%;
             font-size: 2em;
             padding-top: 200px;
+            @include md {
+                padding-top: 100px;
+            }  
+            @include sm {
+                padding-top: 50px;
+            }            
         }
     }
     .illustration {

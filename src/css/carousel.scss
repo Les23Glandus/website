@@ -10,6 +10,12 @@ div.home-carousel {
         height: 600px;
         width: 100%;
         color: #ffffff;
+        @include md {
+            height: 400px;
+        }
+        @include sm {
+            height: 300px;
+        }
     }
     .text {
         position: absolute;

@@ -54,6 +54,7 @@ class App extends React.Component {
                   <Route exact path="/jeux/:jeu">
                     <Jeu/>
                   </Route>
+                  <Redirect from='/et-sinon' to='/jeux'/>
                   <Route path="/jeux">
                     <Jeux/>
                   </Route>
@@ -66,6 +67,7 @@ class App extends React.Component {
                   <Route path="/search">
                     <Search/>
                   </Route>
+                  <Redirect from='/groupe' to='/about'/>
                   <Route path="/about">
                     <APropos/>
                   </Route>

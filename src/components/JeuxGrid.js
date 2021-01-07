@@ -90,7 +90,7 @@ class JeuxGrid extends React.Component {
                               reduce={true}
                               url={"/jeux"}
                               bigText={"Tous nos articles"}
-                              subTitle={""}
+                              subTitle={<span>&nbsp;</span>}
                               title={<span>&nbsp;</span>}
                               supTitle={""}
                               imageUrl={null}

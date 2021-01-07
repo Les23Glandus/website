@@ -406,7 +406,7 @@ class EscapeArticle extends React.Component {
 
 
         {this.details.selections && this.details.selections.length > 0 && 
-          <Slice breath>
+          <Slice className="in-selection">
             <h3>Présente dans {this.details.selections.length === 1 ? "la sélection" : "les sélections suivantes"} :</h3>
             <div className="flexgrid">
               {

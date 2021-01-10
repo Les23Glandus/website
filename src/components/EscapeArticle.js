@@ -133,6 +133,7 @@ class EscapeArticle extends React.Component {
           "@type": "Organization",
           "name": "Les Glandus"
         },
+        "reviewBody": descr,
         "reviewRating": {
           "@type": "Rating",
           "ratingValue": this.details.rate,
@@ -144,7 +145,6 @@ class EscapeArticle extends React.Component {
           "name": this.details.name,
           "brand": this.details.enseigne ? this.details.enseigne.name : "",
           "image": [],
-          "review": descr,
           "description": scen,
           "url": this.details.enseigne ? this.details.enseigne.url : "",
           "aggregateRating": {

@@ -90,7 +90,7 @@ class strapiConnector {
   getCarousel() {    
     let body = this.builGQLdQuery("carousels");
     body.variables.limit = 10;
-    body.variables.sort = "date:ASC";
+    body.variables.sort = "date:DESC";
     return this.graphql(body);
   }
   

@@ -5,34 +5,36 @@ import { Tag } from "antd";
 import Card from "./meta/Card";
 import Note from "./meta/Note";
 import RichText from "./meta/RichText";
+import showdown from "showdown";
   
 class EscapeCard extends React.Component {
 
   constructor(props) {
     super(props);
     this.descp = React.createRef();
-  }
 
-  componentDidMount() {  
-    this.reduceText();
-  }
-  componentDidUpdate() {  
-    this.reduceText();
+    this.descriptionText = "";
+    
   }
 
   reduceText() {
-    if( this.descp && this.descp.current ) {
-      const maxln = 300;
-      let txt = this.descp.current.innerText;
-      if( txt ) {
-        let after = txt.length > maxln ? "..." : "";
-        this.descp.current.innerHTML = txt.substring(0,maxln) + after;
-        this.descp.current.title = txt;
+    if( this.props.escape && this.props.escape.scenario ) {
+      var converter = new showdown.Converter();
+      this.descriptionText = converter.makeHtml( this.props.escape.scenario );
+      if( this.descriptionText ) {      
+        const maxln = 300;
+        this.descriptionText = this.descriptionText.replace(/(<([^>]+)>)/gi," ");
+        let after = this.descriptionText.length > maxln ? "..." : "";
+        this.descriptionText = this.descriptionText.substring(0,maxln) + after;
       }
     }
+
   }
 
   render() {
+
+    if( !this.descriptionText ) this.reduceText();
+
 
     let imageUrl;
     if( this.props.escape.mini ) {
@@ -72,8 +74,8 @@ class EscapeCard extends React.Component {
             subTitle={this.props.enseigne ? this.props.enseigne.name : <span>&nbsp;</span>}
             supTitle={topinfo}
             imageUrl={imageUrl}
-            imageTitle={this.props.escape.scenario}
-            more={<div className="description" ref={this.descp}><RichText>{ this.props.escape.scenario }</RichText></div>}
+            imageTitle={this.descriptionText}
+            more={<div className="description" ref={this.descp}><RichText>{ this.descriptionText }</RichText></div>}
         >
               {
                 this.props.date &&

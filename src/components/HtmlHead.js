@@ -2,6 +2,7 @@ import React from "react";
 import { withRouter } from "react-router-dom";
 import {Helmet} from "react-helmet";
 import CONFIG from "../class/config";
+import showdown from "showdown";
 
   
 class HtmlHead extends React.Component {
@@ -13,12 +14,16 @@ class HtmlHead extends React.Component {
   render() {
 
     let title = (this.props.title ? this.props.title + " - " : "") + this.title;
+    
+    var converter = new showdown.Converter();
+    let descr = converter.makeHtml( this.props.description );
+    if( descr ) descr = descr.replace(/(<([^>]+)>)/gi," ");
 
     return (
         <Helmet>
             <title>{title} - Blog et Avis Escape Game</title>
-            <meta name="description" content={this.props.description ? this.props.description : this.defaultDescription }/>
-            <meta name="twitter:description" content={this.props.description ? this.props.description : this.defaultDescription }></meta>
+            <meta name="description" content={descr ? descr : this.defaultDescription }/>
+            <meta name="twitter:description" content={descr ? descr : this.defaultDescription }></meta>
             <meta name="subject" content="Avis et évaluation des salles d'Escape Game."></meta>
             <meta name="coverage" content="Worldwide"></meta>
             <meta name="Classification" content="Business"/>
@@ -29,7 +34,7 @@ class HtmlHead extends React.Component {
             <meta property="og:type" content="article"/>
             <meta property="og:article:author" content="Les Glandus"/>
             <meta property="og:article:section" content="Escape Games"/>
-            <meta property="og:description" content={this.props.description ? this.props.description : this.defaultDescription }/> 
+            <meta property="og:description" content={descr ? descr : this.defaultDescription }/> 
             <meta property="og:title" content={title}/>  
             <meta name="twitter:title" content={title}/>
             <meta name="twitter:card" content="summary_large_image"></meta>

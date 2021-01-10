@@ -14,6 +14,7 @@ import RichText from "./meta/RichText";
 import TopIllustration from "./meta/TopIllustration";
 import CONFIG from "../class/config";
 import Slice from "./meta/Slice";
+import showdown from "showdown";
 
   
 class EscapeArticle extends React.Component {
@@ -50,7 +51,15 @@ class EscapeArticle extends React.Component {
   }
 
   generateJSONLD() {
-    
+
+    var converter = new showdown.Converter();
+    let scen = converter.makeHtml( this.details.scenario );
+    let descr = converter.makeHtml( this.details.description );
+
+    if( scen ) scen = scen.replace(/(<([^>]+)>)/gi," ");
+    if( descr ) descr = descr.replace(/(<([^>]+)>)/gi," ");
+
+
     //Used by google
     let jsonld = {
       "@context": "https://schema.org",
@@ -73,7 +82,7 @@ class EscapeArticle extends React.Component {
         "alternateName": "fr"
       },
       "reviewAspect":"Rating",
-      "abstract": this.details.description,
+      "abstract": descr ? descr : scen,
       "articleSection":"Escape Game",
       "headline": this.details.name,
       "image": [],
@@ -87,7 +96,7 @@ class EscapeArticle extends React.Component {
         "@type": "AggregateRating",
         "ratingValue": this.details.rate,
         "bestRating": 5,
-        "worstRating": 1,
+        "worstRating": 0,
         "reviewCount": Math.max(1,this.details.avantapres ? this.details.avantapres.length : 1) * 5
       },
       "publisher": {
@@ -99,13 +108,63 @@ class EscapeArticle extends React.Component {
         }
       }
     };
+
     
-    //TODO add audio
+    let jsonldalt = {
+      "@context": "https://schema.org",
+      "@type": "Product",
+      "name": this.details.name,
+      "brand": {
+        "@type":"Organization",
+        "name": this.details.enseigne ? this.details.enseigne.name : "",
+      },
+      "description": scen,
+      "image": [],
+      "aggregateRating": {
+        "@type": "AggregateRating",
+        "ratingValue": this.details.rate,
+        "bestRating": 5,
+        "worstRating": 0,
+        "reviewCount": Math.max(1,this.details.avantapres ? this.details.avantapres.length : 1) * 5
+      },
+      "review": {
+        "@type":"Review",
+        "author": {
+          "@type": "Organization",
+          "name": "Les Glandus"
+        },
+        "reviewRating": {
+          "@type": "Rating",
+          "ratingValue": this.details.rate,
+          "bestRating": 5,
+          "worstRating": 0
+        },
+        "itemReviewed": {
+          "@type":"Product",
+          "name": this.details.name,
+          "brand": this.details.enseigne ? this.details.enseigne.name : "",
+          "image": [],
+          "review": descr,
+          "description": scen,
+          "url": this.details.enseigne ? this.details.enseigne.url : "",
+          "aggregateRating": {
+            "@type": "AggregateRating",
+            "ratingValue": this.details.rate,
+            "bestRating": 5,
+            "worstRating": 0,
+            "reviewCount": Math.max(1,this.details.avantapres ? this.details.avantapres.length : 1) * 5
+          },
+        }
+      }
+    };
+    
+    if( this.details.mini ) {
+      jsonld["image"].push( CONFIG.origin + this.details.mini.url);
+      jsonldalt["image"].push( CONFIG.origin + this.details.mini.url);
+      jsonldalt["review"]["itemReviewed"]["image"].push( CONFIG.origin + this.details.mini.url);
+    } 
 
-    if( this.details.illustration ) jsonld["image"].push( CONFIG.origin + this.details.illustration.url);
-    if( this.details.mini ) jsonld["image"].push( CONFIG.origin + this.details.mini.url);
-
-    return jsonld;
+    return [jsonld, jsonldalt];
   }
 
   render() {
@@ -225,7 +284,9 @@ class EscapeArticle extends React.Component {
                 this.details.audio && 
                 <meta property="og:audio" content={CONFIG.origin +  this.details.audio.url} />
               }
-              <script type="application/ld+json">{JSON.stringify(this.jsonld)}</script>
+              {
+                this.jsonld.map( jsonld => <script type="application/ld+json">{JSON.stringify(jsonld)}</script>)
+              }
           </HtmlHead>
 
           {

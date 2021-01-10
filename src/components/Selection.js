@@ -64,7 +64,7 @@ class Selection extends React.Component {
     
     if( !this.state.loaded ) {
       return (
-        <div class="selection-main">
+        <div className="selection-main">
           <TopIllustration/>
           <Slice breath>
             <div className="article-container article-selection">
@@ -86,7 +86,7 @@ class Selection extends React.Component {
 
       
       return (
-        <div class="selection-main">
+        <div className="selection-main">
           
             <HtmlHead title={`Nos sélections - ${this.details.title}`}
                 description={this.details.description}

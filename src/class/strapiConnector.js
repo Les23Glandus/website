@@ -578,9 +578,9 @@ class strapiConnector {
           isOpen
           nbPlayerMin
           nbPlayerMax
-          addresses {pay {name} region {name}  town } 
+          addresses {pay {id name} region {id name}  town regroupement {id} } 
           enseigne { id name uniquepath isOpen
-            addresses {pay {name} region {name} town } 
+            addresses {pay {id name} region {id name} town } 
             escapes { id name uniquepath date nbPlayerMin nbPlayerMax tags {id name isGold} }
           }    
           selections {id title priority description uniquepath color colorpicker mini {id url formats}}

@@ -40,7 +40,7 @@ class EscapeArticle extends React.Component {
         this.details = d;
         this.jsonld = this.generateJSONLD();
         this.setState({loaded:true, uref:this.details.uniquepath});
-      }).catch(e => {console.log(e);this.setState({error:true});if( typeof(this.props.onError) === "function" ) this.props.onError();} );
+      }).catch(e => {this.setState({error:true});if( typeof(this.props.onError) === "function" ) this.props.onError();} );
     
   }
 
@@ -254,12 +254,16 @@ class EscapeArticle extends React.Component {
 
     let pays = [];
     let regions = [];
+    let regionID = [];
     let town = [];
+    let regroupements = [];
     if( this.details.addresses && this.details.addresses.length > 0 ) {
       this.details.addresses.forEach(addr => {
         if( addr.pay && pays.indexOf(addr.pay.name) < 0 ) pays.push( addr.pay.name );
         if( addr.region && regions.indexOf(addr.region.name) < 0 ) regions.push( addr.region.name );
         if( addr.town && regions.indexOf(addr.town) < 0 && town.indexOf(addr.town) < 0 ) town.push( addr.town );
+        if( addr.regroupement && regroupements.indexOf(addr.regroupement.id) < 0 ) regroupements.push( addr.regroupement.id );
+        if( addr.region && regionID.indexOf(addr.region.id) < 0 ) regionID.push( addr.region.id );
       });
     }
 
@@ -485,7 +489,11 @@ class EscapeArticle extends React.Component {
 
 
         <Slice breath>
-          <EscapeLatestsTests title="A voir aussi..." notID={this.details.id} tagslist={this.details.tags ? this.details.tags.map( n => n.id ) : []}/>
+          <EscapeLatestsTests title="A voir aussi dans le coin..." notID={this.details.id} regroupement={regroupements} 
+          notEnseingeID={this.details.enseigne ? this.details.enseigne.id : null}
+          nbCards={7}
+          region={regionID}
+          tagslist={this.details.tags ? this.details.tags.map( n => n.id ) : []}/>
         </Slice>
         </div>
     )

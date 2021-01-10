@@ -76,7 +76,7 @@ class EnseigneArticle extends React.Component {
     if( !this.state.loaded ) {
 
       return (
-        <div class="enseigne-main">
+        <div className="enseigne-main">
               {
                   !this.props.embeded && <TopIllustration/>
               }
@@ -196,7 +196,7 @@ class EnseigneArticle extends React.Component {
 
 
       return (
-        <div class="enseigne-main">
+        <div className="enseigne-main">
             {
               this.props.updathead !== false &&
               <HtmlHead title={this.details.name}

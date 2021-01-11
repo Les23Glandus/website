@@ -41,7 +41,6 @@ class App extends React.Component {
                   <Route exact path="/escapegame/:enseigne">
                     <Enseigne/>
                   </Route>
-                  <Redirect from='/entreprise/:enseigne' to='/escapegame/:enseigne'/>
                   <Route path="/escapegame">
                     <Browse/>
                   </Route>
@@ -54,7 +53,6 @@ class App extends React.Component {
                   <Route exact path="/jeux/:jeu">
                     <Jeu/>
                   </Route>
-                  <Redirect from='/et-sinon' to='/jeux'/>
                   <Route path="/jeux">
                     <Jeux/>
                   </Route>
@@ -67,10 +65,21 @@ class App extends React.Component {
                   <Route path="/search">
                     <Search/>
                   </Route>
-                  <Redirect from='/groupe' to='/about'/>
                   <Route path="/about">
                     <APropos/>
                   </Route>
+
+                  <Redirect from='/entreprise/:enseigne' to='/escapegame/:enseigne'/>
+                  <Redirect from='/groupe' to='/about'/>
+                  <Redirect from='/author/:x' to='/'/>
+                  <Redirect from='/categorie/:x' to='/escapegame'/>
+                  <Redirect from='/badge/:x' to='/escapegame'/>
+                  <Redirect from='/pays/:x' to='/escapegame'/>
+                  <Redirect from='/escape_tag/:x' to='/escapegame'/>
+                  <Redirect from='/les-glandus-dor-2019' to='/selections/les-glandus-d-or-2019'/>
+                  <Redirect from='/exit' to='/jeux'/>
+                  <Redirect from='/et-sinon' to='/jeux'/>
+
                   <Route status={404} >
                     <Page404/>
                   </Route>

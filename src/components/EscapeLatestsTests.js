@@ -47,6 +47,7 @@ class EscapeLatestsTests extends React.Component {
         } else {
           strapi.getEscapeByRef(subList).then(
             list => {
+              if( typeof(list.map) !== "function" ) list = [ list ];
               this.lastescapes = list;
               this.setState({loaded:true});
             }
@@ -86,6 +87,7 @@ class EscapeLatestsTests extends React.Component {
     } else {
       strapi.getRecentEscapes(nbElement).then(
         list => {
+          if( typeof(list.map) !== "function" ) list = [ list ];
           this.lastescapes = list;
           this.setState({loaded:true});
         }
@@ -100,6 +102,7 @@ class EscapeLatestsTests extends React.Component {
 
   render() {
     
+
     return (
         
         <div className="latest-ei-tests">

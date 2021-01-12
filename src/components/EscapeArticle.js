@@ -15,6 +15,7 @@ import TopIllustration from "./meta/TopIllustration";
 import CONFIG from "../class/config";
 import Slice from "./meta/Slice";
 import showdown from "showdown";
+import {isMobile} from 'react-device-detect';
 
   
 class EscapeArticle extends React.Component {
@@ -268,6 +269,9 @@ class EscapeArticle extends React.Component {
     }
 
     let illusUrl = this.details.illustration ? this.details.illustration.url : process.env.PUBLIC_URL + "/patterns/Pattern04.svg";
+    if( isMobile && this.details.illustration && this.details.illustration.formats && this.details.illustration.formats.medium ) { 
+      illusUrl = this.details.illustration.formats.medium.url;
+    }
     let ogimage = this.details.mini.url;
     if( this.details.mini && this.details.mini.formats && this.details.mini.formats.medium ) {
       ogimage = this.details.mini.formats.medium.url;

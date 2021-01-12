@@ -12,10 +12,7 @@ class TopIllustration extends React.Component {
 
   }
 
-  render() {
-
-
-    
+  render() {    
     return (
         <div className="top-illustration" style={{backgroundImage:`url(${this.imageUrl})`}}/>
     )

@@ -4,6 +4,7 @@ import { Carousel as AntCarousel } from 'antd';
 import strapiConnector from "../class/strapiConnector";
 import "../css/carousel.scss";
 import TopIllustration from "./meta/TopIllustration";
+import {isMobile} from 'react-device-detect';
   
 class Carousel extends React.Component {
 
@@ -32,8 +33,16 @@ componentDidMount() {
             <AntCarousel autoplay>
                 {this.state.loaded && 
                     this.details.map( n => {
+
+                        let imgUrl = n.image.url;
+                        if( isMobile ) {
+                            if( n.image.formats && n.image.formats.medium ) {
+                                imgUrl = n.image.formats.medium.url;
+                            }
+                        }
+
                         const contentStyle = {
-                            backgroundImage: 'url('+n.image.url+')'
+                            backgroundImage: 'url('+imgUrl+')'
                           };
                     return (
                         <div key={n.id} title={n.description} className="carousel">

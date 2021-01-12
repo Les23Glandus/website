@@ -100,7 +100,7 @@ class Card extends React.Component {
             <div className="noflexpart">
               {
                 !this.props.reduce &&
-                <p className="sup-title" title={this.props.supTitle}>{this.props.supTitle}</p>
+                <p className="sup-title">{this.props.supTitle}</p>
               }
               {this.props.preview && <Skeleton title active paragraph={false}/>}
               {!this.props.preview && <p className="title">{this.props.title}</p>}

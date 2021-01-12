@@ -75,6 +75,10 @@ class App extends React.Component {
                   <Redirect from='/categorie/:x' to='/escapegame'/>
                   <Redirect from='/badge/:x' to='/escapegame'/>
                   <Redirect from='/pays/:x' to='/escapegame'/>
+                  <Redirect from='/escape-room-le-jeu' to='/jeux/escape-room-le-jeu'/>
+                  <Redirect from='/sorties-a-venir-ete-2020' to='/news/sorties-a-venir-ete-2020'/>                  
+                  <Redirect from='/unlock-star-wars' to='/jeux/unlock-star-wars'/>
+                  <Redirect from='/detective' to='/jeux/detective'/>                 
                   <Redirect from='/escape_tag/:x' to='/escapegame'/>
                   <Redirect from='/les-glandus-dor-2019' to='/selections/les-glandus-d-or-2019'/>
                   <Redirect from='/exit' to='/jeux'/>

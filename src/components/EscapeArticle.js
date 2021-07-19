@@ -16,6 +16,7 @@ import CONFIG from "../class/config";
 import Slice from "./meta/Slice";
 import showdown from "showdown";
 import {isMobile} from 'react-device-detect';
+import ReactGA from 'react-ga';
 
   
 class EscapeArticle extends React.Component {
@@ -45,7 +46,9 @@ class EscapeArticle extends React.Component {
     
   }
 
-
+  handleStartAudio() {
+    ReactGA.event( {category:"audio", action:"Click", label:"Click sur audio"} );
+  }
 
   componentDidMount() {
     if(!this.state.loaded && !this.state.error && (this.props.escapeID || this.props.escapeRef)) this.loadDetails();
@@ -293,7 +296,7 @@ class EscapeArticle extends React.Component {
                 <meta property="og:audio" content={CONFIG.origin +  this.details.audio.url} />
               }
               {
-                this.jsonld.map( jsonld => <script type="application/ld+json">{JSON.stringify(jsonld)}</script>)
+                this.jsonld.map( (jsonld,ndx) => <script key={ndx} type="application/ld+json">{JSON.stringify(jsonld)}</script>)
               }
           </HtmlHead>
 
@@ -372,7 +375,7 @@ class EscapeArticle extends React.Component {
                   <div className="longtext">
                     {
                       this.details.audio && 
-                      <audio controls controlsList="nodownload">
+                      <audio controls controlsList="nodownload" onPlay={this.handleStartAudio}>
                         <source src={this.details.audio.url} type="audio/mpeg"/>
                       </audio>
                     }

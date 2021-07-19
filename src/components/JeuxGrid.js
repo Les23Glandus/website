@@ -110,7 +110,7 @@ class JeuxGrid extends React.Component {
                         years.map( y => {
                           let list = this.details.filter( n => { if(!n["date"]) n["date"] = "2021"; return n["date"].indexOf(y) >= 0;});
                           if( list.length > 0 ) {
-                            return <div>
+                            return <div key={y}>
                               <h3>{y}</h3>
                               <div className="flexgrid grid-actus">
                                 { list.map( n => <JeuxCard key={'jc'+n.id} jeux={n} reduce/>) }

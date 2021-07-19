@@ -1,6 +1,7 @@
 import { Menu } from "antd";
 import React from "react";
 import { withRouter, Link } from "react-router-dom";
+import ReactGA from 'react-ga';
 import {
   SearchOutlined, HomeFilled
 } from '@ant-design/icons';
@@ -28,9 +29,12 @@ class Header extends React.Component {
     let root = document.getElementById('root');
     root.style.transform = effect.transform;
     root.style.filter = effect.filter;
+
+    ReactGA.event( {category:"NePasCliquer", action:"Click", label:"Click sur ne pas cliquer"} );
   }
 
   render() {
+
     let selected = [];
     if( this.props.location.pathname.indexOf("/escapegame") === 0 ) selected.push('1');
     if( this.props.location.pathname.indexOf("/jeux") === 0 ) selected.push('2');
@@ -48,12 +52,12 @@ class Header extends React.Component {
             </div>
             <Menu theme="dark" mode="horizontal" defaultSelectedKeys={selected}>
                 <Menu.Item key="1"><Link to="/"><HomeFilled /></Link></Menu.Item>
-                <Menu.Item key="1"><Link to="/escapegame">Expériences Immersives</Link></Menu.Item>
-                <Menu.Item key="2"><Link to="/jeux">Jeux de société</Link></Menu.Item>
-                <Menu.Item key="3"><Link to="/news">Actualité</Link></Menu.Item>
-                <Menu.Item key="4"><Link to="/about">A Propos</Link></Menu.Item>
-                <Menu.Item key="5" onClick={this.doNotClick.bind(this)}>Ne pas cliquer</Menu.Item>
-                <Menu.Item key="6"><Link to="/search"> <SearchOutlined /> </Link></Menu.Item>
+                <Menu.Item key="2"><Link to="/escapegame">Expériences Immersives</Link></Menu.Item>
+                <Menu.Item key="3"><Link to="/jeux">Jeux de société</Link></Menu.Item>
+                <Menu.Item key="4"><Link to="/news">Actualité</Link></Menu.Item>
+                <Menu.Item key="5"><Link to="/about">A Propos</Link></Menu.Item>
+                <Menu.Item key="6" onClick={this.doNotClick.bind(this)}>Ne pas cliquer</Menu.Item>
+                <Menu.Item key="7"><Link to="/search"> <SearchOutlined /> </Link></Menu.Item>
             </Menu>
         </div>
     )

@@ -11,6 +11,7 @@ class HtmlHead extends React.Component {
 
   title = "Les Glandus";
 
+
   render() {
 
     let title = (this.props.title ? this.props.title + " - " : "") + this.title;
@@ -18,7 +19,7 @@ class HtmlHead extends React.Component {
     var converter = new showdown.Converter();
     let descr = converter.makeHtml( this.props.description );
     if( descr ) descr = descr.replace(/(<([^>]+)>)/gi," ");
-
+    
     return (
         <Helmet>
             <title>{title} - Blog et Avis Escape Game</title>

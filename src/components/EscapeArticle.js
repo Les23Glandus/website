@@ -333,7 +333,11 @@ class EscapeArticle extends React.Component {
                           {pays.length > 0 && <p className="region">{pays.length > 0 && pays.join(", ")}{regions.length > 0 && (' - '+regions.join(", "))}{town.length > 0 && (' - '+town.join(", "))}</p>}
                           <h2>{this.details.name} {(this.details.isOpen === false || (this.details.enseigne && this.details.enseigne.isOpen === false)) && <span className="closed-info">(Fermée)</span>}</h2>
                           {this.details.enseigne && 
-                            <p>Chez <Link to={"/escapegame/"+this.details.enseigne.uniquepath}>{this.details.enseigne.name}</Link></p>
+                            <p>Chez <Link to={"/escapegame/"+this.details.enseigne.uniquepath}>{this.details.enseigne.name}</Link>
+                            {
+                              this.details.date && <span>&nbsp;|&nbsp;Testé en {this.details.date.substring(0,4)}</span>
+                            }
+                            </p>
                           }
                         </div>
                         <div>

@@ -44,13 +44,11 @@ componentDidMount() {
                         const contentStyle = {
                             backgroundImage: 'url('+imgUrl+')'
                           };
+                        const div = (<div className='text'><div><span>{n.title}</span></div></div>);
                     return (
                         <div key={n.id} title={n.description} className="carousel">
-                            <div className='text'>     
-                                <div>
-                                    <span>{n.title}</span>
-                                </div>                           
-                            </div>
+                            { n.link && <a href={n.link}>{div}</a>}
+                            { !n.link && div }
                             <div className="illustration" style={contentStyle}></div>
                         </div>
                     )

@@ -35,6 +35,8 @@ class EscapeLatestsTests extends React.Component {
       }
       if( this.props.regroupement && this.props.regroupement.length > 0 ) {
         query["addresses.regroupement.id"] = this.props.regroupement;
+      } else if( this.props.paysID && this.props.paysID.length > 0 ) {
+        query["addresses.pay.id"] = this.props.paysID;
       }
       if( this.props.region && this.props.region.length > 0 ) {
         query["addresses.region.id"] = this.props.region;

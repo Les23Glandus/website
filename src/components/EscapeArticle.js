@@ -257,6 +257,7 @@ class EscapeArticle extends React.Component {
     }
 
     let pays = [];
+    let paysID = [];
     let regions = [];
     let regionID = [];
     let town = [];
@@ -264,6 +265,7 @@ class EscapeArticle extends React.Component {
     if( this.details.addresses && this.details.addresses.length > 0 ) {
       this.details.addresses.forEach(addr => {
         if( addr.pay && pays.indexOf(addr.pay.name) < 0 ) pays.push( addr.pay.name );
+        if( addr.pay && paysID.indexOf(addr.pay.id) < 0 ) paysID.push( addr.pay.id );
         if( addr.region && regions.indexOf(addr.region.name) < 0 ) regions.push( addr.region.name );
         if( addr.town && regions.indexOf(addr.town) < 0 && town.indexOf(addr.town) < 0 ) town.push( addr.town );
         if( addr.regroupement && regroupements.indexOf(addr.regroupement.id) < 0 ) regroupements.push( addr.regroupement.id );
@@ -503,6 +505,7 @@ class EscapeArticle extends React.Component {
           <EscapeLatestsTests title="A voir aussi dans le coin..." notID={this.details.id} regroupement={regroupements} 
           notEnseingeID={this.details.enseigne ? this.details.enseigne.id : null}
           nbCards={7}
+          paysID={paysID}
           region={regionID}
           tagslist={this.details.tags ? this.details.tags.map( n => n.id ) : []}/>
         </Slice>

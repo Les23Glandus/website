@@ -315,13 +315,13 @@ class Browse extends React.Component {
           }
           <TopIllustration/>
           <Slice breath>
-
               {
                 this.state.presetList && this.state.presetList.presets &&
                 <div className="browse-presets">
                 {
                   this.state.presetList.presets.map( n => {
-                    return <Card className="preset-card"
+                    if( !n.preset ) return <div style={{width:"100%"}}>&nbsp;</div>
+                    else return <Card className="preset-card"
                               reduce={true}
                               url={"#"}
                               arrow={false}

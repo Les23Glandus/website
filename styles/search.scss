@@ -1,0 +1,64 @@
+@import "_theme.scss";
+
+div.search-main {
+    position: relative;
+
+    div.search-field {
+        border-radius: $default-radius;
+        padding: 30px;
+        background: #ffffff;
+        color: $primary-font-color;
+        p {
+            margin: 0;
+        }
+        .error {
+            @include bold;
+            color: $primary-error-font-color;
+        }
+        // antd v5 a renommé cette classe (ant-input-wrapper -> ant-input-group-wrapper)
+        .ant-input-group-wrapper, .ant-input-wrapper {
+            background: $default-darkcolor;
+        }
+        .ant-input-group, .ant-input {
+            line-height: 30px;
+        }
+        .ant-btn-icon-only {
+            width: 82px;
+        }
+        .ant-input-search > .ant-input-group > .ant-input-group-addon:last-child .ant-input-search-button:not(.ant-btn-primary) {
+            color: #ffffff;
+        }
+    }
+
+    div.search-result {
+        padding: 30px;
+        div.results {
+            @include flex-container;
+            justify-content: space-between;
+            &>div {
+                max-width: 48%;
+                padding: 30px;
+                &.escapes {
+                    min-width: 100%;
+                }
+                @include md {
+                    max-width: 100%;
+                }
+            }
+            .sublist {
+                @include flex-container;
+                &>div {
+                    margin: $default-card-margin;
+                }
+                @include md {
+                    flex-direction: row;
+                    justify-content: flex-start;
+                }
+            }
+            .no-result {
+                @include light;
+                font-style: italic;
+            }
+        }
+    }
+}

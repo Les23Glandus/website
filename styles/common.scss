@@ -1,0 +1,278 @@
+// antd v5 ne fournit plus de CSS précompilé par thème (plus de
+// node_modules/antd/dist/antd.dark.css) : les styles des composants sont
+// générés à la volée en CSS-in-JS. Le thème sombre est piloté par
+// <ConfigProvider theme={{algorithm: theme.darkAlgorithm}}> dans
+// app/layout.js, et l'extraction correcte de ce CSS-in-JS côté serveur (SSR)
+// nécessite d'envelopper l'app avec <AntdRegistry> (package
+// @ant-design/nextjs-registry) — sans ça, les styles n'apparaissent
+// qu'après hydratation côté client (flash de contenu non stylé). On importe
+// aussi "antd/dist/reset.css" (reset de base) dans app/layout.js, l'équivalent
+// v5 le plus proche de l'ancien import global. Voir T104.
+@import '_theme.scss';
+// Ne PAS réimporter l'ancien styles/antd.dark.css (antd v4.16.8) : ses
+// sélecteurs plein CSS ciblent des classes/structures DOM v4 et entrent en
+// conflit de spécificité avec le CSS-in-JS généré par antd v5. Le thème
+// sombre passe uniquement par ConfigProvider (voir app/layout.js).
+html {
+    scroll-behavior: smooth;
+}
+body {
+
+    font-family: 'Montserrat', sans-serif;
+    background-color: $primary-background-color;
+    font-size: $default-fontSize;
+    @include sm {
+        font-size: #{$default-fontSize + 6};
+    }
+
+    div.full-text {
+        .rt-img-handler[alt~=">"] {
+            float: right;
+            max-width: 35%;
+        }
+        
+        .rt-img-handler[alt~="<"] {
+            float: left;
+            max-width: 35%;
+        }
+        
+        .rt-img-handler[alt~="><"],
+        .rt-img-handler[alt~="<>"] {
+            text-align: center;
+            float: none;
+        }
+        p:after {
+            content: "";
+            clear: both;
+            display: block;
+            padding: 0;
+            margin: 0;
+            height: 0;
+        }
+        video {
+            width: 100%;
+        }
+    }
+
+    a {
+        color: $link-color;
+        &:hover {
+            color: $link-color-hover;
+            text-decoration: underline;
+        }
+    }
+    a.outlink:after {
+        content: "-";
+        background: url("pics/External_link_font_awesome.svg");
+        background-position: 100% 50%;
+        background-repeat: no-repeat;
+        background-size: contain;
+        height: 0.7em;
+        display: inline-block;
+        line-height: 1em;
+        overflow: hidden;
+        width: 1em;
+        text-indent: -2em;
+        margin-right: 0.2em;
+    }
+    audio {
+        display: block;
+        width: 100%;
+        outline: none;
+        margin-bottom: 10px;
+    }
+
+    .page-404 {
+        input, button {
+            border-color: #fff;
+            color: #fff;
+        }
+        form {
+            margin: 30px 90px;
+        }
+    }
+
+    blockquote {
+        display: inline-block;
+        padding: 10px 20px;
+        border-left: 5px solid $default-darklightcolor;
+        margin: 5px 0;
+        p {
+            margin: 0;
+        }
+    }
+
+    code {
+        display: inline-block;
+        background: $zoning-background;
+        padding: 5px 10px;
+        border-radius: $default-radius;
+        color: $default-darklightcolor;
+    }
+
+    div.flexgrid {
+        @include flex-container;
+        align-items: flex-start;
+        justify-content: flex-start;
+        @include md {
+            justify-content: center;
+            align-items: center;
+            flex-direction: row;
+        }
+        &>div {
+          margin: $default-card-margin;  
+        }
+    }
+
+    img.ant-image-img {
+        cursor: pointer;
+    }
+
+    div.slice {
+        padding-left: $default-page-padding;
+        padding-right: $default-page-padding;
+        margin-left: 0;
+        margin-right: 0;
+        >div.container {
+            margin-left: auto;
+            margin-right: auto;
+            max-width: 1550px;
+        }
+        @include md {
+            padding-left: $mobile-page-padding;
+            padding-right: $mobile-page-padding;
+        }
+        &.zoning {
+            background: $zoning-background;
+        }
+        &.breath {
+            padding-top: 60px;
+            padding-bottom: 60px;
+        }
+        &.nopadding {
+            padding-left: 0;
+            padding-right: 0;
+            >div.container {
+                max-width: none;
+            }
+        }
+    }
+
+    .ant-tag.mention {
+        background-image: url(("./pics/badge.svg"));
+        background-position: 2px 50%;
+        background-size: contain;
+        background-repeat: no-repeat;
+        padding-left: 25px;
+    }
+ 
+    .ant-menu-submenu-popup .ant-menu-item.ant-menu-item-only-child {
+        @include sm {
+            font-size: 1.8em;
+            margin: 20px 15px;
+        }
+    }
+    .main-header {
+        position: relative;
+        height: 100px;
+        @include flex-container;
+        justify-content: space-between;
+        flex-wrap: nowrap;
+        align-items: center;
+        @include md {
+            flex-direction: row;
+        }
+
+        .ant-menu {
+            max-width: calc( 100% - 300px );
+        }
+        
+        h1 {
+            display: block;
+            position: relative;
+            width: 300px;
+            height: 60px;
+            a {
+                display: block;
+                text-indent: -1000px;
+                overflow: hidden;
+                width: 300px;
+                height: 260px;
+                position: absolute;
+                background-size: contain;
+                top: -45px;
+                left: 20px;
+                z-index: 1000;
+            }
+        }
+        ul {
+            background: none !important;
+        }
+        li, li a {
+            text-transform: uppercase;
+            font-size: 1em;
+            color:$link-color;
+        }
+        .ant-menu-dark.ant-menu-horizontal > .ant-menu-item:hover
+        ,.ant-menu.ant-menu-dark .ant-menu-item-selected, .ant-menu-submenu-popup.ant-menu-dark .ant-menu-item-selected {
+            background-color: transparent;
+            text-decoration: none;
+        }
+        .ant-menu-dark .ant-menu-item-selected > a
+        , .ant-menu-dark .ant-menu-item-selected > span > a
+        , .ant-menu-dark .ant-menu-item-selected > a:hover
+        , .ant-menu-dark .ant-menu-item-selected > span > a:hover {
+            color: $link-color-hover;
+            text-decoration: none;
+        }
+        .ant-menu-dark .ant-menu-item, .ant-menu-dark .ant-menu-item-group-title, .ant-menu-dark .ant-menu-item > a, .ant-menu-dark .ant-menu-item > span > a {
+            color: $link-color;
+            text-decoration: none;
+        }
+        .ant-menu-overflowed-submenu {
+            font-size: 4em;
+        }
+
+    }
+
+    .main-footer {
+        @include flex-container;
+        @include md {
+            align-items: center;
+        }
+        background: #000000;
+        padding: 50px 20px;
+        & > div {
+            margin: 0 30px;
+        }
+        .sitemap li {
+            list-style: none;
+            font-size: 1.3em;
+            &.home a {
+                color: $default-darklightcolor;
+            }
+        }
+    }
+}
+h2 {
+    font-size: 2em;
+    text-transform: uppercase;
+    @include regular;
+}
+h3 {
+    font-size: 1.14em;
+    text-transform: uppercase;
+    @include regular;
+}
+.flexpart-4 {
+    flex: 4;
+}
+.flexpart-3 {
+    flex: 3;
+}
+.flexpart-2 {
+    flex: 2;
+}
+.flexpart-1 {
+    flex: 1;
+}

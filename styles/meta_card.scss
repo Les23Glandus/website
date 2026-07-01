@@ -35,6 +35,9 @@ div.meta-card {
             filter: grayscale(0%) contrast(50%);
         }
     }
+    &.compact .meta-card-mini, &.compact a {
+        height: #{$picheight/2};
+    }
     a:hover {
         text-decoration: none;
         color: $link-color;

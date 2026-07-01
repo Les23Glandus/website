@@ -18,6 +18,8 @@ html {
 }
 body {
 
+    color: rgba(255, 255, 255, 0.85);
+    font-weight: 400;
     font-family: 'Montserrat', sans-serif;
     background-color: $primary-background-color;
     font-size: $default-fontSize;
@@ -56,6 +58,7 @@ body {
 
     a {
         color: $link-color;
+        text-decoration: none;
         &:hover {
             color: $link-color-hover;
             text-decoration: underline;

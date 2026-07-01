@@ -36,22 +36,48 @@ export const viewport = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="fr">
+    <html lang="fr"><head>
+      <link 
+          async 
+          href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;700&display=swap" 
+          rel="stylesheet" 
+        />
+      </head>
       <body>
         <AntdRegistry>
           <ConfigProvider
+            direction="ltr"
             theme={{
               algorithm: theme.darkAlgorithm,
+              components: {
+                Tag: {
+                  defaultBg: '#fff',
+                },
+                Divider: {
+                  colorSplit: 'rgb(67, 67, 67)',
+                },
+                Select: {
+                  colorTextQuaternary: '#ffffffd9',
+                  colorIcon: '#ffffffd9',
+                  colorIconHover: '#fff',
+                  optionSelectedColor: '#171717',
+                  optionSelectedBg: '#ffffffd9',
+                  colorBorder: 'rgb(67, 67, 67)',
+                },
+              },
               // Tokens explicites en plus de l'algorithme, pour retomber sur les
               // mêmes couleurs que l'ancien thème (styles/_theme.scss) sur les
               // composants pilotés par le token système (Input, Select, Form...),
               // au lieu de dépendre uniquement du calcul par défaut de darkAlgorithm.
               token: {
+                borderRadius: "2px",
                 colorBgContainer: "#171717", // $default-darkcolor
                 colorBgElevated: "#2c2c2c", // $zoning-background
                 colorBgLayout: "#171717", // $primary-background-color
-                colorText: "#ffffff", // $link-color
+                colorText: "#ffffffd9", // $link-color
                 colorBorder: "#8c8d8c", // $default-darklightcolor
+                fontFamily: '"Montserrat",sans-serif',
+                colorPrimary: "#333",
               },
             }}
           >

@@ -23,6 +23,11 @@ function strapiMediaRemotePattern() {
 const nextConfig = {
   reactStrictMode: true,
 
+  // Nécessaire pour l'image Docker : génère .next/standalone (serveur Node
+  // autonome avec uniquement les deps utilisées) au lieu de copier tout
+  // node_modules dans l'image finale. Voir Dockerfile.
+  output: "standalone",
+
   images: {
     // À ajuster avec le vrai nom de domaine/CDN de production si besoin
     // (T002 / T003 — décision d'hébergement, étape 0).

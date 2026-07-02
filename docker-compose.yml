@@ -1,0 +1,21 @@
+services:
+  web:
+    build:
+      context: .
+      args:
+        NEXT_PUBLIC_STRAPI_MEDIA_URL: ${NEXT_PUBLIC_STRAPI_MEDIA_URL}
+        NEXT_PUBLIC_SITE_ORIGIN: ${NEXT_PUBLIC_SITE_ORIGIN}
+        NEXT_PUBLIC_GOOGLE_MAPS_KEY: ${NEXT_PUBLIC_GOOGLE_MAPS_KEY}
+        NEXT_PUBLIC_GA4_ID: ${NEXT_PUBLIC_GA4_ID}
+        NEXT_PUBLIC_FB_APP_ID: ${NEXT_PUBLIC_FB_APP_ID}
+        STRAPI_URL: ${STRAPI_URL}
+        STRAPI_API_TOKEN: ${STRAPI_API_TOKEN}
+    image: lesglandus-www:latest
+    container_name: lesglandus-www
+    restart: unless-stopped
+    ports:
+      - "80:3000"
+    env_file:
+      - .env
+    environment:
+      NODE_ENV: production

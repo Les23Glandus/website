@@ -1,3 +1,4 @@
+import { Suspense } from "react";
 import BrowseFilters from "../../components/BrowseFilters";
 import OtherEnseigne from "../../components/OtherEnseigne";
 import SelectionsGrid from "../../components/SelectionsGrid";
@@ -23,13 +24,15 @@ export default async function BrowsePage() {
     <div className="browse-main">
       <TopIllustration seed="escapegame" />
       <Slice breath nopadding className="browse-slice">
-        <BrowseFilters
-          tagslist={tagslist || []}
-          payslist={payslist || []}
-          regroupements={regroupements || []}
-          presetList={presets?.presets || []}
-          initialList={initialList || []}
-        />
+        <Suspense fallback={null}>
+          <BrowseFilters
+            tagslist={tagslist || []}
+            payslist={payslist || []}
+            regroupements={regroupements || []}
+            presetList={presets?.presets || []}
+            initialList={initialList || []}
+          />
+        </Suspense>
       </Slice>
 
       <Slice colored breath>

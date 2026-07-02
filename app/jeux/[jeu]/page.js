@@ -3,20 +3,11 @@ import JeuxArticle from "../../../components/JeuxArticle";
 import JsonLd from "../../../components/meta/JsonLd";
 import { buildMetadata } from "../../../lib/metadata";
 import { jeuxReviewJsonLd } from "../../../lib/jsonld";
-import { getJeux, getJeuxByRef } from "../../../lib/strapi";
+import { getJeuxByRef } from "../../../lib/strapi";
 import { mediaUrl } from "../../../lib/media";
 import config from "../../../lib/config";
 
-// T303
-export async function generateStaticParams() {
-  try {
-    const list = await getJeux(1000);
-    return (list || []).map((n) => ({ jeu: n.uniquepath }));
-  } catch {
-    return [];
-  }
-}
-
+// T303 — pas de generateStaticParams, voir app/selections/[selection]/page.js
 export async function generateMetadata({ params }) {
   const { jeu } = await params;
   const details = await getJeuxByRef(jeu);

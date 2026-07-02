@@ -6,20 +6,11 @@ import EscapeLatestsTests from "../../../components/EscapeLatestsTests";
 import TopIllustration from "../../../components/meta/TopIllustration";
 import Slice from "../../../components/meta/Slice";
 import { buildMetadata } from "../../../lib/metadata";
-import { getActuByRef, getRecentActus } from "../../../lib/strapi";
+import { getActuByRef } from "../../../lib/strapi";
 import { mediaUrl } from "../../../lib/media";
 import "../../../styles/actus.scss";
 
-// T304
-export async function generateStaticParams() {
-  try {
-    const list = await getRecentActus(1000);
-    return (list || []).map((n) => ({ news: n.uniquepath }));
-  } catch {
-    return [];
-  }
-}
-
+// T304 — pas de generateStaticParams, voir app/selections/[selection]/page.js
 export async function generateMetadata({ params }) {
   const { news } = await params;
   const details = await getActuByRef(news);

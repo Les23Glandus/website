@@ -3,22 +3,12 @@ import EscapeArticle from "../../../../components/EscapeArticle";
 import JsonLd from "../../../../components/meta/JsonLd";
 import { buildMetadata } from "../../../../lib/metadata";
 import { escapeReviewJsonLd } from "../../../../lib/jsonld";
-import { browseEscapes, getEscapeByRef } from "../../../../lib/strapi";
+import { getEscapeByRef } from "../../../../lib/strapi";
 import { mediaUrl } from "../../../../lib/media";
 import config from "../../../../lib/config";
 
 // T302 — fiche escape game, la page à plus fort enjeu SEO du site.
-export async function generateStaticParams() {
-  try {
-    const list = await browseEscapes({ preventPush: false }, 2000);
-    return (list || [])
-      .filter((n) => n.enseigne)
-      .map((n) => ({ enseigne: n.enseigne.uniquepath, escape: n.uniquepath }));
-  } catch {
-    return [];
-  }
-}
-
+// Pas de generateStaticParams, voir app/selections/[selection]/page.js
 export async function generateMetadata({ params }) {
   const { enseigne, escape } = await params;
   const details = await getEscapeByRef(escape);

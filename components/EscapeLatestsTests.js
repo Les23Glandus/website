@@ -18,7 +18,12 @@ export default async function EscapeLatestsTests({
   region,
   nbCards = 3,
 }) {
-  const lastescapes = await loadEscapes({ tagslist, notID, notEnseingeID, regroupement, paysID, region, nbCards });
+  let lastescapes = [];
+  try {
+    lastescapes = await loadEscapes({ tagslist, notID, notEnseingeID, regroupement, paysID, region, nbCards });
+  } catch {
+    lastescapes = [];
+  }
 
   return (
     <div className="latest-ei-tests">
@@ -59,7 +64,12 @@ async function loadEscapes({ tagslist, notID, notEnseingeID, regroupement, paysI
   else if (paysID && paysID.length > 0) query["addresses.pay.id"] = paysID;
   if (region && region.length > 0) query["addresses.region.id"] = region;
 
-  let list = await browseEscapes(query, 30, sortOptions[~~(Math.random() * sortOptions.length)], true);
+  // nocache=false : un fetch "no-store" ici forcerait toute la page appelante
+  // (générée statiquement via generateStaticParams) à devenir dynamique, ce
+  // qui provoque l'erreur "Page changed from static to dynamic at runtime".
+  // La contrepartie : la sélection "à voir aussi" n'est plus randomisée à
+  // chaque requête, seulement toutes les ~80min (REVALIDATE.DEFAULT).
+  let list = await browseEscapes(query, 30, sortOptions[~~(Math.random() * sortOptions.length)], false);
   list = list || [];
 
   let subList;
@@ -72,7 +82,7 @@ async function loadEscapes({ tagslist, notID, notEnseingeID, regroupement, paysI
   } else {
     subList = list.map((n) => n.uniquepath);
     delete query.tags;
-    let nlist = await browseEscapes(query, 10, sortOptions[~~(Math.random() * sortOptions.length)], true);
+    let nlist = await browseEscapes(query, 10, sortOptions[~~(Math.random() * sortOptions.length)], false);
     nlist = (nlist || []).filter((n) => !subList.includes(n.uniquepath));
     for (let i = subList.length; i < nbCards && nlist.length > 0; i++) {
       const index = ~~(Math.random() * nlist.length);

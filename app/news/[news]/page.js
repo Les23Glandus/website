@@ -1,3 +1,4 @@
+import { Suspense } from "react";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import ActuArticle from "../../../components/ActuArticle";
@@ -41,11 +42,18 @@ export default async function ActuPage({ params }) {
         </div>
         <ActuArticle actuRef={news} />
       </Slice>
+      {/* Suspense : ces deux blocs font chacun un appel Strapi indépendant du
+          contenu principal (déjà chargé ci-dessus) — on ne bloque pas l'envoi
+          de l'article pour eux, ils sont streamés dès qu'ils sont prêts. */}
       <Slice colored breath>
-        <ActusGrid />
+        <Suspense fallback={null}>
+          <ActusGrid />
+        </Suspense>
       </Slice>
       <Slice breath>
-        <EscapeLatestsTests />
+        <Suspense fallback={null}>
+          <EscapeLatestsTests />
+        </Suspense>
       </Slice>
     </div>
   );

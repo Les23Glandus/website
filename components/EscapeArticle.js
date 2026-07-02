@@ -1,3 +1,4 @@
+import { Suspense } from "react";
 import Link from "next/link";
 import { Image, Tag } from "antd";
 import Note from "./meta/Note";
@@ -191,23 +192,35 @@ export default async function EscapeArticle({ escapeRef }) {
         </Slice>
       )}
 
+      {/* Contenu ci-dessus = synchrone : dépend uniquement de `details`, déjà
+          chargé, donc envoyé dans le premier flush HTML.
+          Ci-dessous = sections qui déclenchent CHACUNE un ou plusieurs appels
+          Strapi supplémentaires (enseigne, "à voir aussi"). Sans Suspense,
+          ces requêtes (parfois enchaînées en cascade dans EscapeLatestsTests)
+          bloquaient l'envoi de toute la page. Avec Suspense, le shell
+          principal part immédiatement et ces blocs sont streamés dès qu'ils
+          sont prêts, chacun indépendamment des autres. */}
       {details.enseigne && (
         <Slice colored nopadding>
-          <EnseigneArticle enseigneRef={details.enseigne.uniquepath} embeded hide={details.id} />
+          <Suspense fallback={null}>
+            <EnseigneArticle enseigneRef={details.enseigne.uniquepath} embeded hide={details.id} />
+          </Suspense>
         </Slice>
       )}
 
       <Slice breath>
-        <EscapeLatestsTests
-          title="A voir aussi dans le coin..."
-          notID={details.id}
-          regroupement={regroupements}
-          notEnseingeID={details.enseigne ? details.enseigne.id : null}
-          nbCards={7}
-          paysID={paysID}
-          region={regionID}
-          tagslist={details.tags ? details.tags.map((n) => n.id) : []}
-        />
+        <Suspense fallback={null}>
+          <EscapeLatestsTests
+            title="A voir aussi dans le coin..."
+            notID={details.id}
+            regroupement={regroupements}
+            notEnseingeID={details.enseigne ? details.enseigne.id : null}
+            nbCards={7}
+            paysID={paysID}
+            region={regionID}
+            tagslist={details.tags ? details.tags.map((n) => n.id) : []}
+          />
+        </Suspense>
       </Slice>
     </div>
   );
